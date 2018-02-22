@@ -7,17 +7,19 @@ public class Aluno {
 	private String codigoCurso;
 	private String telefone;
 	private String email;
+	private double nota;
 	
-	public Aluno(int matricula, String nome, String codigoCurso, String email) {
-		this.matricula = matricula;
+	public Aluno(String nome, int matricula, String codigoCurso, String email) {
 		this.nome = nome;
+		this.matricula = matricula;
 		this.codigoCurso = codigoCurso;
 		this.telefone = "";
 		this.email = email;
+		this.nota = 5.0;
 	}
 
 	public Aluno(int matricula, String nome, String codigoCurso, String telefone, String email) {
-		this(matricula, nome, codigoCurso, email);
+		this(nome,matricula, codigoCurso, email);
 		this.telefone = telefone;
 	}
 	
@@ -40,6 +42,16 @@ public class Aluno {
 	
 	public String getEmail() {
 		return email;
+	}
+
+	@Override
+	public String toString() {
+		if(this.getTelefone().trim().equals(""))
+			return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " + this.email;
+		
+		return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " + this.telefone + " - " + this.email;
 	}	
+	
+	
 
 }
