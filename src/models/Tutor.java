@@ -1,27 +1,28 @@
 package models;
 
-import java.util.HashSet;
-
 public class Tutor extends Aluno {
 	
 	private String disciplina;
-	
 	private int proficiencia;
+	private int dinheiroRecebido;
 	
-	private HashSet<String> horariosAtendimento;
-	
-	private HashSet<String> locaisAtendimento;
-	
-	public Tutor(String matricula, String nome, String codigoCurso, String email, String disciplina, int proficiencia) {
+	public Tutor(String matricula, String nome, int codigoCurso, String email, String disciplina,
+				 int proficiencia) {
+		
 		super(nome, matricula, codigoCurso, email);
 			
-		this.disciplina = disciplina;
-			
+		this.disciplina = disciplina.trim();
 		this.proficiencia = proficiencia;
+		this.dinheiroRecebido = 0;
 		
-		this.horariosAtendimento = new HashSet<>();
-		
-		this.locaisAtendimento = new HashSet<>();
+		this.setNota(4.0);
+	}
+	
+	public Tutor(String matricula, String nome, int codigoCurso, String telefone, String email,
+				 String disciplina, int proficiencia) {
+	
+		this(matricula, nome, codigoCurso, email, disciplina, proficiencia);
+		this.setTelefone(telefone);
 	}
 	
 	public String getDisciplina() {
@@ -32,35 +33,8 @@ public class Tutor extends Aluno {
 		return this.proficiencia;
 	}
 	
-	public void cadastraHorario(String horario, String dia) {
-		this.horariosAtendimento.add(horario + " - " + dia);
-	}
-	
-	public void cadastraLocal(String local) {
-		this.locaisAtendimento.add(local);
-	}
-	
-	public boolean consultaHorario(String horario, String dia) {
-		String horarioConsultado = horario + " - " + dia;
-	
-		for (String horarioAtendimento : this.horariosAtendimento) {
-			if (horarioConsultado.equals(horarioAtendimento)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-	public boolean consultaLocal(String localConsultado) {
-		
-		for (String localAtendimento : this.horariosAtendimento) {
-			if (localConsultado.equals(localAtendimento)) {
-				return true;
-			}
-		}
-		
-		return false;
+	public int getDinheiroRecebido() {
+		return this.dinheiroRecebido;
 	}
 	
 }
