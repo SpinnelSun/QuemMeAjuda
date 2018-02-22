@@ -19,39 +19,39 @@ public class Aluno {
 	}
 
 	public Aluno(int matricula, String nome, String codigoCurso, String telefone, String email) {
-		this(nome,matricula, codigoCurso, email);
+		this(nome, matricula, codigoCurso, email);
 		this.telefone = telefone;
 	}
 	
-	
 	public int getMatricula() {
-		return matricula;
+		return this.matricula;
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
 	public String getCodigoCurso() {
-		return codigoCurso;
+		return this.codigoCurso;
 	}
 	
 	public String getTelefone() {
-		return telefone;
+		return this.telefone;
 	}
 	
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	@Override
 	public String toString() {
+		String toString = "";
+		toString += this.getMatricula() + " - " + this.getNome() + " - " + this.getCodigoCurso();
+					
 		if(this.getTelefone().trim().equals(""))
-			return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " + this.email;
+			toString += this.getTelefone();
 		
-		return this.matricula + " - " + this.nome + " - " + this.codigoCurso + " - " + this.telefone + " - " + this.email;
+		return toString + this.getEmail();
 	}	
-	
-	
 
 }
