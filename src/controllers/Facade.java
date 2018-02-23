@@ -12,6 +12,10 @@ public class Facade {
 		EasyAccept.main(args);
 	}
 	
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String email) {
+		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, email);
+	}
+	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
