@@ -37,4 +37,9 @@ public class Tutor extends Aluno {
 		return this.dinheiroRecebido;
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + " - " + this.getDisciplina() + " - " + this.proficiencia;
+	}
+	
 }

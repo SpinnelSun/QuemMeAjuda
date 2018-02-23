@@ -1,55 +1,34 @@
 package models;
 
-public class Aluno {
+public class Aluno extends Pessoa {
 	
 	private String matricula;
-	private String nome;
 	private int codigoCurso;
-	private String telefone;
-	private String email;
 	private double nota;
 	
 	public Aluno(String matricula, String nome, int codigoCurso, String email) {
-		this.nome = nome.trim();
+		super(nome, email);
+		
 		this.matricula = matricula.trim();
 		this.codigoCurso = codigoCurso;
-		this.email = email.trim();
-		
-		this.telefone = "";
 		this.nota = 5.0;
 	}
 
-	public Aluno(String matricula, String nome,  int codigoCurso, String telefone, String email) {
+	public Aluno(String matricula, String nome, int codigoCurso, String telefone, String email) {
 		this(nome, matricula, codigoCurso, email);
-		this.telefone = telefone.trim();
+		this.setTelefone(telefone);
 	}
 	
 	public String getMatricula() {
 		return this.matricula;
 	}
 	
-	public String getNome() {
-		return this.nome;
-	}
-	
 	public int getCodigoCurso() {
 		return this.codigoCurso;
 	}
 	
-	public String getTelefone() {
-		return this.telefone;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-
 	public double getNota() {
 		return this.nota;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public void setNota(double nota) {
