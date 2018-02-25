@@ -3,10 +3,10 @@ package models;
 public class Aluno extends Pessoa {
 	
 	private String matricula;
-	private int codigoCurso;
+	private String codigoCurso;
 	private double nota;
 	
-	public Aluno(String matricula, String nome, int codigoCurso, String email) {
+	public Aluno(String nome, String matricula, String codigoCurso, String email) {
 		super(nome, email);
 		
 		this.matricula = matricula.trim();
@@ -14,8 +14,8 @@ public class Aluno extends Pessoa {
 		this.nota = 5.0;
 	}
 
-	public Aluno(String matricula, String nome, int codigoCurso, String telefone, String email) {
-		this(nome, matricula, codigoCurso, email);
+	public Aluno(String matricula, String nome, String codigoCurso, String telefone, String email) {
+		this(matricula, nome, codigoCurso, email);
 		this.setTelefone(telefone);
 	}
 	
@@ -23,7 +23,7 @@ public class Aluno extends Pessoa {
 		return this.matricula;
 	}
 	
-	public int getCodigoCurso() {
+	public String getCodigoCurso() {
 		return this.codigoCurso;
 	}
 	

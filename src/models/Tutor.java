@@ -5,8 +5,9 @@ public class Tutor extends Aluno {
 	private String disciplina;
 	private int proficiencia;
 	private int dinheiroRecebido;
+	private Alocacao alocacao;
 	
-	public Tutor(String matricula, String nome, int codigoCurso, String email, String disciplina,
+	public Tutor(String matricula, String nome, String codigoCurso, String email, String disciplina,
 				 int proficiencia) {
 		
 		super(nome, matricula, codigoCurso, email);
@@ -18,7 +19,7 @@ public class Tutor extends Aluno {
 		this.setNota(4.0);
 	}
 	
-	public Tutor(String matricula, String nome, int codigoCurso, String telefone, String email,
+	public Tutor(String matricula, String nome, String codigoCurso, String telefone, String email,
 				 String disciplina, int proficiencia) {
 	
 		this(matricula, nome, codigoCurso, email, disciplina, proficiencia);
@@ -35,6 +36,31 @@ public class Tutor extends Aluno {
 	
 	public int getDinheiroRecebido() {
 		return this.dinheiroRecebido;
+	}
+	
+	public void setDisciplina(String disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public void cadastrarHorario(String horario, String dia) {
+		alocacao.setHorarioDeAtendimento(horario);
+		alocacao.setDiasDeAtendimento(dia);
+	}
+	
+	public void cadastrarLocalDeAtendimento(String local) {
+		alocacao.setLocaisDeAtendimento(local);
+	}
+	public boolean consultaHorario(String horario, String dia) {
+		if(!alocacao.getDiasDeAtendimento().contains(dia))
+			return false;
+		if(!alocacao.getHorarioDeAtendimento().contains(horario))
+			return false;
+		return true;
+	}
+	public boolean consultaLocal(String local) {
+		if(!alocacao.getLocaisDeAtendimento().contains(local))
+			return false;
+		return true;
 	}
 	
 	@Override

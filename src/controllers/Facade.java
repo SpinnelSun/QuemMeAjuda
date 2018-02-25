@@ -12,11 +12,11 @@ public class Facade {
 		EasyAccept.main(args);
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String email) {
+	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String email) {
 		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, email);
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
+	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
 		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
 	
@@ -45,11 +45,11 @@ public class Facade {
 	}
 	
 	public void cadastrarHorario(String email, String horario, String dia) {
-		this.cadastrarHorario(email, horario, dia);
+		this.sistema.cadastrarHorario(email, horario, dia); 
 	}
 	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		this.cadastrarLocalDeAtendimento(email, local);
+		this.sistema.cadastrarLocalDeAtendimento(email, local);
 	}
 	
 	public boolean consultaHorario(String email, String horario, String dia) {
