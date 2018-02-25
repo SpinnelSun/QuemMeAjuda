@@ -7,23 +7,16 @@ public class Tutor extends Aluno {
 	private int dinheiroRecebido;
 	private Alocacao alocacao;
 	
-	public Tutor(String matricula, String nome, String codigoCurso, String email, String disciplina,
-				 int proficiencia) {
+	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email,
+				 String disciplina, int proficiencia) {
 		
-		super(nome, matricula, codigoCurso, email);
+		super(nome, matricula, codigoCurso, telefone, email);
 			
 		this.disciplina = disciplina.trim();
 		this.proficiencia = proficiencia;
 		this.dinheiroRecebido = 0;
 		
 		this.setNota(4.0);
-	}
-	
-	public Tutor(String matricula, String nome, String codigoCurso, String telefone, String email,
-				 String disciplina, int proficiencia) {
-	
-		this(matricula, nome, codigoCurso, email, disciplina, proficiencia);
-		this.setTelefone(telefone);
 	}
 	
 	public String getDisciplina() {
@@ -38,6 +31,7 @@ public class Tutor extends Aluno {
 		return this.dinheiroRecebido;
 	}
 	
+	// Remover ao refatorar Sistema.tornarTutor(String matricula)
 	public void setDisciplina(String disciplina) {
 		this.disciplina = disciplina;
 	}

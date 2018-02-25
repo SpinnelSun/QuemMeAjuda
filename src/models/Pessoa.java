@@ -6,10 +6,10 @@ public abstract class Pessoa {
 	private String telefone;
 	private String email;
 	
-	public Pessoa(String nome, String email) {
+	public Pessoa(String nome, String telefone, String email) {
 		this.nome = nome.trim();
+		this.telefone = telefone.trim();
 		this.email = email.trim();
-		this.telefone = "";
 	}
 	
 	public String getNome() {
@@ -22,10 +22,6 @@ public abstract class Pessoa {
 	
 	public String getEmail() {
 		return this.email;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 }
