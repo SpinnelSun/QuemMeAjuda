@@ -4,19 +4,22 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 	
-	private Sistema sistema;
+	private static Sistema sistema;
 	
 	public static void main(String[] args) {
-		args = new String[] {"controllers.Facade", "acc-tst/us1_test.txt", "acc-tst/us2_test.txt"};
+		inicializar();
+		
+		args = new String[] {"controllers.Facade", "acc-tst/us1_test.txt", "acc-tst/us2_test.txt",
+							 "acc-tst/us3_test.txt"};
 		
 		EasyAccept.main(args);
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String email) {
-		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, email);
+	public static void inicializar() {
+		Facade.sistema = new Sistema();
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
 	

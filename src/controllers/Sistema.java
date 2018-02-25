@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Aluno;
+import models.AtributoAluno;
 import models.Tutor;
 
 public class Sistema {
@@ -18,13 +19,11 @@ public class Sistema {
 	public Sistema() {
 		this.alunos = new HashMap<String, Aluno>();
 		this.tutores = new HashMap<String, Tutor>();
+		this.ordenadorAlunos = new AlunoPorNome();
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String email) {
-		this.alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, email));
-	}
-	
-	public void cadastrarAluno(String nome, String matricula, String codigoCurso, String telefone, String email) {
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone,
+							   String email) {
 		this.alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email));
 	}
 	
@@ -53,10 +52,6 @@ public class Sistema {
 		return "";
 	}
 	
-	private boolean alunoTemTelefone(String matricula) {
-		return (!this.alunos.get(matricula).getTelefone().isEmpty());
-	}
-	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
 		Tutor t = (Tutor) alunos.get(matricula);
 		t.setDisciplina(disciplina);
@@ -79,13 +74,11 @@ public class Sistema {
 	}
 	
 	public void cadastrarHorario(String email, String horario, String dia) {
-		tutores.get(email).cadastrarHorario(horario, dia);
-		return;
+		this.tutores.get(email).cadastrarHorario(horario, dia);
 	}
 	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		tutores.get(email).cadastrarLocalDeAtendimento(local);
-		return;
+		this.tutores.get(email).cadastrarLocalDeAtendimento(local);
 	}
 	
 	public boolean consultaHorario(String email, String horario, String dia) {
