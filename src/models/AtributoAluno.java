@@ -21,7 +21,7 @@ public enum AtributoAluno implements AtributoStrategy {
 	CURSO("Codigo do Curso") {
 		@Override
 		public String getAtributo(Aluno aluno) {
-			return aluno.getCodigoCurso();
+			return Integer.toString(aluno.getCodigoCurso());
 		}
 	},
 	

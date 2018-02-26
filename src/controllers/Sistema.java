@@ -14,24 +14,26 @@ public class Sistema {
 	
 	private Map<String, Aluno> alunos;
 	private Map<String, Tutor> tutores;
+	private Map<String, String> contatoTutores;
 	private Comparator<Aluno> ordenadorAlunos;
 	
 	public Sistema() {
 		this.alunos = new HashMap<String, Aluno>();
 		this.tutores = new HashMap<String, Tutor>();
+		this.contatoTutores = new HashMap<String, String>();
 		this.ordenadorAlunos = new AlunoPorNome();
 	}
 	
-	private void verificarMatriculaRepetida(String matricula) {
+	private void verificarAlunoRepetido(String matricula, String msg) {
 		if (this.alunos.containsKey(matricula)) {
-			throw new IllegalArgumentException("Aluno de mesma matricula ja cadastrado");
+			throw new IllegalArgumentException(msg);
 		}
 	}
 	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		try {
 			Aluno aluno = new Aluno(nome, matricula, codigoCurso, telefone, email);
-			this.verificarMatriculaRepetida(matricula);
+			this.verificarAlunoRepetido(matricula, "Aluno de mesma matricula ja cadastrado");
 			
 			this.alunos.put(matricula, aluno);
 		}
@@ -45,32 +47,15 @@ public class Sistema {
 		}
 	}
 	
-	private void verificarMatriculaInexistente(String matricula) {
+	private void verificarAlunoInexistente(String matricula, String msg) {
 		if (!this.alunos.containsKey(matricula)) {
-			throw new IllegalArgumentException("Aluno nao encontrado");
+			throw new IllegalArgumentException(msg);
 		}
-	}
-	
-	private void verificarMatriculaInexistenteTutor(String matricula) {
-		boolean tem = false;
-		
-		for(Tutor t: tutores.values()) {
-			if(t.getMatricula().equals(matricula))
-				tem = true;
-		}
-		
-		if(!tem)
-			throw new IllegalArgumentException("Tutor nao encontrado");
-	}
-
-	private void verificaProficiencia(int proficiencia) {
-		if(proficiencia < 0)
-			throw new IllegalArgumentException("Proficiencia invalida");
 	}
 	
 	public String recuperaAluno(String matricula) {
 		try {
-			this.verificarMatriculaInexistente(matricula);
+			this.verificarAlunoInexistente(matricula, "Aluno nao encontrado");
 			return this.alunos.get(matricula).toString();
 		}
 		
@@ -87,14 +72,6 @@ public class Sistema {
 		return alunosPorNome;
 	}
 	
-	private List<Tutor> ordenarTutores() {
-		List<Tutor> tutoresPorNome = new ArrayList<Tutor>();
-		tutoresPorNome.addAll(this.tutores.values());
-		tutoresPorNome.sort(this.ordenadorAlunos);
-		
-		return tutoresPorNome;
-	}
-	
 	public String listarAlunos() {
 		String listagemAlunos = "";
 		for (int i = 0; i < this.ordenarAlunos().size() - 1; i++) {
@@ -107,7 +84,7 @@ public class Sistema {
 	
 	public String getInfoAluno(String matricula, String atributo) {
 		try {
-			this.verificarMatriculaInexistente(matricula);
+			this.verificarAlunoInexistente(matricula, "Aluno nao encontrado");
 			return AtributoAluno.valueOf(atributo.toUpperCase()).getAtributo(this.alunos.get(matricula));			
 		}
 		
@@ -116,15 +93,21 @@ public class Sistema {
 		}
 	}
 	
+	private void criarNovoTutor(String matricula) {
+		Aluno aluno = alunos.get(matricula);
+		this.tutores.put(aluno.getMatricula(), new Tutor(aluno.getNome(), aluno.getMatricula(),
+			    aluno.getCodigoCurso(), aluno.getTelefone(), aluno.getEmail()));
+	}
+	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
 		try {
-			this.verificaProficiencia(proficiencia);
-			Aluno a = alunos.get(matricula);
+			this.verificarAlunoInexistente(matricula, "Tutor nao encontrado");
 			
-			Tutor t = new Tutor(a.getNome(), a.getMatricula(), Integer.parseInt(a.getCodigoCurso()),
-					a.getTelefone(), a.getEmail(), disciplina, proficiencia);
-
-			tutores.put(t.getEmail(), t);
+			if (!this.contatoTutores.keySet().contains(matricula)) {
+				this.criarNovoTutor(matricula);
+			}
+			
+			this.tutores.get(matricula).adicionarTutoria(disciplina, proficiencia);
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -134,8 +117,8 @@ public class Sistema {
 	
 	public String recuperaTutor(String matricula) {
 		try {
-			this.verificarMatriculaInexistenteTutor(matricula);
-			return this.tutores.get(alunos.get(matricula).getEmail()).toString();
+			this.verificarAlunoInexistente(matricula, "Tutor nao encontrado");
+			return this.tutores.get(matricula).toString();
 		}
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro na busca por tutor: " + e.getMessage());
@@ -143,14 +126,21 @@ public class Sistema {
 		
 	}
 	
+	private List<Tutor> tutoresToList() {
+		List<Tutor> listaDeTutores = new ArrayList<Tutor>();
+		listaDeTutores.addAll(this.tutores.values());
+		
+		return listaDeTutores;
+	}
+	
 	public String listarTutores() {
 		String listagemTutores = "";
 		
-		for (int i = 0; i < this.ordenarTutores().size() - 1; i++) {
-			listagemTutores += ordenarTutores().get(i).toString() + ", ";
+		for (int i = 0; i < this.tutoresToList().size() - 1; i++) {
+			listagemTutores += tutoresToList().get(i).toString() + ", ";
 		}
 		
-		listagemTutores += ordenarTutores().get(ordenarTutores().size() - 1).toString();		
+		listagemTutores += tutoresToList().get(tutoresToList().size() - 1).toString();		
 		return listagemTutores;
 	}
 	

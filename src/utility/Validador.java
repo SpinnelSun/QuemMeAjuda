@@ -33,4 +33,10 @@ public class Validador {
 		}
 	}
 	
+	public static void validarIntUmACinco(String msg, int valor) {
+		if (valor < 1 || valor > 5) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
+	
 }

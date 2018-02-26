@@ -23,8 +23,8 @@ public class Aluno extends Pessoa {
 		return this.matricula;
 	}
 	
-	public String getCodigoCurso() {
-		return Integer.toString(this.codigoCurso);
+	public int getCodigoCurso() {
+		return this.codigoCurso;
 	}
 	
 	public String getNota() {

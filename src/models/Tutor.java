@@ -1,40 +1,49 @@
 package models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Tutor extends Aluno {
 	
-	private String disciplina;
-	private int proficiencia;
+	private Set<Tutoria> tutorias;
 	private int dinheiroRecebido;
 	private Alocacao alocacao;
 	
-	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email,
-				 String disciplina, int proficiencia) {
-		
+	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		super(nome, matricula, codigoCurso, telefone, email);
 			
-		this.disciplina = disciplina.trim();
-		this.proficiencia = proficiencia;
 		this.dinheiroRecebido = 0;
+		this.tutorias = new HashSet<Tutoria>();
 		this.alocacao = new Alocacao();
 		
 		this.setNota(4.0);
 	}
-	
-	public String getDisciplina() {
-		return this.disciplina;
+		
+	public String getTutorias() {
+		String listagemTutorias = "";
+		for (Tutoria tutoria : this.tutorias) {
+			listagemTutorias += tutoria.toString() + System.lineSeparator();
+		}
+		
+		return listagemTutorias;
 	}
-	
-	public int getProficiencia() {
-		return this.proficiencia;
-	}
-	
+
 	public int getDinheiroRecebido() {
 		return this.dinheiroRecebido;
 	}
 	
-	// Remover ao refatorar Sistema.tornarTutor(String matricula)
-	public void setDisciplina(String disciplina) {
-		this.disciplina = disciplina;
+	private void verificaTutoriaRepetida(String disciplina, int proficiencia) {
+		for (Tutoria tutoria : this.tutorias) {
+			if (tutoria.getDisciplina().equals(disciplina)) {
+				throw new IllegalArgumentException("Ja eh tutor dessa disciplina");
+			}
+		}
+	}
+	
+	public void adicionarTutoria(String disciplina, int proficiencia) {
+		this.verificaTutoriaRepetida(disciplina, proficiencia);
+		
+		this.tutorias.add(new Tutoria(disciplina, proficiencia));
 	}
 
 	public void cadastrarHorario(String horario, String dia) {
@@ -56,11 +65,6 @@ public class Tutor extends Aluno {
 		if(!alocacao.getLocaisDeAtendimento().contains(local))
 			return false;
 		return true;
-	}
-	
-	@Override
-	public String toString() {
-		return super.toString(); //+ " - " + this.getDisciplina() + " - " + this.proficiencia;
 	}
 	
 }
