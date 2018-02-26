@@ -15,6 +15,7 @@ public class Tutor extends Aluno {
 		this.disciplina = disciplina.trim();
 		this.proficiencia = proficiencia;
 		this.dinheiroRecebido = 0;
+		this.alocacao = new Alocacao();
 		
 		this.setNota(4.0);
 	}
@@ -59,7 +60,7 @@ public class Tutor extends Aluno {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " - " + this.getDisciplina() + " - " + this.proficiencia;
+		return super.toString(); //+ " - " + this.getDisciplina() + " - " + this.proficiencia;
 	}
 	
 }

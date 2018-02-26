@@ -51,6 +51,23 @@ public class Sistema {
 		}
 	}
 	
+	private void verificarMatriculaInexistenteTutor(String matricula) {
+		boolean tem = false;
+		
+		for(Tutor t: tutores.values()) {
+			if(t.getMatricula().equals(matricula))
+				tem = true;
+		}
+		
+		if(!tem)
+			throw new IllegalArgumentException("Tutor nao encontrado");
+	}
+
+	private void verificaProficiencia(int proficiencia) {
+		if(proficiencia < 0)
+			throw new IllegalArgumentException("Proficiencia invalida");
+	}
+	
 	public String recuperaAluno(String matricula) {
 		try {
 			this.verificarMatriculaInexistente(matricula);
@@ -68,6 +85,14 @@ public class Sistema {
 		alunosPorNome.sort(this.ordenadorAlunos);
 		
 		return alunosPorNome;
+	}
+	
+	private List<Tutor> ordenarTutores() {
+		List<Tutor> tutoresPorNome = new ArrayList<Tutor>();
+		tutoresPorNome.addAll(this.tutores.values());
+		tutoresPorNome.sort(this.ordenadorAlunos);
+		
+		return tutoresPorNome;
 	}
 	
 	public String listarAlunos() {
@@ -92,23 +117,40 @@ public class Sistema {
 	}
 	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		Tutor t = (Tutor) alunos.get(matricula);
-		t.setDisciplina(disciplina);
-		t.setDisciplina(disciplina);
-		tutores.put(t.getEmail(), t);
-		return;
+		try {
+			this.verificaProficiencia(proficiencia);
+			Aluno a = alunos.get(matricula);
+			
+			Tutor t = new Tutor(a.getNome(), a.getMatricula(), Integer.parseInt(a.getCodigoCurso()),
+					a.getTelefone(), a.getEmail(), disciplina, proficiencia);
+
+			tutores.put(t.getEmail(), t);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na definicao de papel: " + e.getMessage());
+		}
 	}
 	
 	public String recuperaTutor(String matricula) {
-		return this.tutores.get(matricula).toString();
+		try {
+			this.verificarMatriculaInexistenteTutor(matricula);
+			return this.tutores.get(alunos.get(matricula).getEmail()).toString();
+		}
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na busca por tutor: " + e.getMessage());
+		}
+		
 	}
 	
 	public String listarTutores() {
 		String listagemTutores = "";
-		for (Tutor tutor : this.tutores.values()) {
-			listagemTutores += tutor.toString() + System.lineSeparator();
+		
+		for (int i = 0; i < this.ordenarTutores().size() - 1; i++) {
+			listagemTutores += ordenarTutores().get(i).toString() + ", ";
 		}
 		
+		listagemTutores += ordenarTutores().get(ordenarTutores().size() - 1).toString();		
 		return listagemTutores;
 	}
 	
