@@ -32,11 +32,11 @@ public class Aluno extends Pessoa {
 
 	@Override
 	public String toString() {
-		String toString = "";
-		toString += this.getMatricula() + " - " + this.getNome() + " - " + this.getCodigoCurso() + " - ";
+		String toString = this.getMatricula() + " - " + this.getNome() + " - " + this.getCodigoCurso() + " - ";
 					
-		if (!this.getTelefone().isEmpty())
+		if (!this.getTelefone().isEmpty()) {
 			toString += this.getTelefone() + " - ";
+		}
 		
 		return toString + this.getEmail();
 	}	

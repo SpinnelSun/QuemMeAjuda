@@ -2,7 +2,7 @@ package view;
 
 import models.Aluno;
 
-public interface Atributos {
+public interface AtributoStrategy {
 	
 	public String getAtributo(Aluno aluno);
 

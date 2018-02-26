@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import models.Aluno;
 import models.AtributoAluno;
+import models.Aluno;
 import models.Tutor;
 
 public class Sistema {
@@ -22,8 +22,7 @@ public class Sistema {
 		this.ordenadorAlunos = new AlunoPorNome();
 	}
 	
-	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone,
-							   String email) {
+	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		this.alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email));
 	}
 	
@@ -31,7 +30,7 @@ public class Sistema {
 		return this.alunos.get(matricula).toString();
 	}
 	
-	private List<Aluno> ordenarAlunosPorNome() {
+	private List<Aluno> ordenarAlunos() {
 		List<Aluno> alunosPorNome = new ArrayList<Aluno>();
 		alunosPorNome.addAll(this.alunos.values());
 		alunosPorNome.sort(this.ordenadorAlunos);
@@ -41,15 +40,16 @@ public class Sistema {
 	
 	public String listarAlunos() {
 		String listagemAlunos = "";
-		for (Aluno aluno : this.ordenarAlunosPorNome()) {
-			listagemAlunos += aluno.toString() + System.lineSeparator();
+		for (int i = 0; i < this.ordenarAlunos().size() - 1; i++) {
+			listagemAlunos += ordenarAlunos().get(i).toString() + ", ";
 		}
+		listagemAlunos += ordenarAlunos().get(ordenarAlunos().size() - 1).toString();
 		
 		return listagemAlunos;
 	}
 	
 	public String getInfoAluno(String matricula, String atributo) {
-		return "";
+		return AtributoAluno.valueOf(atributo).getAtributo(this.alunos.get(matricula));
 	}
 	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {

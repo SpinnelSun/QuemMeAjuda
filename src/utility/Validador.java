@@ -2,14 +2,21 @@ package utility;
 
 public class Validador {
 	
-	public static void validarNotEmptyNotNull(String msg, String str) {
-		if (str == null) {
-			throw new NullPointerException(msg); 
-		}
-		
+	public static void validarStringNaoVazia(String msg, String str) {
 		if (str.trim().equals("")) {
 			throw new IllegalArgumentException(msg); 
 		}
+	}
+	
+	public static void validarStringNaoNula(String msg, String str) {
+		if (str == null) {
+			throw new NullPointerException(msg); 
+		}
+	}
+	
+	public static void validarStringNaoVaziaNaoNula(String msg, String str) {
+		Validador.validarStringNaoVazia(msg, str);
+		Validador.validarStringNaoNula(msg, str);
 	}
 	
 	public static void validarPositiveInteger(String msg, int value) {

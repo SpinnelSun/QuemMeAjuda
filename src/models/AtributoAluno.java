@@ -1,38 +1,38 @@
 package models;
 
-import view.Atributos;
+import view.AtributoStrategy;
 
-public enum AtributoAluno implements Atributos {
+public enum AtributoAluno implements AtributoStrategy {
 	
-	NOME("Nome") {
+	Nome("Nome") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getNome();
 		}		
 	},
 	
-	MATRICULA("Matricula") {
+	Matricula("Matricula") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getMatricula();
 		}
 	},
 	
-	CODIGO_CURSO("Codigo do Curso") {
+	Curso("Codigo do Curso") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getCodigoCurso();
 		}
 	},
 	
-	TELEFONE("Telefone") {
+	Telefone("Telefone") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getTelefone();
 		}	
 	},
 	
-	EMAIL("Email") {
+	Email("Email") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getEmail();

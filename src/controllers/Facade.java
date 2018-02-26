@@ -20,46 +20,46 @@ public class Facade {
 	}
 	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		this.sistema.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
+		Facade.sistema.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 	}
 	
 	public String recuperaAluno(String matricula) {
-		return this.sistema.recuperaAluno(matricula);
+		return Facade.sistema.recuperaAluno(matricula);
 	}
 	
 	public String listarAlunos() {
-		return this.sistema.listarAlunos();
+		return Facade.sistema.listarAlunos();
 	}
 	
 	public String getInfoAluno(String matricula, String atributo) {
-		return this.sistema.getInfoAluno(matricula, atributo);
+		return Facade.sistema.getInfoAluno(matricula, atributo);
 	}
 	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-		this.sistema.tornarTutor(matricula, disciplina, proficiencia);
+		Facade.sistema.tornarTutor(matricula, disciplina, proficiencia);
 	}
 	
 	public String recuperaTutor(String matricula) {
-		return this.sistema.recuperaTutor(matricula);
+		return Facade.sistema.recuperaTutor(matricula);
 	}
 	
 	public String listarTutores() {
-		return this.sistema.listarTutores();
+		return Facade.sistema.listarTutores();
 	}
 	
 	public void cadastrarHorario(String email, String horario, String dia) {
-		this.sistema.cadastrarHorario(email, horario, dia); 
+		Facade.sistema.cadastrarHorario(email, horario, dia); 
 	}
 	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		this.sistema.cadastrarLocalDeAtendimento(email, local);
+		Facade.sistema.cadastrarLocalDeAtendimento(email, local);
 	}
 	
 	public boolean consultaHorario(String email, String horario, String dia) {
-		return this.sistema.consultaHorario(email, horario, dia);
+		return Facade.sistema.consultaHorario(email, horario, dia);
 	}
 	
 	public boolean consultaLocal(String email, String local) {
-		return this.sistema.consultaLocal(email, local);
+		return Facade.sistema.consultaLocal(email, local);
 	}
 }
