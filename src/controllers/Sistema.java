@@ -22,12 +22,44 @@ public class Sistema {
 		this.ordenadorAlunos = new AlunoPorNome();
 	}
 	
+	private void verificarMatriculaRepetida(String matricula) {
+		if (this.alunos.containsKey(matricula)) {
+			throw new IllegalArgumentException("Aluno de mesma matricula ja cadastrado");
+		}
+	}
+	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		this.alunos.put(matricula, new Aluno(nome, matricula, codigoCurso, telefone, email));
+		try {
+			Aluno aluno = new Aluno(nome, matricula, codigoCurso, telefone, email);
+			this.verificarMatriculaRepetida(matricula);
+			
+			this.alunos.put(matricula, aluno);
+		}
+		
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastro de aluno: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new IllegalArgumentException("Erro no cadastro de aluno: " + e2.getMessage());
+		}
+	}
+	
+	private void verificarMatriculaInexistente(String matricula) {
+		if (!this.alunos.containsKey(matricula)) {
+			throw new IllegalArgumentException("Aluno nao encontrado");
+		}
 	}
 	
 	public String recuperaAluno(String matricula) {
-		return this.alunos.get(matricula).toString();
+		try {
+			this.verificarMatriculaInexistente(matricula);
+			return this.alunos.get(matricula).toString();
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na busca por aluno: " + e.getMessage());
+		}
 	}
 	
 	private List<Aluno> ordenarAlunos() {
@@ -43,13 +75,20 @@ public class Sistema {
 		for (int i = 0; i < this.ordenarAlunos().size() - 1; i++) {
 			listagemAlunos += ordenarAlunos().get(i).toString() + ", ";
 		}
-		listagemAlunos += ordenarAlunos().get(ordenarAlunos().size() - 1).toString();
 		
+		listagemAlunos += ordenarAlunos().get(ordenarAlunos().size() - 1).toString();
 		return listagemAlunos;
 	}
 	
 	public String getInfoAluno(String matricula, String atributo) {
-		return AtributoAluno.valueOf(atributo).getAtributo(this.alunos.get(matricula));
+		try {
+			this.verificarMatriculaInexistente(matricula);
+			return AtributoAluno.valueOf(atributo.toUpperCase()).getAtributo(this.alunos.get(matricula));			
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na obtencao de informacao de aluno: " + e.getMessage());
+		}
 	}
 	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {

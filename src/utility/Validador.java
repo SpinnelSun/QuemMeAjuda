@@ -19,32 +19,16 @@ public class Validador {
 		Validador.validarStringNaoNula(msg, str);
 	}
 	
-	public static void validarPositiveInteger(String msg, int value) {
-		if (value < 1) {
-			throw new IllegalArgumentException(msg); 
+	public static void validarEmail(String msg, String email) {
+		Validador.validarStringNaoVaziaNaoNula(msg, email);
+		
+		if (!email.contains("@") || email.startsWith("@") || email.endsWith("@")) {
+				throw new IllegalArgumentException(msg);
 		}
-	}
+	}	
 	
-	public static void validarNotNegativeInteger(String msg, int value) {
-		if (value < 0) {
-			throw new IllegalArgumentException(msg); 
-		}
-	}
-	
-	public static void validarNotNegativeDouble(String msg, double value) {
-		if (value < 0) {
-			throw new IllegalArgumentException(msg); 
-		}
-	}
-	
-	public static void validarLessEqualThan(String msg, int value1, int value2) {
-		if (value1 > value2) {
-			throw new IllegalArgumentException(msg); 
-		}
-	}
-	
-	public static void validarPercentage(String msg, double value) {
-		if ((value < 0) || (value > 1)) {
+	public static void validarInteiroPositivo(String msg, int valor) {
+		if (valor < 1) {
 			throw new IllegalArgumentException(msg); 
 		}
 	}

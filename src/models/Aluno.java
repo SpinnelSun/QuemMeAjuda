@@ -1,5 +1,7 @@
 package models;
 
+import utility.Validador;
+
 public class Aluno extends Pessoa {
 	
 	private String matricula;
@@ -8,6 +10,9 @@ public class Aluno extends Pessoa {
 	
 	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		super(nome, telefone, email);
+		
+		Validador.validarStringNaoVaziaNaoNula("Matricula nao pode ser vazia ou nula", matricula);
+		Validador.validarInteiroPositivo("Codigo do curso nao pode ser menor que 1", codigoCurso);
 		
 		this.matricula = matricula.trim();
 		this.codigoCurso = codigoCurso;

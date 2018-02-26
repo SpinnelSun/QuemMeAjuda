@@ -4,35 +4,35 @@ import view.AtributoStrategy;
 
 public enum AtributoAluno implements AtributoStrategy {
 	
-	Nome("Nome") {
+	NOME("Nome") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getNome();
 		}		
 	},
 	
-	Matricula("Matricula") {
+	MATRICULA("Matricula") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getMatricula();
 		}
 	},
 	
-	Curso("Codigo do Curso") {
+	CURSO("Codigo do Curso") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getCodigoCurso();
 		}
 	},
 	
-	Telefone("Telefone") {
+	TELEFONE("Telefone") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getTelefone();
 		}	
 	},
 	
-	Email("Email") {
+	EMAIL("Email") {
 		@Override
 		public String getAtributo(Aluno aluno) {
 			return aluno.getEmail();
