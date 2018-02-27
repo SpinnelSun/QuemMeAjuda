@@ -1,4 +1,4 @@
-package utility;
+package controllers;
 
 import static org.junit.Assert.*;
 
