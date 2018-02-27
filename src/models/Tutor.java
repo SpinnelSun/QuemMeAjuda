@@ -5,29 +5,20 @@ import java.util.Set;
 
 public class Tutor extends Aluno {
 	
-	private Set<Tutoria> tutorias;
 	private int dinheiroRecebido;
-	private Alocacao alocacao;
+	private Set<Tutoria> tutorias;
+	private Disponibilidade disponibilidade;
 	
 	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		super(nome, matricula, codigoCurso, telefone, email);
 			
 		this.dinheiroRecebido = 0;
 		this.tutorias = new HashSet<Tutoria>();
-		this.alocacao = new Alocacao();
+		this.disponibilidade = new Disponibilidade();
 		
 		this.setNota(4.0);
 	}
-		
-	public String getTutorias() {
-		String listagemTutorias = "";
-		for (Tutoria tutoria : this.tutorias) {
-			listagemTutorias += tutoria.toString() + System.lineSeparator();
-		}
-		
-		return listagemTutorias;
-	}
-
+	
 	public int getDinheiroRecebido() {
 		return this.dinheiroRecebido;
 	}
@@ -44,24 +35,19 @@ public class Tutor extends Aluno {
 	}
 
 	public void cadastrarHorario(String horario, String dia) {
-		alocacao.setHorarioDeAtendimento(horario);
-		alocacao.setDiasDeAtendimento(dia);
+		this.disponibilidade.adicionarHorario(horario, dia);
 	}
 	
 	public void cadastrarLocalDeAtendimento(String local) {
-		alocacao.setLocaisDeAtendimento(local);
+		this.disponibilidade.adicionarLocal(local);
 	}
+	
 	public boolean consultaHorario(String horario, String dia) {
-		if(!alocacao.getDiasDeAtendimento().contains(dia))
-			return false;
-		if(!alocacao.getHorarioDeAtendimento().contains(horario))
-			return false;
-		return true;
+		return this.disponibilidade.verificarHorarioCadastrado(horario, dia);
 	}
+	
 	public boolean consultaLocal(String local) {
-		if(!alocacao.getLocaisDeAtendimento().contains(local))
-			return false;
-		return true;
+		return this.disponibilidade.verificarLocalCadastrado(local);
 	}
 	
 }

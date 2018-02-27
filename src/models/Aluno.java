@@ -27,8 +27,8 @@ public class Aluno extends Pessoa {
 		return this.codigoCurso;
 	}
 	
-	public String getNota() {
-		return Double.toString(this.nota);
+	public double getNota() {
+		return this.nota;
 	}
 
 	public void setNota(double nota) {

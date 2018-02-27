@@ -11,6 +11,20 @@ public enum AtributoAluno implements AtributoStrategy {
 		}		
 	},
 	
+	TELEFONE("Telefone") {
+		@Override
+		public String getAtributo(Aluno aluno) {
+			return aluno.getTelefone();
+		}	
+	},
+	
+	EMAIL("Email") {
+		@Override
+		public String getAtributo(Aluno aluno) {
+			return aluno.getEmail();
+		}
+	},
+	
 	MATRICULA("Matricula") {
 		@Override
 		public String getAtributo(Aluno aluno) {
@@ -25,21 +39,12 @@ public enum AtributoAluno implements AtributoStrategy {
 		}
 	},
 	
-	TELEFONE("Telefone") {
+	NOTA("Nota") {
 		@Override
 		public String getAtributo(Aluno aluno) {
-			return aluno.getTelefone();
-		}	
-	},
-	
-	EMAIL("Email") {
-		@Override
-		public String getAtributo(Aluno aluno) {
-			return aluno.getEmail();
+			return Double.toString(aluno.getNota());
 		}
 	};
-
-	
 	
 	private String atributo;
 	

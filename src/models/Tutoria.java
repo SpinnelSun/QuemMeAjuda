@@ -16,39 +16,37 @@ public class Tutoria {
 	}
 
 	public String getDisciplina() {
-		return disciplina;
+		return this.disciplina;
 	}
 
 	public int getProficiencia() {
-		return proficiencia;
+		return this.proficiencia;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((disciplina == null) ? 0 : disciplina.hashCode());
+		
+		result = prime * result + ((this.disciplina == null) ? 0 : this.disciplina.hashCode());
 		
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) { return true; }
+	public boolean equals(Object object) {
 		
-		if (obj == null) { return false; }
+		Tutoria other = (Tutoria) object;
 		
-		if (getClass() != obj.getClass()) { return false; }
+		if (this == object) { return true; }
 		
-		Tutoria other = (Tutoria) obj;
+		if (object == null) { return false; }
 		
-		if (disciplina == null) {
-			if (other.disciplina != null) { return false; }
-		} 
+		if (getClass() != object.getClass()) { return false; }
 		
-		if (disciplina.equals(other.disciplina)) { return true; }
+		if (this.disciplina.equals(other.disciplina)) { return true; }
 		
-		return true;
+		return false;
 	}
 
 	@Override

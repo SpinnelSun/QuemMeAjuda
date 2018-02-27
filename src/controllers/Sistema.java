@@ -119,6 +119,7 @@ public class Sistema {
 			this.verificarAlunoInexistente(matricula, "Tutor nao encontrado");
 			return this.tutores.get(matricula).toString();
 		}
+		
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro na busca por tutor: " + e.getMessage());
 		}
@@ -132,17 +133,6 @@ public class Sistema {
 		return listaDeTutores;
 	}
 	
-	private String getMatriculaPorEmail(String email) {
-		String matricula = "";
-		for(Tutor tutor : this.tutoresToList()) {
-			if(tutor.getEmail().equals(email)) {
-				matricula = tutor.getMatricula();
-			}
-		}
-		return matricula;
-			
-	}
-	
 	public String listarTutores() {
 		String listagemTutores = "";
 		
@@ -154,29 +144,66 @@ public class Sistema {
 		return listagemTutores;
 	}
 	
-	public void cadastrarHorario(String email, String horario, String dia) {
-		String matriculaAluno = "";
-		try {
-			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
-			this.tutores.get(matriculaAluno).cadastrarHorario(horario, dia);
-
+	private String getMatriculaPorEmail(String email) {
+		for(Tutor tutor : this.tutoresToList()) {
+			if(tutor.getEmail().equals(email)) {
+				return tutor.getMatricula();
+			}
 		}
-		catch(IllegalArgumentException e) {
+		
+		return "";
+	}
+	
+	public void cadastrarHorario(String email, String horario, String dia) {
+		try {
+			Validador.validarStringNaoVaziaNaoNula("email nao pode ser vazio ou em branco", email);
+			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
+			
+			this.tutores.get(this.getMatriculaPorEmail(email)).cadastrarHorario(horario, dia);
+		}
+		
+		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro no cadastrar horario: " + e.getMessage());
-
 		}
 	}
 	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
-		this.tutores.get(email).cadastrarLocalDeAtendimento(local);
+		try {
+			Validador.validarStringNaoVaziaNaoNula("email nao pode ser vazio ou em branco", email);
+			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
+			
+			this.tutores.get(this.getMatriculaPorEmail(email)).cadastrarLocalDeAtendimento(local);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: " + e.getMessage());
+		}
 	}
 	
 	public boolean consultaHorario(String email, String horario, String dia) {
-		return tutores.get(email).consultaHorario(horario, dia);
+		try {
+			Validador.validarStringNaoVaziaNaoNula("email nao pode ser vazio ou em branco", email);
+			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
+			
+			return this.tutores.get(this.getMatriculaPorEmail(email)).consultaHorario(horario, dia);
+		}
+		
+		catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 	
 	public boolean consultaLocal(String email, String local) {
-		return tutores.get(email).consultaLocal(local);
+		try {
+			Validador.validarStringNaoVaziaNaoNula("email nao pode ser vazio ou em branco", email);
+			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
+			
+			return this.tutores.get(this.getMatriculaPorEmail(email)).consultaLocal(local);
+		}
+		
+		catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 }
