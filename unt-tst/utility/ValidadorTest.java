@@ -21,19 +21,19 @@ public class ValidadorTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testValidarEmailSemArroba() {
 		String msg = "Avaliação da exceção lançada ao tentar validar um email sem o @.";
-		Validador.validarEmail("Exceção lançada!", "adress.gmail.com");
+		Validador.validarEmail("Exceção lançada!", "adress.email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testValidarEmailIniciadoEmArroba() {
 		String msg = "Avaliação da exceção lançada ao tentar validar um email iniciado por @ nesse método.";
-		Validador.validarEmail("Exceção lançada!", "@adress.gmail.com");
+		Validador.validarEmail("Exceção lançada!", "@adress.email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testValidarEmailTerminadoEmArroba() {
 		String msg = "Avaliação da exceção lançada ao tentar validar um email terminado com @ nesse método.";
-		Validador.validarEmail("Exceção lançada!", "adress.gmail.com@");
+		Validador.validarEmail("Exceção lançada!", "adress.email.com@");
 	}
 
 	@Test(expected = IllegalArgumentException.class)

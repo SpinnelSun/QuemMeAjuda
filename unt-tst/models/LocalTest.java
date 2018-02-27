@@ -17,7 +17,7 @@ public class LocalTest {
 	public void criarLocal() {
 		this.local1 = new Local("Primeiro Local");
 		this.local2 = new Local("Segundo Local");
-		this.local3 = new Local("Primeiro Local");
+		this.local3 = new Local("Primeiro Local   ");
 	}
 
 	@Test
