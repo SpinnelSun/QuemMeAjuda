@@ -33,16 +33,13 @@ public class Tutor extends Aluno {
 	}
 	
 	private void verificaTutoriaRepetida(String disciplina, int proficiencia) {
-		for (Tutoria tutoria : this.tutorias) {
-			if (tutoria.getDisciplina().equals(disciplina)) {
-				throw new IllegalArgumentException("Ja eh tutor dessa disciplina");
-			}
+		if (this.tutorias.contains(new Tutoria(disciplina, proficiencia))) {
+			throw new IllegalArgumentException("Ja eh tutor dessa disciplina");
 		}
 	}
 	
 	public void adicionarTutoria(String disciplina, int proficiencia) {
 		this.verificaTutoriaRepetida(disciplina, proficiencia);
-		
 		this.tutorias.add(new Tutoria(disciplina, proficiencia));
 	}
 

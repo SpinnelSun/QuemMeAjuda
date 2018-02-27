@@ -14,13 +14,11 @@ public class Sistema {
 	
 	private Map<String, Aluno> alunos;
 	private Map<String, Tutor> tutores;
-	private Map<String, String> contatoTutores;
 	private Comparator<Aluno> ordenadorAlunos;
 	
 	public Sistema() {
 		this.alunos = new HashMap<String, Aluno>();
 		this.tutores = new HashMap<String, Tutor>();
-		this.contatoTutores = new HashMap<String, String>();
 		this.ordenadorAlunos = new AlunoPorNome();
 	}
 	
@@ -103,7 +101,7 @@ public class Sistema {
 		try {
 			this.verificarAlunoInexistente(matricula, "Tutor nao encontrado");
 			
-			if (!this.contatoTutores.keySet().contains(matricula)) {
+			if (!this.tutores.keySet().contains(matricula)) {
 				this.criarNovoTutor(matricula);
 			}
 			
