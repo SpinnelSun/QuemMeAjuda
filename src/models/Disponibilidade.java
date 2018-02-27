@@ -21,20 +21,20 @@ public class Disponibilidade {
 		this.horarios.add(new Horario(hora, dia));
 	}
 	
-	public int totalLocaisCadastrados() {
-		return this.locais.size();
-	}
-	
-	public int totalHorariosCadastrados() {
-		return this.horarios.size();
-	}
-	
 	public boolean verificarHorarioCadastrado(String hora, String dia) {
 		return this.horarios.contains(new Horario(hora, dia));
 	}
 	
 	public boolean verificarLocalCadastrado(String nomeLocal) {
 		return this.locais.contains(new Local(nomeLocal));
+	}
+	
+	public int totalLocaisCadastrados() {
+		return this.locais.size();
+	}
+	
+	public int totalHorariosCadastrados() {
+		return this.horarios.size();
 	}
 
 }
