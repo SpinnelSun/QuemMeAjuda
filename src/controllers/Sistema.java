@@ -9,6 +9,7 @@ import java.util.Map;
 import models.AtributoAluno;
 import models.Aluno;
 import models.Tutor;
+import utility.Validador;
 
 public class Sistema {
 	
@@ -131,6 +132,17 @@ public class Sistema {
 		return listaDeTutores;
 	}
 	
+	private String getMatriculaPorEmail(String email) {
+		String matricula = "";
+		for(Tutor tutor : this.tutoresToList()) {
+			if(tutor.getEmail().equals(email)) {
+				matricula = tutor.getMatricula();
+			}
+		}
+		return matricula;
+			
+	}
+	
 	public String listarTutores() {
 		String listagemTutores = "";
 		
@@ -143,7 +155,16 @@ public class Sistema {
 	}
 	
 	public void cadastrarHorario(String email, String horario, String dia) {
-		this.tutores.get(email).cadastrarHorario(horario, dia);
+		String matriculaAluno = "";
+		try {
+			Validador.validarStringNaoVazia("tutor nao cadastrado", this.getMatriculaPorEmail(email));
+			this.tutores.get(matriculaAluno).cadastrarHorario(horario, dia);
+
+		}
+		catch(IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro no cadastrar horario: " + e.getMessage());
+
+		}
 	}
 	
 	public void cadastrarLocalDeAtendimento(String email, String local) {
