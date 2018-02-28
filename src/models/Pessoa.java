@@ -3,7 +3,7 @@ package models;
 import utility.Validador;
 /**
  * Representacao abstrata de uma Pessoa. Como atribu-
- * tos, cada Pessoa possui o nome do apostador, telefone e email.
+ * tos, cada Pessoa possui o nome da pessoa, telefone e email.
  * 
  * Laboratorio de Programacao 2 - Projeto - Quem me ajuda
  * 
@@ -21,7 +21,7 @@ public abstract class Pessoa {
 	
 	/**
 	 * Constroi uma Pessoa a partir do nome, telefone (que pode ser vazio) e email.
-	 * Nao eh permitido criar apostas de pessoa com nome e email vazio ou nulo.
+	 * Nao eh permitido criar pessoas com nome e email vazio ou nulo.
 	 * 
 	 * @param nome O nome da pessoa.
 	 * @param telefone O numero do telefone da pessoa.
