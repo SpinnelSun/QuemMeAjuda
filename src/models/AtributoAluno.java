@@ -1,6 +1,6 @@
 package models;
 
-import view.AtributoStrategy;
+import views.AtributoStrategy;
 
 public enum AtributoAluno implements AtributoStrategy {
 	
