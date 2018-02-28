@@ -40,8 +40,8 @@ public class Facade {
 	 * Cadastra um novo Aluno no Sistema.
 	 * 
 	 * @param nome O nome do Aluno a ser cadastrado.
-	 * @param matricula A matrícula do Aluno a ser cadastrado.
-	 * @param codigoCurso O código do curso do Aluno a ser cadastrado.
+	 * @param matricula A matricula do Aluno a ser cadastrado.
+	 * @param codigoCurso O codigo do curso do Aluno a ser cadastrado.
 	 * @param telefone O telefone do Aluno (se possuir) a ser cadastrado.
 	 * @param email O email do Aluno a ser cadastrado.
 	 * 
@@ -55,11 +55,11 @@ public class Facade {
 	}
 	
 	/**
-	 * Retorna a representação textual de um Aluno já cadastrado no Sistema.
+	 * Retorna a representacao textual de um Aluno ja cadastrado no Sistema.
 	 * 
-	 * @param matricula A matrícula do Aluno a ser recuperado.
+	 * @param matricula A matricula do Aluno a ser recuperado.
 	 * 
-	 * @returns A representação textual do Aluno.
+	 * @returns A representacao textual do Aluno.
 	 * 
 	 * @see Sistema#recuperaAluno(String)
 	 * 
@@ -81,12 +81,12 @@ public class Facade {
 	}
 	
 	/**
-	 * Recupera uma informação específica de um Aluno já cadastrado no Sistema.
+	 * Recupera uma informacao especifica de um Aluno ja cadastrado no Sistema.
 	 * 
-	 * @param matricula A matrícula do Aluno de interesse.
-	 * @param atributo A informação de interesse a ser recuperada.
+	 * @param matricula A matricula do Aluno de interesse.
+	 * @param atributo A informacao de interesse a ser recuperada.
 	 * 
-	 * @returns A representação textual da informação solicitada ao Sistema.
+	 * @returns A representacao textual da informacao solicitada ao Sistema.
 	 * 
 	 * @see Sistema#getInfoAluno(String, String)
 	 * 
@@ -96,11 +96,11 @@ public class Facade {
 	}
 	
 	/**
-	 * Garante a Tutoria de uma certa disciplina a um Aluno já cadastrado no Sistema.
+	 * Garante a Tutoria de uma certa disciplina a um Aluno ja cadastrado no Sistema.
 	 * 
-	 * @param matricula A matrícula do Aluno que se tornará Tutor.
-	 * @param disciplina A disciplina que receberá o novo Tutor.
-	 * @param proficiencia O nível de habilidade do Aluno na disciplina.
+	 * @param matricula A matricula do Aluno que se tornara Tutor.
+	 * @param disciplina A disciplina que recebera o novo Tutor.
+	 * @param proficiencia O nivel de habilidade do Aluno na disciplina.
 	 * 
 	 * @returns null.
 	 * 
@@ -112,11 +112,11 @@ public class Facade {
 	}
 	
 	/**
-	 * Recupera a representação textual de um Tutor já cadastrado no Sistema.
+	 * Recupera a representacao textual de um Tutor ja cadastrado no Sistema.
 	 * 
-	 * @param matricula A matrícula do Tutor a ser recuperado.
+	 * @param matricula A matricula do Tutor a ser recuperado.
 	 * 
-	 * @returns A representação textual do Tutor recuperado.
+	 * @returns A representacao textual do Tutor recuperado.
 	 * 
 	 * @see Sistema#recuperaTutor(String)
 	 * 
@@ -138,11 +138,11 @@ public class Facade {
 	}
 	
 	/**
-	 * Torna um Tutor disponível em um determinado Horario da semana.
+	 * Torna um Tutor disponivel em um determinado Horario da semana.
 	 * 
-	 * @param email O email do Tutor que possuirá o Horario disponível.
-	 * @param horario A hora a ser cadastrada como disponível.
-	 * @param dia O dia da semana referente ao Horario disponível.
+	 * @param email O email do Tutor que possuira o Horario disponivel.
+	 * @param horario A hora a ser cadastrada como disponivel.
+	 * @param dia O dia da semana referente ao Horario disponivel.
 	 * 
 	 * @returns null.
 	 * 
@@ -156,7 +156,7 @@ public class Facade {
 	/**
 	 * Torna um Tutor apto a atender os Alunos em um determinado Local.
 	 * 
-	 * @param email O email do Tutor que poderá atender no Local.
+	 * @param email O email do Tutor que podera atender no Local.
 	 * @param local O nome do Local de atendimento a ser cadastrado.
 	 * 
 	 * @returns null.
@@ -169,13 +169,13 @@ public class Facade {
 	}
 	
 	/**
-	 * Verifica se um Tutor está disponível em um determinado Horario.
+	 * Verifica se um Tutor esta disponivel em um determinado Horario.
 	 * 
 	 * @param email O email do Tutor a ser verificado.
-	 * @param horario A hora de interesse na verificação.
-	 * @param dia O dia de interesse na verificação.
+	 * @param horario A hora de interesse na verificacao.
+	 * @param dia O dia de interesse na verificacao.
 	 * 
-	 * @returns O boolean referente à verificação de disponibilidade.
+	 * @returns O boolean referente a verificacao de disponibilidade.
 	 * 
 	 * @see Sistema#consultaHorario(String, String, String)
 	 * 
@@ -185,12 +185,12 @@ public class Facade {
 	}
 	
 	/**
-	 * Verifica se um Tutor está disponível para atender em um determinado Local.
+	 * Verifica se um Tutor esta disponivel para atender em um determinado Local.
 	 * 
 	 * @param email O email do Tutor a ser verificado.
-	 * @param local O nome do local de interesse na verificação.
+	 * @param local O nome do local de interesse na verificacao.
 	 * 
-	 * @returns O boolean referente à verificação de disponibilidade.
+	 * @returns O boolean referente a verificacao de disponibilidade.
 	 * 
 	 * @see Sistema#consultaLocal(String, String)
 	 * 
