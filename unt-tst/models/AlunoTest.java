@@ -18,111 +18,111 @@ public class AlunoTest {
 	
 	@Test
 	public void testAluno() {
-		String msg = "Avaliação do armazenamento adequado do nome do aluno em um Aluno.";
+		String msg = "Avaliacao do armazenamento adequado do nome do aluno em um Aluno.";
 		assertEquals(msg, "Nome 1", this.alunoComTelefone.getNome());
 	
-		String msg2 = "Avaliação do armazenamento adequado da matrícula do aluno em um Aluno.";
+		String msg2 = "Avaliacao do armazenamento adequado da matricula do aluno em um Aluno.";
 		assertEquals(msg2, "111111111", this.alunoComTelefone.getMatricula());
 	
-		String msg3 = "Avaliação do armazenamento adequado do código do curso em um Aluno.";
+		String msg3 = "Avaliacao do armazenamento adequado do codigo do curso em um Aluno.";
 		assertEquals(msg3, 1, this.alunoComTelefone.getCodigoCurso());
 		
-		String msg4 = "Avaliação do armazenamento adequado do email em um Aluno.";
+		String msg4 = "Avaliacao do armazenamento adequado do email em um Aluno.";
 		assertEquals(msg4, "address@email.com", this.alunoComTelefone.getEmail());
 		
-		String msg5 = "Avaliação do armazenamento adequado do telefone em um Aluno com telefone.";
+		String msg5 = "Avaliacao do armazenamento adequado do telefone em um Aluno com telefone.";
 		assertEquals(msg5, "0000-0000", this.alunoComTelefone.getTelefone());
 		
-		String msg6 = "Avaliação do armazenamento adequado do telefone em um Aluno com telefone.";
+		String msg6 = "Avaliacao do armazenamento adequado do telefone em um Aluno com telefone.";
 		assertEquals(msg6, "", this.alunoSemTelefone.getTelefone());
 		
-		String msg7 = "Avaliação do armazenamento adequado da nota do aluno em um Aluno.";
+		String msg7 = "Avaliacao do armazenamento adequado da nota do aluno em um Aluno.";
 		assertTrue(msg7, this.alunoComTelefone.getNota() == 5.0);
 	}
 
 	@Test
 	public void testSetNota() {
 		this.alunoComTelefone.setNota(4.6);
-		String msg = "Avaliação da alteração e do armazenamento adequado da nota do aluno em um Aluno.";
+		String msg = "Avaliacao da alteracao e do armazenamento adequado da nota do aluno em um Aluno.";
 		assertTrue(msg, this.alunoComTelefone.getNota() == 4.6);
 	}
 
 	@Test
 	public void testToString() {
-		String msg = "Avaliação da representação textual adequada de um Aluno.";
+		String msg = "Avaliacao da representacao textual adequada de um Aluno.";
 		assertEquals(msg, "111111111 - Nome 1 - 1 - 0000-0000 - address@email.com",
 					 this.alunoComTelefone.toString());	
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoNomeVazio() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo nome seja uma String vazia.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo nome seja uma String vazia.";
 		Aluno alunoInvalido = new Aluno("     ", "A", 1, "0000-0000", "address@email.com");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarAlunoNomeNull() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo nome seja um null.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo nome seja um null.";
 		Aluno alunoInvalido = new Aluno(null, "A", 1, "0000-0000", "address@email.com");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoMatriculaVazia() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cuja matricula seja uma String vazia.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cuja matricula seja uma String vazia.";
 		Aluno alunoInvalido = new Aluno("A", "", 1, "0000-0000", "address@email.com");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarAlunoMatriculaNull() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cuja matricula seja um null.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cuja matricula seja um null.";
 		Aluno alunoInvalido = new Aluno("A", null, 1, "0000-0000", "address@email.com");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoCodigoCursoZero() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo codigo do curso seja 0.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo codigo do curso seja 0.";
 		Aluno alunoInvalido = new Aluno("A", "1", 0, "0000-0000", "address@email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoCodigoCursoNegativo() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo codigo do curso seja negativo.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo codigo do curso seja negativo.";
 		Aluno alunoInvalido = new Aluno("A", "1", -1, "0000-0000", "address@email.com");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarAlunoTelefoneNull() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo telefone seja um null.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo telefone seja um null.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, null, "address@email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoEmailVazio() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo email seja uma String vazia.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo email seja uma String vazia.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, "0000-0000", "");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarAlunoEmailNull() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo email seja um null.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo email seja um null.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, "0000-0000", null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoEmailIniciadoEmArroba() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo email comece em @.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo email comece em @.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, "0000-0000", "@email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoEmailTerminadoEmArroba() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo email comece em @.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo email comece em @.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, "0000-0000", "address.email.com@");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarAlunoEmailSemArroba() {
-		String msg = "Avaliação da exceção lançada ao tentar criar um Aluno cujo email sem @.";
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Aluno cujo email sem @.";
 		Aluno alunoInvalido = new Aluno("A", "1", 1, "0000-0000", "address.email.com");
 	}
 	

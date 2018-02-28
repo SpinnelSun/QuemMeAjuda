@@ -29,19 +29,19 @@ public class AlunoPorNomeTest {
 	
 	@Test
 	public void testCompareMenorNomeMaiorNome() {
-		String msg = "Avaliação da comparação de um Aluno com outro de nome lexicograficamente maior.";
+		String msg = "Avaliacao da comparacao de um Aluno com outro de nome lexicograficamente maior.";
 		assertTrue(this.comparator.compare(this.aluno1, this.aluno2) < 0); 
 	}
 	
 	@Test
 	public void testCompareMaiorNomeMenorNome() {
-		String msg = "Avaliação da comparação de um Aluno com outro de nome lexicograficamente menor.";
+		String msg = "Avaliacao da comparacao de um Aluno com outro de nome lexicograficamente menor.";
 		assertTrue(this.comparator.compare(this.aluno2, this.aluno1) > 0); 
 	}
 	
 	@Test
 	public void testCompareNomesIguais() {
-		String msg = "Avaliação da comparação de um Aluno com outro de nome lexicograficamente igual.";
+		String msg = "Avaliacao da comparacao de um Aluno com outro de nome lexicograficamente igual.";
 		assertTrue(this.comparator.compare(this.aluno1, this.aluno3) < 0); 
 	}
 
