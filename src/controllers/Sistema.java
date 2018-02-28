@@ -12,13 +12,13 @@ import models.Tutor;
 import utility.Validador;
 
 /**
- * Representação de um Sistema que tem como objetivo aproximar alunos
+ * Representacao de um Sistema que tem como objetivo aproximar alunos
  * que precisam de ajuda em disciplinas dos demais alunos capacitados
  * para oferecer ajuda. No sistema, o aluno pode realizar seu cadastro e 
  * se colocar como tutor. O software deve dar suporte a listagem de 
- * alunos e tutores e deve permitir a criação de ajudas.
+ * alunos e tutores e deve permitir a criacao de ajudas.
  * 
- * Laboratório de Programação 2 - Projeto - Quem me ajuda
+ * Laboratorio de Programacao 2 - Projeto - Quem me ajuda
  * 
  * @author Mateus de Lima Oliveira  - 117110219
  * @author Misael Augusto Silva da Costa - 117110525
@@ -33,7 +33,7 @@ public class Sistema {
 	
 	
 	/**
-	 * Constrói um Sistema.
+	 * Constroi um Sistema.
 	 * 
 	 */
 	public Sistema() {
@@ -43,7 +43,7 @@ public class Sistema {
 	}
 	
 	/**
-	 * Verifica se determinada matricula já está no sistema.
+	 * Verifica se determinada matricula ja esta no sistema.
 	 * 
 	 * @param matricula Matricula do aluno
 	 * 
@@ -56,7 +56,7 @@ public class Sistema {
 	}
 	
 	/**
-	 * Cadastra um anulo no sistema. Não é permitido o cadastro de alunos repetidos, com dados vazios ou nulos ou email inválido. Porém, telefone pode ser vazio
+	 * Cadastra um aluno no sistema. No eh permitido o cadastro de alunos repetidos, com dados vazios ou nulos ou email invalido. Porem, telefone pode ser vazio
 	 * 
 	 * @param nome O nome do Aluno.
 	 * @param matricula A matricula do Aluno. 
@@ -85,10 +85,10 @@ public class Sistema {
 	}
 	
 	/**
-	 * Verifica se a matricula passada existe ou não no sistema.
+	 * Verifica se a matricula passada existe ou nao no sistema.
 	 * 
-	 * @param matricula Representação de matricula.
-	 * @param msg Mensagem à ser retornada ao user caso tenha algum erro.
+	 * @param matricula Representacao de matricula.
+	 * @param msg Mensagem a ser retornada ao user caso tenha algum erro.
 	 * 
 	 * @returns null
 	 */
@@ -99,11 +99,11 @@ public class Sistema {
 	}
 	
 	/**
-	 * Recupera representação de Aluno contendo suas informações caso os dados passados estejam corretos.
+	 * Recupera representacao de Aluno contendo suas informacoes caso os dados passados estejam corretos.
 	 * 
-	 * @param matricula Representação de matricula do aluno.
+	 * @param matricula Representacao de matricula do aluno.
 	 * 
-	 * @returns String Representação de Aluno.
+	 * @returns String Representacao de Aluno.
 	 */
 	public String recuperaAluno(String matricula) {
 		try {
@@ -134,7 +134,7 @@ public class Sistema {
 	 * Recupera lista de alunos registrados no sistema por ordem alfabetica.
 	 * 
 	 * 
-	 * @returns String Representação de todos os alunos separados por vírgula.
+	 * @returns String Representacao de todos os alunos separados por virgula.
 	 */
 	public String listarAlunos() {
 		String listagemAlunos = "";
@@ -147,9 +147,9 @@ public class Sistema {
 	}
 	
 	/**
-	 * Recupera determinado atributo de Aluno. Tal atributo é passado nos parametros e não são aceitos atributos vazios ou nulos
+	 * Recupera determinado atributo de Aluno. Tal atributo eh passado nos parametros e nao sao aceitos atributos vazios ou nulos
 	 * 
-	 * @param matricula Representação de matricula do aluno.
+	 * @param matricula Representacao de matricula do aluno.
 	 * @param atribulo Atributo requisitado. 
 	 * 
 	 * @returns String Valor do atributo requisitado.
@@ -168,7 +168,7 @@ public class Sistema {
 	/**
 	 * Registra no sistema um novo tutor com base nos seus atributos de Aluno.
 	 * 
-	 * @param matricula Representação de matricula do aluno.
+	 * @param matricula Representacao de matricula do aluno.
 	 * 
 	 * @returns null
 	 */
@@ -179,11 +179,11 @@ public class Sistema {
 	}
 	
 	/**
-	 * Torna Aluno um Tutor, não sendo possivel matriculas invalidas, proficiencias erradas e disciplinas vazias ou nulas. 
+	 * Torna Aluno um Tutor, nao sendo possivel matriculas invalidas, proficiencias erradas e disciplinas vazias ou nulas. 
 	 * 
-	 * @param matricula Representação de matricula do aluno.
-	 * @param disciplina Disciplina que o aluno será tutor.
-	 * @param proficiencia Avaliação de sua tutoria.
+	 * @param matricula Representacao de matricula do aluno.
+	 * @param disciplina Disciplina que o aluno sera tutor.
+	 * @param proficiencia Avaliacao de sua tutoria.
 	 * 
 	 * @returns null
 	 */
@@ -204,11 +204,11 @@ public class Sistema {
 	}
 	
 	/**
-	 * Recupera representação de Tutor contendo suas informações caso os dados passados estejam corretos.
+	 * Recupera representacao de Tutor contendo suas informacoes caso os dados passados estejam corretos.
 	 * 
-	 * @param matricula Representação de matricula do tutor.
+	 * @param matricula Representacao de matricula do tutor.
 	 * 
-	 * @returns String Representação de Tutor.
+	 * @returns String Representacao de Tutor.
 	 */
 	public String recuperaTutor(String matricula) {
 		try {
@@ -223,7 +223,7 @@ public class Sistema {
 	}
 	
 	/**
-	 * Gera lista de tutores para facilitar verificações.
+	 * Gera lista de tutores para facilitar verificacoes.
 	 * 
 	 * 
 	 * @returns List<Tutor> Lista de tutores cadastrados.
@@ -239,7 +239,7 @@ public class Sistema {
 	 * Recupera lista de tutores registrados no sistema.
 	 * 
 	 * 
-	 * @returns String Representação de todos os tutores separados por vírgula.
+	 * @returns String Representacao de todos os tutores separados por virgula.
 	 */
 	public String listarTutores() {
 		String listagemTutores = "";
@@ -270,11 +270,11 @@ public class Sistema {
 	}
 	
 	/**
-	 * Cadastra horário de atendimento do tutor aos demais alunos. Não são permitidos dados vazios ou nulos. 
+	 * Cadastra horario de atendimento do tutor aos demais alunos. Nao sao permitidos dados vazios ou nulos. 
 	 * 
 	 * @param email Email do tutor.
 	 * @param horario Horario disponivel para atendimento.
-	 * @param dia Dia que serão disponibilizadas as tutorias. 
+	 * @param dia Dia que sero disponibilizadas as tutorias. 
 	 * 
 	 * @returns null
 	 */
@@ -292,7 +292,7 @@ public class Sistema {
 	}
 	
 	/**
-	 * Cadastra local de atendimento do tutor aos demais alunos. Não são permitidos dados vazios ou nulos. 
+	 * Cadastra local de atendimento do tutor aos demais alunos. No so permitidos dados vazios ou nulos. 
 	 * 
 	 * @param email Email do tutor.
 	 * @param local Local disponivel para atendimento dos alunos.
@@ -313,14 +313,14 @@ public class Sistema {
 	}
 	
 	/**
-	 * Verifica horário de atendimento do tutor aos demais alunos, caso o horario e dia estejam disponiveis é retornado True, se não, é 
-	 * retornado False. Não são permitidos dados vazios ou nulos. 
+	 * Verifica horario de atendimento do tutor aos demais alunos, caso o horario e dia estejam disponiveis eh retornado True, se nao, eh 
+	 * retornado False. No so permitidos dados vazios ou nulos. 
 	 * 
 	 * @param email Email do tutor.
 	 * @param horario Horario disponivel para atendimento.
-	 * @param dia Dia que serão disponibilizadas as tutorias. 
+	 * @param dia Dia que sero disponibilizadas as tutorias. 
 	 * 
-	 * @returns boolean True se houver o horario ou False se não houver.
+	 * @returns boolean True se houver o horario ou False se no houver.
 	 */
 	public boolean consultaHorario(String email, String horario, String dia) {
 		try {
@@ -336,13 +336,13 @@ public class Sistema {
 	}
 	
 	/**
-	 * Verifica o local de atendimento do tutor aos demais alunos, caso o local esteja correto é retornado True, se não, é 
-	 * retornado False. Não são permitidos dados vazios ou nulos. 
+	 * Verifica o local de atendimento do tutor aos demais alunos, caso o local esteja correto e retornado True, se nao, e 
+	 * retornado False. No so permitidos dados vazios ou nulos. 
 	 * 
 	 * @param email Email do tutor.
 	 * @param local Local disponivel para atendimento dos alunos.
 	 * 
-	 * @returns boolean True se houver o local registrado ou False se não houver.
+	 * @returns boolean True se houver o local registrado ou False se no houver.
 	 */
 	public boolean consultaLocal(String email, String local) {
 		try {
