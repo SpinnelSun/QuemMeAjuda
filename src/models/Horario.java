@@ -68,7 +68,7 @@ public class Horario {
 	 * 
 	 * @param obj O objeto cuja igualdade sera avaliada.
 	 * 
-	 * @returns O boolean referente à avaliacao de igualdade.
+	 * @returns O boolean referente a avaliacao de igualdade.
 	 * 
 	 */
 	@Override
