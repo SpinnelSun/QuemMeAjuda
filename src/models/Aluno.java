@@ -7,6 +7,8 @@ import utility.Validador;
  * digo do curso no qual esta matriculado, um email, uma nota (inicializada com valor 5.0) e, opcio-
  * nalmente, um telefone.
  * 
+ * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
+ * 
  * @author Mateus de Lima Oliveira  - 117110219
  * @author Misael Augusto Silva da Costa - 117110525
  * @author Matheus Alves dos Santos - 117110503
