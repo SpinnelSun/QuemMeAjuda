@@ -21,7 +21,7 @@ public class Disponibilidade {
 	private Set<Horario> horarios;
 	
 	/**
-	 * Constroi um objeto Disponibilidade.
+	 * Constroi um objeto Disponibilidade iniciando seus atributos como conjuntos vazios.
 	 * 
 	 */
 	public Disponibilidade() {
@@ -30,10 +30,12 @@ public class Disponibilidade {
 	}
 	
 	/**
-	 * Nao retorna nada, apenas cria e adiciona um local ao conjunto de locais da Disponibilidade a 
-	 * partir do nome do local passado como parametro.
+	 * Cria e adiciona um Local ao conjunto de locais da Disponibilidade a partir do nome do Local
+	 * passado como parametro.
 	 * 
-	 * @param nomeLocal O nome do local.
+	 * @param nomeLocal O nome do Local.
+	 * 
+	 * @returns null.
 	 * 
 	 */
 	public void adicionarLocal(String nomeLocal) {
@@ -41,11 +43,13 @@ public class Disponibilidade {
 	}
 	
 	/**
-	 * Nao retorna nada, apenas cria e adiciona um horario ao conjunto de horarios da Disponibilidade 
-	 * a partir da hora e do dia do horario passados como parametro.
+	 * Cria e adiciona um Horario ao conjunto de horarios da Disponibilidade a partir da hora e do
+	 * dia do Horario passados como parametro.
 	 * 
-	 * @param hora A hora disponivel
-	 * @param dia O dia disponivel
+	 * @param hora A hora em que ha disponibilidade.
+	 * @param dia O dia da semana referente ao Horario.
+	 * 
+	 * @returns null.
 	 * 
 	 */
 	public void adicionarHorario(String hora, String dia) {
@@ -53,14 +57,14 @@ public class Disponibilidade {
 	}
 	
 	/**
-	 * Verifica se um horario esta cadastrado no conjunto de horarios a partir da hora e do dia pas-
-	 * sados como parametro. Caso esteja cadastrado, retorna o valor booleano true, do contrario re-
-	 * torna false.
+	 * Verifica se um Horario esta cadastrado na Disponibilidade a partir da hora e do dia passados
+	 * como parametros. Caso esteja cadastrado, retorna true, caso contrario retorna false.
 	 * 
-	 * @param hora A hora disponivel
-	 * @param dia O dia disponivel
+	 * @param hora A hora em que se espera disponibilidade.
+	 * @param dia O dia da semana referente ao Horario.
 	 * 
-	 * @returns Um valor booleano que indica se o horario esta ou nao cadastrado
+	 * @returns O boolean que indica a existencia do cadastro do Horario.
+	 * 
 	 */
 	public boolean verificarHorarioCadastrado(String hora, String dia) {
 		return this.horarios.contains(new Horario(hora, dia));
@@ -68,29 +72,32 @@ public class Disponibilidade {
 
 	/**
 	 * Verifica se um local esta cadastrado no conjunto de locais a partir do nome passado como para-
-	 * metro. Caso esteja cadastrado, retorna o valor booleano true, do contrario retorna false.
+	 * metro. Caso esteja cadastrado, retorna true, caso contrario, retorna false.
 	 * 
-	 * @param nome O nome do local
+	 * @param nome O nome do local em que se espera disponibilidade.
 	 * 
-	 * @returns Um valor booleano que indica se o local esta ou nao cadastrado.
+	 * @returns O boolean que indica a existencia do cadastro do Local.
+	 * 
 	 */
 	public boolean verificarLocalCadastrado(String nomeLocal) {
 		return this.locais.contains(new Local(nomeLocal));
 	}
 	
 	/**
-	 * Calcula e retorna a quantidade total de locais cadastrados.
+	 * Retorna a quantidade de Locais cadastrados na Disponibilidade.
 	 * 
-	 * @returns A quantidade total de locais cadastrados.
+	 * @returns A quantidade de Locais cadastrados.
+	 * 
 	 */
 	public int totalLocaisCadastrados() {
 		return this.locais.size();
 	}
 	
 	/**
-	 * Calcula e retorna a quantidade total de horarios cadastrados.
+	 * Retorna a quantidade de Horarios cadastrados na Disponibilidade.
 	 * 
-	 * @returns A quantidade total de horarios cadastrados.
+	 * @returns A quantidade de Horarios cadastrados.
+	 * 
 	 */
 	public int totalHorariosCadastrados() {
 		return this.horarios.size();

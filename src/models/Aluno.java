@@ -3,9 +3,9 @@ package models;
 import utility.Validador;
 
 /**
- * Representacao de um Aluno do sistema de ajuda. Todo aluno deve ter um nome, uma matricula, o co-
- * digo do curso no qual esta matriculado, um email, uma nota (inicializada com valor 5.0) e, opcio-
- * nalmente, um telefone.
+ * Representacao de um Aluno do sistema do QuemMeAjuda. Todo aluno deve ter um nome, uma matricula,
+ * o codigo do curso no qual esta matriculado, um email, uma nota (inicializada com valor 5.0) e,
+ * opcionalmente, um telefone.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -31,6 +31,7 @@ public class Aluno extends Pessoa {
 	 * @param codigoCurso O codigo do curso no qual o aluno esta matriculado
 	 * @param telefone O telefone do aluno
 	 * @param email O email do aluno
+	 * 
 	 */
 	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		super(nome, telefone, email);
@@ -60,15 +61,16 @@ public class Aluno extends Pessoa {
 	}
 
 	/**
-	 * Monta e retorna uma mensagem em String da representacao textutal do objeto Aluno a partir dos
+	 * Monta e retorna uma mensagem em String da representacao textual do objeto Aluno a partir dos
 	 * seus atributos: matricula, nome, codigoCurso, telefone (caso nao seja vazio) e email respecti-
 	 * vamente. Se o atributo telefone for uma String vazia, significa que o aluno nao possui o mes-
 	 * mo, sendo assim, a representacao textual para este caso desconsidera o atributo telefone.
 	 * 
-	 * "matricula - nome - codigoCurso - telefone - email"
-	 * "matricula - nome - codigoCurso - email" 
+	 * Segue os padrões: MATRICULA - NOME - CODIGOCURSO - TELEFONE - EMAIL
+	 *                   MATRICULA - NOME - CODIGOCURSO - EMAIL
 	 * 
 	 * @returns A representacao textual do Aluno.
+	 * 
 	 */
 	@Override
 	public String toString() {
