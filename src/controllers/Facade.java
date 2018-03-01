@@ -199,4 +199,43 @@ public class Facade {
 		return Facade.sistema.consultaLocal(email, local);
 	}
 	
+	public int pedirAjudaPresencial (String disciplina, String horario, String dia, String localInteresse) {
+		return 0;
+	}
+	
+	public int pedirAjudaOnline (String disciplina) {
+		return 0;
+	}
+	
+	public String pegarTutor(int idAjuda) {
+		return "";
+	}
+	
+	public String getInfoAjuda(int idAjuda, String atributo) {
+		return "";
+	}
+	
+    public String avaliarTutor (int idAjuda, int nota) {
+    	return ""; 
+    }
+    
+    public double pegarNota(String matriculaTutor) {
+    	return 0.0;
+    }
+    
+    public String pegarNivel(String matriculaTutor) {
+    	return "";
+    }
+    
+    public void doar(String matriculaTutor, int totalCentavos) {
+    	return;
+    }
+    
+    public int totalDinheiroTutor(String emailTutor) {
+    	return 0;
+    }
+    
+    public int totalDinheiroSistema() {
+    	return 0;
+    }
 }
