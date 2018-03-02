@@ -2,13 +2,15 @@ package models;
 
 public abstract class Ajuda {
 	
-	private String descricao;
+	private String disciplina;
 	
-	public Ajuda(String descricao) {
-		this.descricao = descricao;
+	public Ajuda(String disciplina) {
+		this.disciplina = disciplina;
 	}
 	
 	@Override
-	public abstract String toString();
+	public String toString() {
+		return this.disciplina;
+	}
 	
 }
