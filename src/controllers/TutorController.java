@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+import models.AjudaPresencial;
 import models.Tutor;
+import models.Tutoria;
 import utility.Validador;
 
 public class TutorController {
@@ -104,5 +106,36 @@ public class TutorController {
 			return false;
 		}
 	}
+	
+	private String melhorProficiencia(List<Tutor> tutores) {
+		int maiorProficiencia = 0;
+		String matriculaMelhorTutor = "";
+		
+		for(Tutor tutor: tutores) {
+			for(Tutoria tutoria : tutor.getTutorias()) {
+				if(tutoria.getProficiencia() >= maiorProficiencia) {
+					maiorProficiencia = tutoria.getProficiencia();
+					matriculaMelhorTutor = tutor.getMatricula();
+				}
+			}
+		}
+		return matriculaMelhorTutor;
+	}
+	
+	public String escolheTutor(String disciplina, String horario, String dia, String localInteresse) {
+		List<Tutor> tutoresDisponiveis = new ArrayList<>();
+		String maiorProficiencia = "";
+		
+		for(Tutor tutor : this.tutoresToList()) {
+			if(tutor.tutorContainsTutorias(disciplina)) {
+				if(tutor.consultaHorario(horario, dia) && tutor.consultaLocal(localInteresse)) {
+					tutoresDisponiveis.add(tutor);
+				}
+			}
+		}
+		return this.melhorProficiencia(tutoresDisponiveis);
+	}
+	
+	
 	
 }
