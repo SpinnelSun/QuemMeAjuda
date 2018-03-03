@@ -211,4 +211,10 @@ public class SistemaTest {
 		s.consultaHorario("matthew.met@ccc.ufcg.edu.br", "15:30", null);
 	}
 	
+	@Test 
+	public void testPedirAjudaPresencial() {
+		s.pedirAjudaPresencial("115260904", "ATAL", "15:30", "Seg", "CAA");
+		//s.consultaHorario("matthew.met@ccc.ufcg.edu.br", "15:30", null);
+	}
+	
 }
