@@ -103,4 +103,14 @@ public class Disponibilidade {
 		return this.horarios.size();
 	}
 
+	public Set<Local> getLocais() {
+		return locais;
+	}
+
+	public Set<Horario> getHorarios() {
+		return horarios;
+	}
+	
+	
+
 }

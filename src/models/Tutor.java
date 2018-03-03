@@ -1,6 +1,8 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -128,5 +130,27 @@ public class Tutor extends Aluno {
 	public boolean consultaLocal(String local) {
 		return this.disponibilidade.verificarLocalCadastrado(local);
 	}
+	
+	public boolean tutorContainsTutorias(String disciplina){
+		List<Tutoria> tutorias = new ArrayList<>();
+		for(Tutoria tutoria : this.tutorias) {
+			if(tutoria.getDisciplina().equals(disciplina)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Disponibilidade getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public Set<Tutoria> getTutorias() {
+		return tutorias;
+	}
+	
+	
+	
+	
 	
 }
