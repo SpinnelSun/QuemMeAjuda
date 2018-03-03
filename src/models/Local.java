@@ -4,7 +4,7 @@ import utility.Validador;
 
 /**
  * Representacao de um Local a ser registrado numa Disponibilidade. Como atributos, um Local pos-
- * sui apenas uma String representando seu nome. O Local refere-se a um local especifico da UFCG.
+ * sui apenas uma String representando seu nome.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -18,10 +18,10 @@ public class Local {
 	private String nome;
 
 	/**
-	 * Constroi um Local a partir do nome que o especifica. Nao e permitida a 
-	 * criacao de Locais cujo nome null ou uma String vazia.
+	 * Constroi um Local a partir do nome que o especifica. Nao e permitida a criacao de Local com
+	 * nome nulo ou vazio.
 	 * 
-	 * @param nome O nome do Local
+	 * @param nome O nome do Local a ser criado.
 	 * 
 	 */
 	public Local(String nome) {
@@ -35,7 +35,7 @@ public class Local {
 	}
 
 	/**
-	 * Define o HashCode de um Local a partir da String armazenada no parametro nome.
+	 * Define o HashCode de um Local a partir da String armazenada no atributo nome.
 	 * 
 	 * @returns O HashCode do Local.
 	 * 
@@ -51,12 +51,12 @@ public class Local {
 
 	/**
 	 * Avalia a igualdade entre o Local executando o metodo e outro Object. Para que haja igualdade,
-	 * ambos devem ser o mesmo objeto ou o Object devera ser um outro Local com mesma Strings no
-	 * parametro nome.
+	 * ambos devem ser o mesmo objeto ou o Object devera ser um outro Local com as mesmas Strings no
+	 * atributo nome.
 	 * 
 	 * @param obj O objeto cuja igualdade sera avaliada.
 	 * 
-	 * @returns O boolean referente à avaliacao de igualdade.
+	 * @returns O boolean referente a avaliacao de igualdade.
 	 * 
 	 */
 	@Override

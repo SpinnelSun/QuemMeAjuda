@@ -3,8 +3,8 @@ package views;
 import models.Aluno;
 
 /**
- * Representacao em interface do Strategy para Atributo garantindo o uso de polimorfismo atraves de
- * um Enum.
+ * Representacao em interface do Strategy para informacoes de Aluno garantindo o uso de polimorfismo
+ * atraves de um Enum.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -13,17 +13,18 @@ import models.Aluno;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public interface AtributoStrategy {
+public interface InfoAlunoStrategy {
 	
 	/**
-	 * Metodo a ser implementado por Atributo. A existencia desse metodo na interface obrigara cada
-	 * valor de Atributo a implementar seu proprio getAtributo, garantindo o polimorfismo.
+	 * Metodo a ser implementado pelas classes. A existencia desse metodo na interface obrigara cada
+	 * valor de uma classe que implemente AlunoInfoStrategy a possuir seu proprio getInfo, garantindo
+	 * o polimorfismo.
 	 * 
-	 * @param aluno Um Aluno que tera um atributo recuperado
+	 * @param aluno Um Aluno que tera uma informacao recuperada.
 	 * 
-	 * @returns A representacao textual do atributo recuperado.
+	 * @returns A representacao textual da informacao recuperada.
 	 * 
 	 */
-	public String getAtributo(Aluno aluno);
+	public String getInfo(Aluno aluno);
 
 }

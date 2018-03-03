@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import models.AjudaPresencial;
 import models.Tutor;
-import models.Tutoria;
+import models.Habilidade;
 import utility.Validador;
 
 public class TutorController {
@@ -25,7 +25,7 @@ public class TutorController {
 	}
 	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
-			this.tutores.get(matricula).adicionarTutoria(disciplina, proficiencia);
+			this.tutores.get(matricula).adicionarHabilidade(disciplina, proficiencia);
 	}
 	
 	private void impedirTutorNaoCadastrado(String matricula, String msg) {
@@ -112,7 +112,7 @@ public class TutorController {
 		String matriculaMelhorTutor = "";
 		
 		for(Tutor tutor: tutores) {
-			for(Tutoria tutoria : tutor.getTutorias()) {
+			for(Habilidade tutoria : tutor.getHabilidades()) {
 				if(tutoria.getProficiencia() >= maiorProficiencia) {
 					maiorProficiencia = tutoria.getProficiencia();
 					matriculaMelhorTutor = tutor.getMatricula();
@@ -127,7 +127,7 @@ public class TutorController {
 		String maiorProficiencia = "";
 		
 		for(Tutor tutor : this.tutoresToList()) {
-			if(tutor.tutorContainsTutorias(disciplina)) {
+			if(tutor.tutorContainsHabilidades(disciplina)) {
 				if(tutor.consultaHorario(horario, dia) && tutor.consultaLocal(localInteresse)) {
 					tutoresDisponiveis.add(tutor);
 				}

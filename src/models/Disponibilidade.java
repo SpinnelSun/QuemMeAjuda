@@ -43,7 +43,7 @@ public class Disponibilidade {
 	}
 	
 	/**
-	 * Cria e adiciona um Horario ao conjunto de horarios da Disponibilidade a partir da hora e do
+	 * Cria e adiciona um Horario ao conjunto de Horarios da Disponibilidade a partir da hora e do
 	 * dia do Horario passados como parametro.
 	 * 
 	 * @param hora A hora em que ha disponibilidade.
@@ -111,6 +111,4 @@ public class Disponibilidade {
 		return horarios;
 	}
 	
-	
-
 }

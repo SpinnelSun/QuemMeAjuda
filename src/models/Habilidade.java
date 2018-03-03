@@ -3,30 +3,30 @@ package models;
 import utility.Validador;
 
 /**
-* Representacao de uma Tutoria como sendo uma disciplina de tutor.
-* Como atributos, cada Tutoria possui o nome da disciplina e a proficiencia na mesma.
-* 
-* Laboratorio de Programacao 2 - Projeto - Quem me ajuda
+ * Representacao de uma Habilidade de um Tutor. Como atributos, cada Habilidade possui o nome de uma
+ * disciplina e a proficiencia do Tutor na mesma.
+ * 
+ * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
  * @author Mateus de Lima Oliveira  - 117110219
- * @author Misael Augusto Silva da Costa - 117110525
  * @author Matheus Alves dos Santos - 117110503
-*
-*/
-public class Tutoria {
+ * @author Misael Augusto Silva da Costa - 117110525
+ *
+ */
+public class Habilidade {
 	
 	private String disciplina;
 	private int proficiencia;
 	
 	/**
-	 * Constroi uma Tutoria a partir do nome da disciplina e da proficiencia.
-	 * Nao eh permitido criar tutorias com nome e proficiencia vazios ou nulos.
+	 * Constroi uma Habilidade a partir do nome da disciplina e da proficiencia nela. Nao e permitida
+	 * a criacao de Habilidades com disciplina vazia ou nula, tampouco com proficiencia nao-positiva.
 	 * 
-	 * @param disciplina O nome da disciplina.
-	 * @param proficiencia A media de avaliacao do tutor nessa disciplina.
+	 * @param disciplina O nome da disciplina da Habilidade.
+	 * @param proficiencia O nivel de proficiencia da Habilidade.
 	 * 
 	 */
-	public Tutoria(String disciplina, int proficiencia) {
+	public Habilidade(String disciplina, int proficiencia) {
 		Validador.validarStringNaoVaziaNaoNula("Disciplina nao pode ser vazia ou nula", disciplina);
 		Validador.validarIntUmACinco("Proficiencia invalida", proficiencia);
 		
@@ -43,9 +43,9 @@ public class Tutoria {
 	}
 	
 	/**
-	 * Gera o HashCode de uma Tutoria a partir de seu atributo disciplina.
+	 * Define o HashCode de uma Habilidade a partir da String armazenada no atributo disciplina.
 	 * 
-	 * @returns O Hashcode de Tutoria.
+	 * @returns O HashCode da Habilidade.
 	 * 
 	 */
 	@Override
@@ -59,18 +59,19 @@ public class Tutoria {
 	}
 
 	/**
-	 * Avalia se o Tutoria eh ou nao igual a outro Object. Para que haja igualdade, deverao possuir 
-	 * o atributo disciplina iguais.
+	 * Avalia a igualdade entre a Habilidade executando o metodo e outro Object. Para que haja igual-
+	 * dade, ambos devem ser o mesmo objeto ou o Object devera ser uma outra Habilidade com as mesmas
+	 * Strings no atributo nome.
 	 * 
-	 * @param obj O objeto a ser comparado com o Tutoria executando o equals.
+	 * @param obj O objeto cuja igualdade sera avaliada.
 	 * 
-	 * @returns O boolean equivalente ao resultado do teste de igualdade.
+	 * @returns O boolean referente a avaliacao de igualdade.
 	 * 
 	 */
 	@Override
 	public boolean equals(Object object) {
 		
-		Tutoria other = (Tutoria) object;
+		Habilidade other = (Habilidade) object;
 		
 		if (this == object) { return true; }
 		
@@ -82,10 +83,11 @@ public class Tutoria {
 		
 		return false;
 	}
+	
 	/**
-	 * Retorna a String que representa a Tutoria. 
+	 * Retorna a representacao textual de uma Habilidade. Segue o padrao DISCIPLINA - PROFICIENCIA.
 	 * 
-	 * @returns A representacao, em String, da Tutoria.
+	 * @returns A representacao textual de uma Habilidade.
 	 * 
 	 */
 	@Override

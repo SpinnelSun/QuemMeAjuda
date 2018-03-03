@@ -7,15 +7,15 @@ import org.junit.Test;
 
 public class TutoriaTest {
 	
-	private Tutoria tutoria1;
-	private Tutoria tutoria2;
-	private Tutoria tutoria3;
+	private Habilidade tutoria1;
+	private Habilidade tutoria2;
+	private Habilidade tutoria3;
 	
 	@Before
 	public void criarTutoria() {
-		this.tutoria1 = new Tutoria(" Programacao 2 ", 5);
-		this.tutoria2 = new Tutoria("Programacao 1", 5);
-		this.tutoria3 = new Tutoria("Programacao 2", 4);
+		this.tutoria1 = new Habilidade(" Programacao 2 ", 5);
+		this.tutoria2 = new Habilidade("Programacao 1", 5);
+		this.tutoria3 = new Habilidade("Programacao 2", 4);
 	}
 
 	@Test
@@ -51,31 +51,31 @@ public class TutoriaTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaDisciplinaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja disciplina esteja vazia.";
-		Tutoria tutoria = new Tutoria("", 5);
+		Habilidade tutoria = new Habilidade("", 5);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarTutoriaDisciplinaNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja disciplina seja null.";
-		Tutoria tutoria = new Tutoria(null, 5);
+		Habilidade tutoria = new Habilidade(null, 5);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaProficienciaNegativa() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja proficiencia seja negativa.";
-		Tutoria tutoria = new Tutoria("Programacao 2", -1);
+		Habilidade tutoria = new Habilidade("Programacao 2", -1);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaProficienciaZero() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja proficiencia seja zero.";
-		Tutoria tutoria = new Tutoria("Programacao 2", 0);
+		Habilidade tutoria = new Habilidade("Programacao 2", 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaProficienciaMaior() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria com proficiencia maior que 5.";
-		Tutoria tutoria = new Tutoria("Programacao 2", 6);
+		Habilidade tutoria = new Habilidade("Programacao 2", 6);
 	}
 
 }

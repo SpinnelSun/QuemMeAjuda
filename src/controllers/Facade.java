@@ -200,11 +200,11 @@ public class Facade {
 	}
 	
 	public int pedirAjudaPresencial (String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
-		return this.sistema.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
+		return Facade.sistema.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
 	}
 	
 	public int pedirAjudaOnline (String matrAluno, String disciplina) {
-		return this.sistema.pedirAjudaOnline(matrAluno, disciplina);
+		return Facade.sistema.pedirAjudaOnline(matrAluno, disciplina);
 	}
 	
 	public String pegarTutor(int idAjuda) {

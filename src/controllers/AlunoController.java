@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
 
-import models.AtributoAluno;
+import models.InfoAluno;
 import models.Aluno;
 
 
@@ -64,7 +64,7 @@ public class AlunoController {
 	
 	public String getInfoAluno(String matricula, String atributo) {
 		this.impedirAlunoNaoCadastrado(matricula, "Aluno nao encontrado");
-		return AtributoAluno.valueOf(atributo.toUpperCase()).getAtributo(this.alunos.get(matricula));			
+		return InfoAluno.valueOf(atributo.toUpperCase()).getInfo(this.alunos.get(matricula));			
 	}
 
 }

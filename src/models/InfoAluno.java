@@ -1,10 +1,10 @@
 package models;
 
-import views.AtributoStrategy;
+import views.InfoAlunoStrategy;
 
 /**
- * Enumeracao dos atributos possuidos por um Aluno. Cada Atributo e definido a partir de uma String
- * que representa seu nome.
+ * Enumeracao das informacoes possuidas por um Aluno. Cada valor de InfoAluno e definido a partir
+ * de uma String que representa seu nome.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -13,71 +13,71 @@ import views.AtributoStrategy;
  * @author Matheus Alves dos Santos - 117110503
  *
  */
-public enum AtributoAluno implements AtributoStrategy {
+public enum InfoAluno implements InfoAlunoStrategy {
 	
-	NOME("Nome") {
+	NOME("NOME") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return aluno.getNome();
 		}		
 	},
 	
-	TELEFONE("Telefone") {
+	TELEFONE("TELEFONE") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return aluno.getTelefone();
 		}	
 	},
 	
-	EMAIL("Email") {
+	EMAIL("EMAIL") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return aluno.getEmail();
 		}
 	},
 	
-	MATRICULA("Matricula") {
+	MATRICULA("MATRICULA") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return aluno.getMatricula();
 		}
 	},
 	
-	CURSO("Codigo do Curso") {
+	CURSO("CODIGO DO CURSO") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return Integer.toString(aluno.getCodigoCurso());
 		}
 	},
 	
-	NOTA("Nota") {
+	NOTA("NOTA") {
 		@Override
-		public String getAtributo(Aluno aluno) {
+		public String getInfo(Aluno aluno) {
 			return Double.toString(aluno.getNota());
 		}
 	};
 	
-	private String atributo;
+	private String informacao;
 	
 	/**
-	 * Constroi um Atributo a partir de uma String que o defina.
+	 * Constroi um valor de InfoAluno a partir de uma String que o defina.
 	 * 
-	 * @param estado A String que nomeia o Atributo.
+	 * @param estado A String que nomeia o valor de InfoAluno.
 	 * 
 	 */
-	AtributoAluno(String atributo) {
-		this.atributo = atributo;
+	InfoAluno(String nomeInfo) {
+		this.informacao = nomeInfo;
 	}
 	
 	/**
-	 * Retorna a String que define o Atributo.
+	 * Retorna a String que define o valor de InfoAluno.
 	 * 
-	 * @returns A representacao textual de um Atributo.
+	 * @returns A representacao textual de um valor de InfoAluno.
 	 * 
 	 */
 	@Override
 	public String toString() {
-		return this.atributo;
+		return this.informacao;
 	}
 
 }
