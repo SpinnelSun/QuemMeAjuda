@@ -1,13 +1,17 @@
 package controllers;
 
+import models.AjudaPresencial;
+
 public class Sistema {
 	
 	private AlunoController controladorAluno;
 	private TutorController controladorTutor;
+	private AjudaController controladorAjuda;
 		
 	public Sistema() {
 		this.controladorAluno = new AlunoController();
 		this.controladorTutor = new TutorController();
+		this.controladorAjuda = new AjudaController();
 	}
 	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
@@ -111,6 +115,20 @@ public class Sistema {
 	
 	public boolean consultaLocal(String email, String local) {
 		return this.controladorTutor.consultaLocal(email, local);
+	}
+	
+	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
+		return this.controladorAjuda.pedirAjudaPresencial(matriculaAluno, disciplina, horario, dia, localInteresse);
+	}
+	
+	public int pedirAjudaOnline (String matriculaAluno, String disciplina) {
+		return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina);
+	}
+	
+	public String pegarTutor(int idAjuda) {
+		//AQUI PRECISA FAZER UM ENUM PRO GETINFOAJUDA PRA PEGAR OS DADOS DE Ajuda A PARTIR DO ID E JOGAR PRA escolherTutor
+		//this.controladorTutor.escolheTutor(disciplina, horario, dia, localInteresse) ;
+		return null;
 	}
 
 }

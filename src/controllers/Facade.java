@@ -199,12 +199,12 @@ public class Facade {
 		return Facade.sistema.consultaLocal(email, local);
 	}
 	
-	public int pedirAjudaPresencial (String disciplina, String horario, String dia, String localInteresse) {
-		return 0;
+	public int pedirAjudaPresencial (String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
+		return this.sistema.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
 	}
 	
-	public int pedirAjudaOnline (String disciplina) {
-		return 0;
+	public int pedirAjudaOnline (String matrAluno, String disciplina) {
+		return this.sistema.pedirAjudaOnline(matrAluno, disciplina);
 	}
 	
 	public String pegarTutor(int idAjuda) {
