@@ -1,46 +1,47 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-
 /**
-* Representacao de um Tutor.
-* Como atributos, cada Tutor possui o nome, telefone, matricula, codigo do curso, email, proficiencias, 
-* disciplinas (tutorias) e disponibilidade.
-* 
-* Laboratorio de Programacao 2 - Projeto - Quem me ajuda
+ * Representacao de um Tutor no sistema do Quem Me Ajuda. Como atributos, cada Tutor possui o nome,
+ * o telefone, o email e a matricula representados em Strings, a quantidade de dinheiro recebido e
+ * o codigo de seu curso representados em int, sua nota de avaliacao em double, alem de sua Disponi-
+ * bilidade e um conjunto de Habilidades.
+ * 
+ * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
  * @author Mateus de Lima Oliveira  - 117110219
- * @author Misael Augusto Silva da Costa - 117110525
  * @author Matheus Alves dos Santos - 117110503
-*
-*/
-public class Tutor extends Aluno {
+ * @author Misael Augusto Silva da Costa - 117110525
+ *
+ */
+public class Tutor extends Academico {
 	
+	private double nota;
 	private int dinheiroRecebido;
-	private Set<Tutoria> tutorias;
+	private Set<Habilidade> habilidades;
 	private Disponibilidade disponibilidade;
 	
-	
 	/**
-	 * Constroi um Tutor a partir do nome, telefone, matricula, codigo do curso, email.
-	 * Nao eh permitido criar apostas de pessoa com atributos vazio ou nulo (alem de telefone).
+	 * Constroi um Tutor a partir de seu nome, de seu telefone, de sua matricula, do codigo de seu
+	 * curso e de seu email. Nao e permitida a criacao de Tutores com atributos vazios e/ou nulos.
+	 * Excetua-se o telefone, que podera ser uma String vazia (telefone nao informado). O codigo do
+	 * curso nao podera ser inferior a 1. O dinheiro recebido pelo Tutor sera, inicialmente, zero.
+	 * A principio, nao existem Habilidades cadastradas. A nota do Tutor sera, inicialmente, 4.0.
 	 * 
-	 * @param nome O nome da pessoa.
-	 * @param matricula A matricula do tutor
-	 * @param codigoCurso O codigo do curso do Tutor
-	 * @param telefone O numero do telefone do tutor.
+	 * @param nome O nome do Tutor.
+	 * @param matricula A matricula do Tutor.
+	 * @param codigoCurso O codigo do curso do Tutor.
+	 * @param telefone O numero do telefone do Tutor.
 	 * @param email O email do tutor.
 	 * 
 	 */
 	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email) {
-		super(nome, matricula, codigoCurso, telefone, email);
+		super(nome, telefone, email, matricula, codigoCurso);
 			
 		this.dinheiroRecebido = 0;
-		this.tutorias = new HashSet<Tutoria>();
+		this.habilidades = new HashSet<Habilidade>();
 		this.disponibilidade = new Disponibilidade();
 		
 		this.setNota(4.0);
@@ -50,90 +51,98 @@ public class Tutor extends Aluno {
 		return this.dinheiroRecebido;
 	}
 	
+	public double getNota() {
+		return this.nota;
+	}
+
+	public void setNota(double nota) {
+		this.nota = nota;
+	}
+	
 	/**
-	 * Verifica se tutor ja contem determinada tutoria
+	 * Impede o cadastro de uma Habilidade repetida no Tutor atraves do lancamento de excecao.
 	 * 
-	 * 
-	 * @param disciplina Disciplina a ser verificada
-	 * @param proficiencia Proficiencia da disciplina a ser verificada 
+	 * @param disciplina O nome da disciplina a ser cadastrada.
+	 * @param proficiencia O nivel de proficiencia na disciplina a ser cadastrada. 
 	 * 
 	 * @returns null
 	 * 
 	 */
-	private void verificaTutoriaRepetida(String disciplina, int proficiencia) {
-		if (this.tutorias.contains(new Tutoria(disciplina, proficiencia))) {
+	private void impedirHabilidadeRepetida(String disciplina, int proficiencia) {
+		if (this.habilidades.contains(new Habilidade(disciplina, proficiencia))) {
 			throw new IllegalArgumentException("Ja eh tutor dessa disciplina");
 		}
 	}
 	
 	/**
-	 * Adiciona uma nova Tutoria ao Tutor
+	 * Adiciona uma nova Habilidade ao conjunto de Habilidades possuidas pelo Tutor.
 	 * 
-	 * 
-	 * @param disciplina Disciplina a ser adicionada
-	 * @param proficiencia Proficiencia da disciplina a ser adicionada
+	 * @param disciplina A nome da disciplina a ser cadastrada.
+	 * @param proficiencia O nivel de proficiencia na disciplina a ser cadastrada. 
 	 *  
 	 * @returns null
 	 * 
 	 */
-	public void adicionarTutoria(String disciplina, int proficiencia) {
-		this.verificaTutoriaRepetida(disciplina, proficiencia);
-		this.tutorias.add(new Tutoria(disciplina, proficiencia));
+	public void adicionarHabilidade(String disciplina, int proficiencia) {
+		this.impedirHabilidadeRepetida(disciplina, proficiencia);
+		this.habilidades.add(new Habilidade(disciplina, proficiencia));
 	}
 
+
 	/**
-	 * Cadastra horario de atendimento do tutor aos demais alunos.  
+	 * Adiciona um novo Horario na Disponibilidade do Tutor.
 	 * 
-	 * @param email Email do tutor.
-	 * @param horario Horario disponivel para atendimento.
-	 * @param dia Dia que sero disponibilizadas as tutorias. 
+	 * @param hora A hora disponivel para atendimento do Tutor.
+	 * @param dia O dia da semana em que a hora esta disponivel. 
 	 * 
 	 * @returns null
+	 * 
 	 */
-	public void cadastrarHorario(String horario, String dia) {
-		this.disponibilidade.adicionarHorario(horario, dia);
+	public void cadastrarHorario(String hora, String dia) {
+		this.disponibilidade.adicionarHorario(hora, dia);
 	}
 	
 	/**
-	 * Cadastra local de atendimento do tutor aos demais alunos.  
+	 * Adiciona um novo Local na Disponibilidade do Tutor.
 	 * 
-	 * @param email Email do tutor.
-	 * @param local Local disponivel para atendimento dos alunos.
+	 * @param local O nome do local disponivel para atendimento do Tutor. 
 	 * 
 	 * @returns null
+	 * 
 	 */
 	public void cadastrarLocalDeAtendimento(String local) {
 		this.disponibilidade.adicionarLocal(local);
 	}
 	
 	/**
-	 * Verifica horario de atendimento do tutor aos demais alunos, caso o horario e dia estejam disponiveis eh retornado True, se nao, eh 
-	 * retornado False.  
+	 * Verifica se o Tutor esta disponivel em um determinado Horario da semana. O metodo retornara
+	 * o boolean referente a existencia da disponibilidade no Horario verificado.
 	 * 
-	 * @param horario Horario disponivel para atendimento.
-	 * @param dia Dia que sero disponibilizadas as tutorias. 
+	 * @param hora A hora cuja disponibilidade sera verificada.
+	 * @param dia O dia da semana cuja disponibilidade sera verificada. 
 	 * 
-	 * @returns boolean True se houver o horario ou False se no houver.
+	 * @returns O boolean referente a disponibilidade do Horario.
+	 * 
 	 */
 	public boolean consultaHorario(String horario, String dia) {
 		return this.disponibilidade.verificarHorarioCadastrado(horario, dia);
 	}
 	
 	/**
-	 * Verifica o local de atendimento do tutor aos demais alunos, caso o local esteja correto e retornado True, se nao, e 
-	 * retornado False.
+	 * Verifica se o Tutor esta disponivel para atender em um determinado Local. O metodo retornara
+	 * o boolean referente a existencia da disponibilidade para o Local verificado.
 	 * 
-	 * @param local Local disponivel para atendimento dos alunos.
+	 * @param local O nome do local cuja disponibilidade sera verificada. 
 	 * 
-	 * @returns boolean True se houver o local registrado ou False se no houver.
+	 * @returns O boolean referente a disponibilidade do Local.
+	 * 
 	 */
 	public boolean consultaLocal(String local) {
 		return this.disponibilidade.verificarLocalCadastrado(local);
 	}
 	
-	public boolean tutorContainsTutorias(String disciplina){
-		List<Tutoria> tutorias = new ArrayList<>();
-		for(Tutoria tutoria : this.tutorias) {
+	public boolean tutorContainsHabilidades(String disciplina){
+		for(Habilidade tutoria : this.habilidades) {
 			if(tutoria.getDisciplina().equals(disciplina)) {
 				return true;
 			}
@@ -145,12 +154,8 @@ public class Tutor extends Aluno {
 		return disponibilidade;
 	}
 
-	public Set<Tutoria> getTutorias() {
-		return tutorias;
+	public Set<Habilidade> getHabilidades() {
+		return habilidades;
 	}
-	
-	
-	
-	
 	
 }
