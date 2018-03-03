@@ -7,12 +7,13 @@ import java.util.Comparator;
 import org.junit.Before;
 import org.junit.Test;
 
+import models.Academico;
 import models.Aluno;
-import controllers.AlunoPorNome;
+import controllers.AcademicoPorNome;
 
 public class AlunoPorNomeTest {
 	
-	private Comparator<Aluno> comparator;
+	private Comparator<Academico> comparator;
 	
 	private Aluno aluno1;
 	private Aluno aluno2;
@@ -20,7 +21,7 @@ public class AlunoPorNomeTest {
 	
 	@Before
 	public void criaAlunoPorNome() {
-		this.comparator = new AlunoPorNome();
+		this.comparator = new AcademicoPorNome();
 		
 		this.aluno1 = new Aluno("A", "1", 1, "00000-0000", "a@email.com");
 		this.aluno2 = new Aluno("B", "2", 1, "00000-0000", "b@email.com");

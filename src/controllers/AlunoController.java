@@ -7,17 +7,18 @@ import java.util.HashMap;
 import java.util.Comparator;
 
 import models.InfoAluno;
+import models.Academico;
 import models.Aluno;
 
 
 public class AlunoController {
 	
 	private Map<String, Aluno> alunos;
-	private Comparator<Aluno> ordenadorAlunos;
+	private Comparator<Academico> ordenadorAlunos;
 	
 	public AlunoController() {
 		this.alunos = new HashMap<String, Aluno>();
-		this.ordenadorAlunos = new AlunoPorNome();
+		this.ordenadorAlunos = new AcademicoPorNome();
 	}
 	
 	private void impedirCadastroAlunoRepetido(String matricula, String msg) {
