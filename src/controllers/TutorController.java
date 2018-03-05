@@ -20,7 +20,9 @@ public class TutorController {
 		
 	public void criarNovoTutor(String matricula, String nome, String codigoCurso, String telefone, String email) {
 		if (!this.tutores.containsKey(matricula)) {
-			this.tutores.put(matricula, new Tutor(nome, matricula, Integer.parseInt(codigoCurso), telefone, email));
+			
+			this.tutores.put(matricula, new Tutor(nome, matricula, Integer.parseInt(codigoCurso), telefone,
+							 email, this.tutores.size() + 1));
 		}
 	}
 	
@@ -134,8 +136,5 @@ public class TutorController {
 			}
 		}
 		return this.melhorProficiencia(tutoresDisponiveis);
-	}
-	
-	
-	
+	}	
 }

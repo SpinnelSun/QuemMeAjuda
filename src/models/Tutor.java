@@ -19,6 +19,7 @@ import java.util.Set;
 public class Tutor extends Academico {
 	
 	private double nota;
+	private int numeroCadastro;
 	private int dinheiroRecebido;
 	private Set<Habilidade> habilidades;
 	private Disponibilidade disponibilidade;
@@ -37,7 +38,8 @@ public class Tutor extends Academico {
 	 * @param email O email do tutor.
 	 * 
 	 */
-	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email) {
+	public Tutor(String nome, String matricula, int codigoCurso, String telefone, String email,
+				 int numeroCadastro) {
 		super(nome, telefone, email, matricula, codigoCurso);
 			
 		this.dinheiroRecebido = 0;
@@ -149,13 +151,29 @@ public class Tutor extends Academico {
 		}
 		return false;
 	}
-
+	
 	public Disponibilidade getDisponibilidade() {
 		return disponibilidade;
 	}
 
 	public Set<Habilidade> getHabilidades() {
 		return habilidades;
+	}
+	
+	public void adicionarAvaliacao(int nota) {
+		this.setNota(((this.getNota() * 5) + nota) / 6);
+	}
+	
+	public String getNivel() {
+		if (this.nota <= 3.0) { return NivelAvaliacao.BAIXO.toString(); }
+		
+		if (this.nota <= 4.5) { return NivelAvaliacao.MEDIO.toString(); }
+		
+		return NivelAvaliacao.ALTO.toString();
+	}
+	
+	public void adicionarDoacao(int dinheiro) {
+		this.dinheiroRecebido += dinheiro;
 	}
 	
 }
