@@ -20,53 +20,58 @@ public class TutorControllerTest {
 	
 	@Test
 	public void quantTutorTest() {
+		String msg = "Avaliacao da quantidade de tutores registrados.";
 		assertTrue(1 == tutorController.quantTudores());
 	}
 	
 	@Test
 	public void criarNovoTutorTest() {
+		String msg = "Avaliacao do armazenamento adequado de Tutor.";
 		tutorController.criarNovoTutor("000000000", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
-		assertTrue(2 == tutorController.quantTudores());
+		tutorController.criarNovoTutor("000000001", "Otavio Rocha Alvez", "2", "", "otavio@gmail.com");
+		assertTrue(3 == tutorController.quantTudores());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void criarNovoTutorSemMatriculaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar criar um Tutor cuja matricula seja uma String vazia.";
 		tutorController.criarNovoTutor("", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
 		assertTrue(1 == tutorController.quantTudores());
-	}
-	
-	@Test
-	public void criarNovoTutorNumeroVazioTest() {
-		tutorController.criarNovoTutor("000000000", "Otavio Rocha Alvez", "2", "", "otavio@gmail.com");
-	}
+	}	
 	
 	@Test
 	public void tornarTutorTest() {
+		String msg = "Avaliacao do funcionamento de tornar um Aluno Tutor.";
 		tutorController.tornarTutor("111111111", "ATAl", 4);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void tornarTutorMatriculaInvalidaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula não esteja cadastrada.";
 		tutorController.tornarTutor("000000000", "ATAl", 4);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void tornarTutorMatriculaVaziaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula seja vazia.";
 		tutorController.tornarTutor("", "ATAl", 4);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void tornarTutorProficienciaNegativaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com proficiencia seja negativa.";
 		tutorController.tornarTutor("111111111", "ATAl", -4);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void tornarTutorProficienciaZeroTest() {
-		tutorController.tornarTutor("111111111", "ATAl", -4);
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com proficiencia seja zero.";
+		tutorController.tornarTutor("111111111", "ATAl", 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void tornarTutorDisciplinaVaziaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com disciplina seja vazia.";
 		tutorController.tornarTutor("111111111", "", 4);
 	}
 	
@@ -78,31 +83,37 @@ public class TutorControllerTest {
 	
 	@Test
 	public void recuperaTutorTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("111111111"));
+		String msg = "Avaliacao da representação textual de um tutor.";
+		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("111111111"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void recuperaTutorMatriculaInvalidaTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("110111111"));
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um tutor com matricula não esteja cadastrada.";
+		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("110111111"));
 	}
 	
 	@Test
 	public void listarTutoresTest() {
+		String msg = "Avaliacao da lista de representações textuais dos tutores cadastrados.";
 		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.listarTutores());
 	}
 	
 	@Test
 	public void cadastrarHorarioTest() {
+		String msg = "Avaliacao do funcionamento do cadastro de horario do Tutor.";
 		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", "Seg");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarHorarioEmailInvalidoTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com email não cadastrado.";
 		tutorController.cadastrarHorario("oavio@gmail.com", "15:30", "Seg");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarHorarioEmailVazioTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com email vazio.";
 		tutorController.cadastrarHorario("", "15:30", "Seg");
 	}
 	
@@ -114,6 +125,7 @@ public class TutorControllerTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarHorarioHoraVaziaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com a hora vazia.";
 		tutorController.cadastrarHorario("otavio@gmail.com", "", "Seg");
 	}
 	
@@ -125,6 +137,7 @@ public class TutorControllerTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarHorarioDiaVazioTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com dia vazio.";
 		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", "");
 	}
 	
@@ -136,26 +149,31 @@ public class TutorControllerTest {
 
 	@Test
 	public void cadastrarLocalDeAtendimentoTest() {
+		String msg = "Avaliacao do funcionamento do cadastro de local de atendimento do Tutor.";
 		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", "CAA");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarLocalDeAtendimentoEmailInvalidoTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email não cadastrado.";
 		tutorController.cadastrarLocalDeAtendimento("oavio@gmail.com", "CAA");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarLocalDeAtendimentoEmailVazioTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email vazio.";
 		tutorController.cadastrarLocalDeAtendimento("", "CAA");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void cadastrarLocalDeAtendimentoEmailNuloTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email nulo.";
 		tutorController.cadastrarLocalDeAtendimento(null, "CAA");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void cadastrarLocalDeAtendimentoLocalVazioTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor local vazio.";
 		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", "");
 	}
 	
@@ -167,27 +185,32 @@ public class TutorControllerTest {
 	
 	@Test
 	public void consultaHorarioTest() {
-		assertTrue(tutorController.consultaHorario("otavio@gmail.com", "15:30", "Seg") == true);
+		String msg = "Avaliacao da consulta do horario.";
+		assertTrue(msg,tutorController.consultaHorario("otavio@gmail.com", "15:30", "Seg") == true);
 	}
 	
 	@Test
 	public void consultaHorarioNaoDisponivelTest() {
-		assertFalse(tutorController.consultaHorario("otavio@gmail.com", "15:31", "Seg") == true);
+		String msg = "Avaliacao da consulta do horario com hora não disponivel.";
+		assertFalse(msg, tutorController.consultaHorario("otavio@gmail.com", "15:31", "Seg") == true);
 	}
 	
 	@Test
 	public void consultaHorarioDiaNaoDisponivelTest() {
-		assertFalse(tutorController.consultaHorario("otavio@gmail.com", "15:30", "Qua") == true);
+		String msg = "Avaliacao da consulta do horario com dia não disponivel.";
+		assertFalse(msg, tutorController.consultaHorario("otavio@gmail.com", "15:30", "Qua") == true);
 	}
 	
 	@Test
 	public void consultaLocalTest() {
-		assertTrue(tutorController.consultaLocal("otavio@gmail.com", "CAA") == true);
+		String msg = "Avaliacao da consulta do local de atendimento.";
+		assertTrue(msg, tutorController.consultaLocal("otavio@gmail.com", "CAA") == true);
 	}
 	
 	@Test
 	public void consultaLocalErradoTest() {
-		assertFalse(tutorController.consultaLocal("otavio@gmail.com", "CA") == true);
+		String msg = "Avaliacao da consulta do local de atendimento com local não disponivel.";
+		assertFalse(msg, tutorController.consultaLocal("otavio@gmail.com", "CA") == true);
 	}
 	
 }
