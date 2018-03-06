@@ -1,5 +1,7 @@
 package controllers;
 
+import java.text.DecimalFormat;
+
 import utility.Validador;
 
 public class Sistema {
@@ -239,7 +241,26 @@ public class Sistema {
 	}
 
 	public void doar(String matriculaTutor, int totalCentavos) {
-		this.controladorTutor.doar(matriculaTutor, totalCentavos);
+		
+		double valorTutor = 0;
+		double totalSistema = 0;
+		double notaTutor = this.controladorTutor.pegarNotaDouble(matriculaTutor);
+		
+		if(notaTutor> 4.5) {
+			totalSistema += 0.1 * totalCentavos;
+			valorTutor = (totalCentavos - totalSistema);
+			
+		}if(notaTutor <= 4.5 && notaTutor > 3) {
+			totalSistema += 0.2 * totalCentavos;
+			valorTutor = (totalCentavos - totalSistema);
+			
+		}if(notaTutor <= 3 && notaTutor > 0) {
+			totalSistema += 0.6 * totalCentavos;
+			valorTutor = (totalCentavos - totalSistema);
+		}
+		
+		this.caixa += Math.ceil(totalSistema);
+		this.controladorTutor.doar(matriculaTutor, (int)(valorTutor));
 	}
 	
 	public int getTotalDinheiroTutor(String emailTutor) {
