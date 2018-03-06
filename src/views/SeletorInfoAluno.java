@@ -13,7 +13,7 @@ import models.Aluno;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public interface InfoAlunoStrategy {
+public interface SeletorInfoAluno {
 	
 	/**
 	 * Metodo a ser implementado pelas classes. A existencia desse metodo na interface obrigara cada

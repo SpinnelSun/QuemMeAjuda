@@ -23,7 +23,7 @@ public class HorarioTest {
 	@Test
 	public void testHorario() {
 		String msg = "Avaliacao do armazenamento adequado da hora de um Horario.";
-		assertEquals(msg, this.horario1.getHorario(), "00:00");
+		assertEquals(msg, this.horario1.getHora(), "00:00");
 		
 		String msg2 = "Avaliacao do armazenamento adequado do dia de um Horario.";
 		assertEquals(msg2, this.horario1.getDia(), "Segunda");

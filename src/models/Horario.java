@@ -16,7 +16,7 @@ import utility.Validador;
  */
 public class Horario {
 	
-	private String horario;
+	private String hora;
 	private String dia;
 	
 	
@@ -24,20 +24,20 @@ public class Horario {
 	 * Constroi um Horario a partir da hora e do dia da semana que o especificam. Nao e permitida a 
 	 * criacao de Horarios cuja hora e/ou dia seja null ou uma String vazia.
 	 * 
-	 * @param horario A hora do Horario.
+	 * @param hora A hora do Horario.
 	 * @param dia O dia do Horario.
 	 * 
 	 */
-	public Horario(String horario, String dia) {
-		Validador.validarStringNaoVaziaNaoNula("horario nao pode ser vazio ou em branco", horario);
+	public Horario(String hora, String dia) {
+		Validador.validarStringNaoVaziaNaoNula("horario nao pode ser vazio ou em branco", hora);
 		Validador.validarStringNaoVaziaNaoNula("dia nao pode ser vazio ou em branco", dia);
 		
-		this.horario = horario.trim();
+		this.hora = hora.trim();
 		this.dia = dia.trim();
 	}
 
-	public String getHorario() {
-		return this.horario;
+	public String getHora() {
+		return this.hora;
 	}
 
 	public String getDia() {
@@ -56,7 +56,7 @@ public class Horario {
 		int result = 1;
 		
 		result = prime * result + ((this.dia == null) ? 0 : this.dia.hashCode());
-		result = prime * result + ((this.horario == null) ? 0 : this.horario.hashCode());
+		result = prime * result + ((this.hora == null) ? 0 : this.hora.hashCode());
 		
 		return result;
 	}
@@ -82,7 +82,7 @@ public class Horario {
 		
 		if (getClass() != obj.getClass()) { return false; }
 		
-		if (this.dia.equals(other.dia) && (this.horario.equals(other.horario))) {
+		if (this.dia.equals(other.dia) && (this.hora.equals(other.hora))) {
 			return true;
 		}
 		
@@ -97,7 +97,7 @@ public class Horario {
 	 */
 	@Override
 	public String toString() {
-		return this.getHorario() + " - " + this.getDia();
+		return this.getHora() + " - " + this.getDia();
 	}
 
 }

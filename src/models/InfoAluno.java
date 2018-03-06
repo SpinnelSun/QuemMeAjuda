@@ -1,6 +1,6 @@
 package models;
 
-import views.InfoAlunoStrategy;
+import views.SeletorInfoAluno;
 
 /**
  * Enumeracao das informacoes possuidas por um Aluno. Cada valor de InfoAluno e definido a partir
@@ -13,7 +13,7 @@ import views.InfoAlunoStrategy;
  * @author Matheus Alves dos Santos - 117110503
  *
  */
-public enum InfoAluno implements InfoAlunoStrategy {
+public enum InfoAluno implements SeletorInfoAluno {
 	
 	NOME("NOME") {
 		@Override
@@ -57,7 +57,7 @@ public enum InfoAluno implements InfoAlunoStrategy {
 		}
 	};
 	
-	private String informacao;
+	private String nomeInfo;
 	
 	/**
 	 * Constroi um valor de InfoAluno a partir de uma String que o defina.
@@ -66,7 +66,7 @@ public enum InfoAluno implements InfoAlunoStrategy {
 	 * 
 	 */
 	InfoAluno(String nomeInfo) {
-		this.informacao = nomeInfo;
+		this.nomeInfo = nomeInfo;
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public enum InfoAluno implements InfoAlunoStrategy {
 	 */
 	@Override
 	public String toString() {
-		return this.informacao;
+		return this.nomeInfo;
 	}
 
 }
