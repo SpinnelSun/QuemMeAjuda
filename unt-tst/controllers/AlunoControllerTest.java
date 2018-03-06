@@ -63,7 +63,7 @@ public class AlunoControllerTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoMatriculaInvalidaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula não cadastrada.";
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula nao cadastrada.";
 		assertEquals(msg, "Otavio Rocha Alvez", alunoController.getInfoAluno("110111111", "nome"));
 	}
 	
