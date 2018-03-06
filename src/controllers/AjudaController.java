@@ -9,28 +9,31 @@ import models.AjudaPresencial;
 
 public class AjudaController {
 	
-	static int numAjudas = 0;
 	private Map<Integer, Ajuda> ajudas;
-	
 	
 	public AjudaController() {
 		this.ajudas = new HashMap<Integer, Ajuda>();
 	}
 	
-	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
-		AjudaPresencial novaAjuda = new AjudaPresencial(matriculaAluno, disciplina, horario, dia, localInteresse);	
-		this.numAjudas++;
-		return numAjudas;
+	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String hora, String dia,
+									 String local, String matriculaTutor) {
+		
+		this.ajudas.put(this.ajudas.size() + 1, new AjudaPresencial(matriculaAluno, disciplina, hora, dia,
+						local, matriculaTutor));
+		
+		return this.ajudas.size();
 	}
 	
-	public int pedirAjudaOnline (String matriculaAluno, String disciplina) {
-		AjudaOnline novaAjuda = new AjudaOnline(matriculaAluno, disciplina);	
-		this.numAjudas++;
-		return numAjudas;
+	public int pedirAjudaOnline (String matriculaAluno, String disciplina, String matriculaTutor) {
+		this.ajudas.put(this.ajudas.size() + 1, new AjudaOnline(matriculaAluno, disciplina, matriculaTutor));
+		return this.ajudas.size();
 	}
 
-	public String addTutor(int idAjuda) {
-		return null;
+	public String pegarTutor(int idAjuda) {
+		return this.ajudas.get(idAjuda).getMatriculaTutor();
 	}
-
+	
+	String getInfoAjuda(int idAjuda, String atributo) {
+		return this.ajudas.get(idAjuda).getInfo(atributo);
+	}
 }

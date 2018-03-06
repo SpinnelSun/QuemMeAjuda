@@ -1,37 +1,46 @@
 package models;
 
-public class AjudaPresencial extends Ajuda{
+import utility.Validador;
 
-	private String horario;
-	private String dia;
-	private String localInteresse;
+public class AjudaPresencial extends Ajuda {
+
+	private Horario horario;
+	private Local local;
 	
-	public AjudaPresencial(String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
+	public AjudaPresencial(String matriculaAluno, String disciplina, String hora, String dia, String local,
+						   String matriculaTutor) {
 		
-		super(matrAluno, localInteresse);
-		this.horario = horario;
-		this.dia = dia;
-		this.localInteresse = localInteresse;
+		super(matriculaAluno, disciplina, matriculaTutor);
 		
+		Validador.validarStringNaoVaziaNaoNula("horario nao pode ser vazio ou em branco", hora);
+		Validador.validarStringNaoVaziaNaoNula("dia nao pode ser vazio ou em branco", dia);
+		Validador.validarStringNaoVaziaNaoNula("local de interesse nao pode ser vazio ou em branco", local);
+		
+		this.horario = new Horario(hora, dia);
+		this.local = new Local(local);	
 	}
 
-	public String getHorario() {
-		return horario;
+	public String getHora() {
+		return this.horario.getHora();
 	}
 
 	public String getDia() {
-		return dia;
+		return this.horario.getDia();
 	}
 
-	public String getLocalInteresse() {
-		return localInteresse;
+	public String getLocal() {
+		return this.local.getNome();
+	}
+	
+	@Override
+	public String getInfo(String atributo) {
+		return InfoAjuda.valueOf(atributo.toUpperCase()).getInfo(this);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + ", horario -" +  this.getHorario() + ", dia - " +
-				this.getDia() + ", local - " + this.getLocalInteresse() + ", disciplina - " +
-				this.getDisciplina();
+		return "Tutor - " + this.getMatriculaTutor() + ", horario - " + this.getHora() + ", dia - " +
+				this.getDia() + ", local - " + this.getLocal() + ", disciplina - " + this.getDisciplina();
 	}
 	
 }
