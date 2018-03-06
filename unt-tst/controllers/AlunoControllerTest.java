@@ -18,7 +18,7 @@ public class AlunoControllerTest {
 	
 	@Test
 	public void criarNovoAlunoTest() {
-		String msg = "Avaliacao da criação e armazenamento de aluno.";
+		String msg = "Avaliacao da criaco e armazenamento de aluno.";
 		alunoController.cadastrarAluno("000000000", "Otavio Rocha Alvez", 2, "(00) 00000-0000", "otavio@gmail.com");
 		assertTrue(msg,2 == alunoController.quantAlunos());
 	}
@@ -30,7 +30,7 @@ public class AlunoControllerTest {
 
 	@Test
 	public void recuperaAlunoTest() {
-		String msg = "Avaliacao da representação textual de um Aluno.";
+		String msg = "Avaliacao da representaco textual de um Aluno.";
 		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno("111111111"));
 	}
 	
@@ -48,7 +48,7 @@ public class AlunoControllerTest {
 	
 	@Test
 	public void listarAlunosTest() {
-		String msg = "Avaliacao da lista de representações textuais dos alunos cadastrados.";
+		String msg = "Avaliacao da lista de representacões textuais dos alunos cadastrados.";
 		assertEquals(msg,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.listarAlunos());
 	}
 	
@@ -69,7 +69,7 @@ public class AlunoControllerTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoMatriculaVaziaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula não vazia.";
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula no vazia.";
 		assertEquals(msg, "Otavio Rocha Alvez", alunoController.getInfoAluno("", "nome"));
 	}
 	
@@ -93,7 +93,7 @@ public class AlunoControllerTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoAtributoInvalidoTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo não existente";
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo no existente";
 		assertEquals(msg,"Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", "idade"));
 	}
 

@@ -83,7 +83,7 @@ public class TutorControllerTest {
 	
 	@Test
 	public void recuperaTutorTest() {
-		String msg = "Avaliacao da representaço textual de um tutor.";
+		String msg = "Avaliacao da representaco textual de um tutor.";
 		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("111111111"));
 	}
 	
@@ -95,7 +95,7 @@ public class TutorControllerTest {
 	
 	@Test
 	public void listarTutoresTest() {
-		String msg = "Avaliacao da lista de representaçoes textuais dos tutores cadastrados.";
+		String msg = "Avaliacao da lista de representacoes textuais dos tutores cadastrados.";
 		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.listarTutores());
 	}
 	
