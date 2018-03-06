@@ -228,11 +228,11 @@ public class Facade {
     }
     
     public void doar(String matriculaTutor, int totalCentavos) {
-    	return;
+    	Facade.sistema.doar(matriculaTutor, totalCentavos);
     }
     
     public int totalDinheiroTutor(String emailTutor) {
-    	return 0;
+    	return Facade.sistema.getTotalDinheiroTutor(emailTutor);
     }
     
     public int totalDinheiroSistema() {

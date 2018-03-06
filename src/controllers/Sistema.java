@@ -151,4 +151,12 @@ public class Sistema {
 		return this.controladorTutor.pegarNivel(matriculaTutor);
 	}
 
+	public void doar(String matriculaTutor, int totalCentavos) {
+		this.controladorTutor.doar(matriculaTutor, totalCentavos);
+	}
+
+	public int getTotalDinheiroTutor(String emailTutor) {
+		return this.controladorTutor.getTotalDinheiro(emailTutor);
+	}
+
 }
