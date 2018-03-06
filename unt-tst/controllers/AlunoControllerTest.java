@@ -17,71 +17,84 @@ public class AlunoControllerTest {
 	}
 	
 	@Test
-	public void criarNovoTutorTest() {
+	public void criarNovoAlunoTest() {
+		String msg = "Avaliacao da criação e armazenamento de aluno.";
 		alunoController.cadastrarAluno("000000000", "Otavio Rocha Alvez", 2, "(00) 00000-0000", "otavio@gmail.com");
+		assertTrue(msg,2 == alunoController.quantAlunos());
 	}
 	
 	@Test//(expected = IllegalArgumentException.class)
-	public void criarNovoTutorMatriculaRepetidaTest() {
+	public void criarNovoAlunoMatriculaRepetidaTest() {
 		alunoController.cadastrarAluno("111111111", "Otavio Rocha Alvez", 2, "(00) 00000-0000", "otavio@gmail.com");
 	}
 
 	@Test
 	public void recuperaAlunoTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno("111111111"));
+		String msg = "Avaliacao da representação textual de um Aluno.";
+		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno("111111111"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void recuperaAlunoMatriculaVaziaTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno(""));
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um aluno com matricula vazia.";
+		assertEquals(msg,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno(""));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void recuperaAlunoMatriculaNulaTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno(null));
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um aluno com matricula nula.";
+		assertEquals(msg,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.recuperaAluno(null));
 	}
 	
 	@Test
 	public void listarAlunosTest() {
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.listarAlunos());
+		String msg = "Avaliacao da lista de representações textuais dos alunos cadastrados.";
+		assertEquals(msg,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com", alunoController.listarAlunos());
 	}
 	
 	@Test
 	public void getInfoAlunoTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", "nome"));
-		assertEquals("111111111", alunoController.getInfoAluno("111111111", "matricula"));
-		assertEquals("(00) 00000-0000", alunoController.getInfoAluno("111111111", "telefone"));
-		assertEquals("otavio@gmail.com", alunoController.getInfoAluno("111111111", "email"));
+		String msg = "Avaliacao do retorno adequado dos atributos de um Aluno cadastrado.";
+		assertEquals(msg, "Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", "nome"));
+		assertEquals(msg, "111111111", alunoController.getInfoAluno("111111111", "matricula"));
+		assertEquals(msg, "(00) 00000-0000", alunoController.getInfoAluno("111111111", "telefone"));
+		assertEquals(msg, "otavio@gmail.com", alunoController.getInfoAluno("111111111", "email"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoMatriculaInvalidaTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("110111111", "nome"));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula não cadastrada.";
+		assertEquals(msg, "Otavio Rocha Alvez", alunoController.getInfoAluno("110111111", "nome"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoMatriculaVaziaTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("", "nome"));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula não vazia.";
+		assertEquals(msg, "Otavio Rocha Alvez", alunoController.getInfoAluno("", "nome"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoMatriculaNulaTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno(null, "nome"));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar nome de um aluno com matricula nula.";
+		assertEquals(msg,"Otavio Rocha Alvez", alunoController.getInfoAluno(null, "nome"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoAtributoVazioTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", ""));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo vazio";
+		assertEquals(msg,"Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", ""));
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getInfoAlunoAtributoNuloTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", null));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo nulo";
+		assertEquals(msg,"Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", null));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoAtributoInvalidoTest() {
-		assertEquals("Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", "idade"));
+		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo não existente";
+		assertEquals(msg,"Otavio Rocha Alvez", alunoController.getInfoAluno("111111111", "idade"));
 	}
 
 }
