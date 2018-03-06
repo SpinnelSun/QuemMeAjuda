@@ -33,8 +33,8 @@ public class AjudaPresencial extends Ajuda {
 	}
 	
 	@Override
-	public String getInfo(String atributo, Ajuda ajuda) {
-		return InfoAjudaPresencial.valueOf(atributo.toUpperCase()).getInfo(ajuda);
+	public String getInfo(String atributo) {
+		return InfoAjudaPresencial.valueOf(atributo.toUpperCase()).getInfo(this);
 	}
 
 	@Override

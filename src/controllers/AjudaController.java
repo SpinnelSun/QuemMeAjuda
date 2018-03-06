@@ -36,7 +36,7 @@ public class AjudaController {
 	}
 	
 	public String getInfoAjuda(int idAjuda, String atributo) {
-		return this.ajudas.get(idAjuda).getInfo(atributo, this.ajudas.get(idAjuda));
+		return this.ajudas.get(idAjuda).getInfo(atributo);
 	}
 
 }

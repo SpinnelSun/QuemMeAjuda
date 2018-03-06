@@ -32,7 +32,7 @@ public abstract class Ajuda {
 		return matriculaTutor;
 	}
 	
-	public String getInfo(String atributo, Ajuda ajuda) {
+	public String getInfo(String atributo) {
 		return InfoAjuda.valueOf(atributo.toUpperCase()).getInfo(this);
 	}
 	

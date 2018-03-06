@@ -208,11 +208,11 @@ public class Facade {
 	}
 	
 	public String pegarTutor(int idAjuda) {
-		return "";
+		return Facade.sistema.pegarTutor(idAjuda);
 	}
 	
 	public String getInfoAjuda(int idAjuda, String atributo) {
-		return "";
+		return Facade.sistema.getInfo(idAjuda, atributo);
 	}
 	
     public String avaliarTutor (int idAjuda, int nota) {
