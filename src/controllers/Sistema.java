@@ -146,5 +146,9 @@ public class Sistema {
 	public String getInfo(int idAjuda, String atributo) {
 		return this.controladorAjuda.getInfoAjuda(idAjuda, atributo);
 	}
+	
+	public String pegarNivel(String matriculaTutor) {
+		return this.controladorTutor.pegarNivel(matriculaTutor);
+	}
 
 }
