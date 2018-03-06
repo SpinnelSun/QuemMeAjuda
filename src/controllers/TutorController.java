@@ -159,4 +159,8 @@ public class TutorController {
 		return 0;
 	}
 	
+	public String pegarNivel(String matriculaTutor) {
+		return tutores.get(matriculaTutor).getNivel();
+	}
+	
 }

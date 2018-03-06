@@ -224,7 +224,7 @@ public class Facade {
     }
     
     public String pegarNivel(String matriculaTutor) {
-    	return "";
+    	return Facade.sistema.pegarNivel(matriculaTutor);
     }
     
     public void doar(String matriculaTutor, int totalCentavos) {
