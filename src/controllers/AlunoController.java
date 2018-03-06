@@ -21,6 +21,10 @@ public class AlunoController {
 		this.ordenadorAlunos = new AcademicoPorNome();
 	}
 	
+	public int quantAlunos() {
+		return alunos.size();
+	}
+	
 	private void impedirCadastroAlunoRepetido(String matricula, String msg) {
 		if (this.alunos.containsKey(matricula)) {
 			throw new IllegalArgumentException(msg);
