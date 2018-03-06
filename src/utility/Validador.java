@@ -107,4 +107,16 @@ public class Validador {
 		}
 	}
 	
+	public static void validarIntNaoNegativo(String msg, int valor) {
+		if (valor < 0) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
+	
+	public static void validarIntMenorQueCinco(String msg, int valor) {
+		if (valor > 5) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
+	
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -158,13 +159,25 @@ public class TutorController {
 	public void doar(String matriculaTutor, int totalCentavos) {
 		this.tutores.get(matriculaTutor).adicionarDoacao(totalCentavos);
 	}
+	
+	public String pegarNota(String matricula) {
+		this.impedirTutorNaoCadastrado(matricula, "Tutor nao encontrado");
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		return df.format(tutores.get(matricula).getNota());
+	}
 
-	public String pegarNivel(String matriculaTutor) {
-		return tutores.get(matriculaTutor).getNivel();
+	public String pegarNivel(String matricula) {
+		this.impedirTutorNaoCadastrado(matricula, "Tutor nao encontrado");
+		return tutores.get(matricula).getNivel();
 	}
 	
 	public int getTotalDinheiro(String emailTutor) {
 		return this.tutores.get(getMatriculaPorEmail(emailTutor)).getDinheiroRecebido();
+	}
+	
+	public void adicionarAvaliacao(String matricula, int nota) {
+		this.tutores.get(matricula).adicionarAvaliacao(nota);
 	}
 	
 }

@@ -21,15 +21,23 @@ public abstract class Ajuda {
 	}
 
 	public String getDisciplina() {
-		return disciplina;
+		return this.disciplina;
 	}
 
 	public String getMatriculaAluno() {
-		return matriculaAluno;
+		return this.matriculaAluno;
 	}
 	
 	public String getMatriculaTutor() {
-		return matriculaTutor;
+		return this.matriculaTutor;
+	}
+	
+	public boolean getAvaliacaoConcluida() {
+		return this.avaliacaoConcluida;
+	}
+	
+	public boolean setAvaliacaoConcluida() {
+		return this.avaliacaoConcluida = true;
 	}
 	
 	public String getInfo(String atributo) {
@@ -40,7 +48,7 @@ public abstract class Ajuda {
 	}
 	
 	private void impedirReavaliacao() {
-		if (this.avaliacaoConcluida) { throw new UnsupportedOperationException("Ajuda ja avaliada"); }
+		if (this.avaliacaoConcluida) { throw new IllegalArgumentException("Ajuda ja avaliada"); }
 	}
 	
 	public void registrarAvaliacao() {

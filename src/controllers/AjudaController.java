@@ -51,5 +51,10 @@ public class AjudaController {
 		
 		return this.ajudas.get(idAjuda).getInfo(atributo);
 	}
+	
+	public void registrarAvaliacao(int idAjuda) {
+		this.impedirAjudaNaoCadastrada(idAjuda);
+		this.ajudas.get(idAjuda).registrarAvaliacao();
+	}
 
 }

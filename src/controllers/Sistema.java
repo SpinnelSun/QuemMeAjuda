@@ -199,8 +199,39 @@ public class Sistema {
 		}
 	}
 	
+	 public void avaliarTutor (int idAjuda, int nota) {
+		 try {
+			 Validador.validarIntNaoNegativo("nota nao pode ser menor que 0", nota);
+			Validador.validarIntMenorQueCinco("nota nao pode ser maior que 5", nota);	
+			 
+			 this.controladorAjuda.registrarAvaliacao(idAjuda);
+			 this.controladorTutor.adicionarAvaliacao(this.controladorAjuda.getInfoAjuda(idAjuda,
+					 								  "TUTOR"), nota);
+		 }
+		 
+		 catch (IllegalArgumentException e) {
+				throw new IllegalArgumentException("Erro na avaliacao de tutor: " + e.getMessage());
+		} 
+	}
+	 
+	public String pegarNota(String matriculaTutor) {
+		try {
+			return this.controladorTutor.pegarNota(matriculaTutor);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro ao tentar pegar nota de tutor : " + e.getMessage());
+		}
+	}
+	
 	public String pegarNivel(String matriculaTutor) {
-		return this.controladorTutor.pegarNivel(matriculaTutor);
+		try {
+			return this.controladorTutor.pegarNivel(matriculaTutor);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro ao tentar pegar nivel de tutor : " + e.getMessage());
+		}
 	}
 	
 	public int getCaixa() {

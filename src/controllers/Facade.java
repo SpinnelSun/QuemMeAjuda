@@ -217,12 +217,12 @@ public class Facade {
 		return Facade.sistema.getInfo(idAjuda, atributo);
 	}
 	
-    public String avaliarTutor (int idAjuda, int nota) {
-    	return ""; 
+    public void avaliarTutor (int idAjuda, int nota) {
+    	Facade.sistema.avaliarTutor(idAjuda, nota); 
     }
     
-    public double pegarNota(String matriculaTutor) {
-    	return 0.0;
+    public String pegarNota(String matriculaTutor) {
+    	return Facade.sistema.pegarNota(matriculaTutor);
     }
     
     public String pegarNivel(String matriculaTutor) {

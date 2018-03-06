@@ -3,6 +3,8 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
+import utility.Validador;
+
 /**
  * Representacao de um Tutor no sistema do Quem Me Ajuda. Como atributos, cada Tutor possui o nome,
  * o telefone, o email e a matricula representados em Strings, a quantidade de dinheiro recebido e
@@ -165,15 +167,10 @@ public class Tutor extends Academico {
 		return 0;
 	}
 	
-	public Disponibilidade getDisponibilidade() {
-		return disponibilidade;
-	}
-
-	public Set<Habilidade> getHabilidades() {
-		return habilidades;
-	}
-	
 	public void adicionarAvaliacao(int nota) {
+		Validador.validarIntNaoNegativo("nota nao pode ser menor que 0", nota);
+		Validador.validarIntMenorQueCinco("nota nao pode ser maior que 5", nota);
+		
 		this.setNota(((this.getNota() * 5) + nota) / 6);
 	}
 	
