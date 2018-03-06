@@ -11,10 +11,16 @@ public class TutorTest {
 	
 	@Before
 	public void criaTutor() {
-		this.tutor = new Tutor("Nome 1", "111111111", 1, "0000-0000", "address@gmail.com");
+		this.tutor = new Tutor("Nome 1", "111111111", 1, "0000-0000", "address@gmail.com",1);
 		this.tutor.adicionarHabilidade("Programacao 2", 5);
 	}
 
+	
+	@Test
+	public void test() {
+		assertTrue(this.tutor.getNota() == 0);
+	}
+	
 	@Test
 	public void testGetDinheiroRecebido() {
 		String msg = "Avaliacao do armazenamento adequado do dinheiro recebido do tutor em um Tutor.";
