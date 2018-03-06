@@ -155,12 +155,12 @@ public class TutorController {
 		this.tutores.get(matriculaTutor).adicionarDoacao(totalCentavos);
 	}
 
-	public int getTotalDinheiro(String emailTutor) {
-		return 0;
-	}
-	
 	public String pegarNivel(String matriculaTutor) {
 		return tutores.get(matriculaTutor).getNivel();
+	}
+	
+	public int getTotalDinheiro(String emailTutor) {
+		return this.tutores.get(getMatriculaPorEmail(emailTutor)).getDinheiroRecebido();
 	}
 	
 }

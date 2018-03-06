@@ -236,7 +236,7 @@ public class Facade {
     }
     
     public int totalDinheiroSistema() {
-    	return 0;
+    	return Facade.sistema.getCaixa();
     }
     
 }

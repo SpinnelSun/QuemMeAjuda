@@ -5,11 +5,15 @@ public class Sistema {
 	private AlunoController controladorAluno;
 	private TutorController controladorTutor;
 	private AjudaController controladorAjuda;
+	
+	private int caixa;
 		
 	public Sistema() {
 		this.controladorAluno = new AlunoController();
 		this.controladorTutor = new TutorController();
 		this.controladorAjuda = new AjudaController();
+		
+		this.caixa = 0;
 	}
 	
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
@@ -38,6 +42,10 @@ public class Sistema {
 
 	public String listarAlunos() {
 		return this.controladorAluno.listarAlunos();
+	}
+	
+	public int getCaixa() {
+		return this.caixa;
 	}
 	
 	public String getInfoAluno(String matricula, String atributo) {
@@ -154,7 +162,7 @@ public class Sistema {
 	public void doar(String matriculaTutor, int totalCentavos) {
 		this.controladorTutor.doar(matriculaTutor, totalCentavos);
 	}
-
+	
 	public int getTotalDinheiroTutor(String emailTutor) {
 		return this.controladorTutor.getTotalDinheiro(emailTutor);
 	}
