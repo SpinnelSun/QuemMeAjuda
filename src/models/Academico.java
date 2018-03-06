@@ -4,7 +4,7 @@ import utility.Validador;
 
 /**
  * Representacao abstrata de um Academico. Como atributos, cada Academico possui o nome, o telefone,
- * o email e a matricula representados em Strings, além do codigo do curso a que e vinculado repre-
+ * o email e a matricula representados em Strings, além do codigo do curso ao qual e vinculado repre-
  * sentado em int.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
@@ -18,10 +18,10 @@ import utility.Validador;
 public abstract class Academico {
 	
 	private String nome;
-	private String telefone;
-	private String email;
 	private String matricula;
 	private int codigoCurso;
+	private String telefone;
+	private String email;
 	
 	/**
 	 * Constroi um Academico a partir de seu nome, de seu telefone, de seu email, de sua matricula,
@@ -46,6 +46,20 @@ public abstract class Academico {
 		this.codigoCurso = codigoCurso;
 	}
 	
+	/**
+	 * Valida os atributos a serem usados na construcao de um Academico. Nao e permitida a criacao
+	 * de Academicos com atributos vazios e/ou nulos. Excetua-se o telefone, que podera ser uma String
+	 * vazia (telefone nao informado). O codigo do curso nao podera ser inferior a 1. 
+	 * 
+	 * @param nome O nome do Academico.
+	 * @param matricula A matricula do Academico.
+	 * @param codigoCurso O codigo do curso do Academico.
+	 * @param telefone O numero do telefone do Academico.
+	 * @param email O email do Academico.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	private void validarAtributos(String nome, String telefone, String email, String matricula, int codigoCurso) {
 		Validador.validarEmail("Email invalido", email);
 		Validador.validarStringNaoVaziaNaoNula("Nome nao pode ser vazio ou nulo", nome);

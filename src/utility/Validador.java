@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.regex.Pattern;
+
 /**
  * Representacao de um validador de informacoes, no qual estao armazenados os metodos para evitar a
  * utilizacao de informacoes invalidas. Essa classe visa evitar a repeticao de codigo necessario em
@@ -71,10 +73,26 @@ public class Validador {
 	public static void validarEmail(String msg, String email) {
 		Validador.validarStringNaoVaziaNaoNula(msg, email);
 		
-		if (!email.contains("@") || email.startsWith("@") || email.endsWith("@")) {
+		if (!Pattern.compile(".@.").matcher(email).find()) {
 				throw new IllegalArgumentException(msg);
 		}
 	}	
+	
+	/**
+	 * Avalia se um número inteiro e nao-negativo. Lancara uma excecao adequada caso o inteiro seja
+	 * negativo.
+	 * 
+	 * @param msg A mensagem a ser associada a excecao lancada.
+	 * @param value O inteiro a ser validado como nao-negativo.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public static void validarIntNaoNegativo(String msg, int valor) {
+		if (valor < 0) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
 	
 	/**
 	 * Avalia se um número inteiro e positivo. Lancara uma excecao adequada caso nao o seja.
@@ -92,6 +110,22 @@ public class Validador {
 	}
 	
 	/**
+	 * Avalia se um número inteiro e maior que 5. Lancara uma excecao adequada caso o inteiro nao o
+	 * seja.
+	 * 
+	 * @param msg A mensagem a ser associada a excecao lancada.
+	 * @param value O inteiro a ser validado como "maior que 5".
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public static void validarIntMenorQueCinco(String msg, int valor) {
+		if (valor > 5) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
+	
+	/**
 	 * Avalia se um número inteiro esta no intervalo [1, 5]. Lancara uma excecao adequada caso o in-
 	 * teiro nao esteja nesse intervalo.
 	 * 
@@ -103,18 +137,6 @@ public class Validador {
 	 */
 	public static void validarIntUmACinco(String msg, int valor) {
 		if (valor < 1 || valor > 5) {
-			throw new IllegalArgumentException(msg); 
-		}
-	}
-	
-	public static void validarIntNaoNegativo(String msg, int valor) {
-		if (valor < 0) {
-			throw new IllegalArgumentException(msg); 
-		}
-	}
-	
-	public static void validarIntMenorQueCinco(String msg, int valor) {
-		if (valor > 5) {
 			throw new IllegalArgumentException(msg); 
 		}
 	}

@@ -33,16 +33,11 @@ public class Aluno extends Academico {
 	 */
 	public Aluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		super(nome, telefone, email, matricula, codigoCurso);
-		
 		this.nota = 5.0;
 	}
 	
 	public double getNota() {
 		return this.nota;
-	}
-
-	public void setNota(double nota) {
-		this.nota = nota;
 	}
 
 }
