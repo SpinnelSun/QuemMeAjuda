@@ -34,6 +34,9 @@ public class AjudaPresencial extends Ajuda {
 	
 	@Override
 	public String getInfo(String atributo) {
+		Validador.validarStringNaoVaziaNaoNula("atributo nao pode ser vazio ou em branco", atributo);
+		InfoAjudaPresencial.impedirAtributoInexistente(atributo.toUpperCase());
+		
 		return InfoAjudaPresencial.valueOf(atributo.toUpperCase()).getInfo(this);
 	}
 

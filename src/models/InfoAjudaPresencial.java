@@ -52,6 +52,16 @@ public enum InfoAjudaPresencial implements SeletorInfoAjudaPresencial {
 		this.nomeInfo = nomeInfo;
 	}
 	
+	public static void impedirAtributoInexistente(String atributo) {
+		for (InfoAjudaPresencial infoAjuda : InfoAjudaPresencial.values()) {
+			if (infoAjuda.toString().equals(atributo)) {
+				return;
+			}
+		}
+		
+		throw new IllegalArgumentException("atributo nao encontrado");
+	}
+	
 	@Override
 	public String toString() {
 		return this.nomeInfo;

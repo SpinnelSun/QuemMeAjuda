@@ -8,6 +8,7 @@ import models.AjudaOnline;
 import models.AjudaPresencial;
 import models.InfoAjuda;
 import models.InfoAluno;
+import utility.Validador;
 
 public class AjudaController {
 	
@@ -30,12 +31,24 @@ public class AjudaController {
 		this.ajudas.put(this.ajudas.size() + 1, new AjudaOnline(matriculaAluno, disciplina, matriculaTutor));
 		return this.ajudas.size();
 	}
+	
+	private void impedirAjudaNaoCadastrada(int idAjuda) {
+		if (!this.ajudas.containsKey(idAjuda)) {
+			throw new IllegalArgumentException("id nao encontrado ");
+		}
+	}
 
 	public String pegarTutor(int idAjuda) {
+		Validador.validarInteiroPositivo("id nao pode menor que zero ", idAjuda);
+		this.impedirAjudaNaoCadastrada(idAjuda);
+		
 		return this.ajudas.get(idAjuda).toString();
 	}
 	
 	public String getInfoAjuda(int idAjuda, String atributo) {
+		Validador.validarInteiroPositivo("id nao pode menor que zero ", idAjuda);
+		this.impedirAjudaNaoCadastrada(idAjuda);
+		
 		return this.ajudas.get(idAjuda).getInfo(atributo);
 	}
 

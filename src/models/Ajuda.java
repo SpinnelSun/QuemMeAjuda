@@ -33,6 +33,9 @@ public abstract class Ajuda {
 	}
 	
 	public String getInfo(String atributo) {
+		Validador.validarStringNaoVaziaNaoNula("atributo nao pode ser vazio ou em branco", atributo);
+		InfoAjuda.impedirAtributoInexistente(atributo.toUpperCase());
+		
 		return InfoAjuda.valueOf(atributo.toUpperCase()).getInfo(this);
 	}
 	

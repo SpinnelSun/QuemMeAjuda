@@ -1,6 +1,7 @@
 package controllers;
 
 import easyaccept.EasyAccept;
+import models.InfoAjuda;
 
 /**
  * Facade Controller do Quem Me Ajuda.
@@ -20,7 +21,8 @@ public class Facade {
 		inicializar();
 		
 		args = new String[] {"controllers.Facade", "acc-tst/us1_test.txt", "acc-tst/us2_test.txt",
-							 "acc-tst/us3_test.txt", "acc-tst/us4_test.txt", "acc-tst/us5_test.txt"};
+							 "acc-tst/us3_test.txt", "acc-tst/us4_test.txt", "acc-tst/us5_test.txt",
+							 "acc-tst/us6_test.txt"};
 		EasyAccept.main(args);
 	}
 	

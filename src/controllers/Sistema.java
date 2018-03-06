@@ -1,5 +1,7 @@
 package controllers;
 
+import utility.Validador;
+
 public class Sistema {
 	
 	private AlunoController controladorAluno;
@@ -44,10 +46,6 @@ public class Sistema {
 		return this.controladorAluno.listarAlunos();
 	}
 	
-	public int getCaixa() {
-		return this.caixa;
-	}
-	
 	public String getInfoAluno(String matricula, String atributo) {
 		try {
 			return this.controladorAluno.getInfoAluno(matricula, atributo);
@@ -74,10 +72,13 @@ public class Sistema {
 			this.controladorTutor.tornarTutor(matricula, disciplina, proficiencia);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na definicao de papel: " + e.getMessage());
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro na definicao de papel: " + e1.getMessage());
 		}
 		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro na definicao de papel: " + e2.getMessage());
+		}
 		
 	}
 	
@@ -86,8 +87,12 @@ public class Sistema {
 			return this.controladorTutor.recuperaTutor(matricula);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na busca por tutor: " + e.getMessage());
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro na busca por tutor: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro na busca por tutor: " + e2.getMessage());
 		}
 	}
 	
@@ -100,8 +105,12 @@ public class Sistema {
 			this.controladorTutor.cadastrarHorario(email, hora, dia);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro no cadastrar horario: " + e.getMessage());
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastrar horario: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro no cadastrar horario: " + e2.getMessage());
 		}
 	}
 	
@@ -110,8 +119,12 @@ public class Sistema {
 			this.controladorTutor.cadastrarLocalDeAtendimento(email, local);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: " + e.getMessage());
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro no cadastrar local de atendimento: " + e2.getMessage());
 		}
 	}
 	
@@ -127,36 +140,71 @@ public class Sistema {
 	
 	
 	private String selecionarTutor(String disciplina) {
+		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
 		return this.controladorTutor.selecionarTutor(disciplina);
 	}
 	
 	public int pedirAjudaOnline (String matriculaAluno, String disciplina) {
-		String matriculaTutor = this.selecionarTutor(disciplina);
+		try {
+			return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina,
+				   this.selecionarTutor(disciplina));
+		}
 		
-		return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina, matriculaTutor);
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda online: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro no pedido de ajuda online: " + e2.getMessage());
+		}
 	}
 	
 	private String selecionarTutor(String disciplina, String horario, String dia, String localInteresse) {
+		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
 		return this.controladorTutor.selecionarTutor(disciplina, horario, dia, localInteresse);
 	}
 	
 	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
-		String matriculaTutor = this.selecionarTutor(disciplina, horario, dia, localInteresse); 
+		try {
+			return this.controladorAjuda.pedirAjudaPresencial(matriculaAluno, disciplina, horario, dia,
+				   localInteresse, this.selecionarTutor(disciplina, horario, dia, localInteresse));
+		}
 		
-		return this.controladorAjuda.pedirAjudaPresencial(matriculaAluno, disciplina, horario, dia,
-			   localInteresse, matriculaTutor);
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new NullPointerException("Erro no pedido de ajuda presencial: " + e2.getMessage());
+		}
 	}
 	
 	public String pegarTutor(int idAjuda) {
-		return this.controladorAjuda.pegarTutor(idAjuda);
+		try {
+			return this.controladorAjuda.pegarTutor(idAjuda);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro ao tentar recuperar tutor : " + e.getMessage());
+		}
 	}
 	
 	public String getInfo(int idAjuda, String atributo) {
-		return this.controladorAjuda.getInfoAjuda(idAjuda, atributo);
+		try {
+			return this.controladorAjuda.getInfoAjuda(idAjuda, atributo);
+		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : " + e.getMessage());
+		}
 	}
 	
 	public String pegarNivel(String matriculaTutor) {
 		return this.controladorTutor.pegarNivel(matriculaTutor);
+	}
+	
+	public int getCaixa() {
+		return this.caixa;
 	}
 
 	public void doar(String matriculaTutor, int totalCentavos) {
