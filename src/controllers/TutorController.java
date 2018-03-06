@@ -27,6 +27,10 @@ public class TutorController {
 		}
 	}
 	
+	public int quantTudores() {
+		return this.tutores.size();
+	}
+	
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
 			this.tutores.get(matricula).adicionarHabilidade(disciplina, proficiencia);
 	}
