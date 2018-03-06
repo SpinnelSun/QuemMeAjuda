@@ -160,6 +160,10 @@ public class TutorController {
 		this.tutores.get(matriculaTutor).adicionarDoacao(totalCentavos);
 	}
 	
+	public double pegarNotaDouble(String matricula) {
+		return tutores.get(matricula).getNota();
+	}
+	
 	public String pegarNota(String matricula) {
 		this.impedirTutorNaoCadastrado(matricula, "Tutor nao encontrado");
 		
