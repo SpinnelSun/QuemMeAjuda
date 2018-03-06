@@ -72,6 +72,7 @@ public class TutorControllerTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void tornarTutorDisciplinaNulaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com disciplina nula.";
 		tutorController.tornarTutor("111111111", null, 4);
 	}
 	
@@ -118,6 +119,7 @@ public class TutorControllerTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void cadastrarHorarioHoraNulaTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario cuja hora seja um null.";
 		tutorController.cadastrarHorario("otavio@gmail.com", null, "Seg");
 	}
 	
@@ -128,6 +130,7 @@ public class TutorControllerTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void cadastrarHorarioDianuloTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario cujo dia seja um null.";
 		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", null);
 	}
 
@@ -158,6 +161,7 @@ public class TutorControllerTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void cadastrarLocalDeAtendimentoLocalNuloTest() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local de atendimento cujo local seja um null.";
 		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", null);
 	}
 	
