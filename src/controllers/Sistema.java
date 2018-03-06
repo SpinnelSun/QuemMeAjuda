@@ -1,7 +1,5 @@
 package controllers;
 
-import models.AjudaPresencial;
-
 public class Sistema {
 	
 	private AlunoController controladorAluno;
@@ -117,18 +115,36 @@ public class Sistema {
 		return this.controladorTutor.consultaLocal(email, local);
 	}
 	
-	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
-		return this.controladorAjuda.pedirAjudaPresencial(matriculaAluno, disciplina, horario, dia, localInteresse);
+	
+	
+	
+	private String selecionarTutor(String disciplina) {
+		return this.controladorTutor.selecionarTutor(disciplina);
 	}
 	
 	public int pedirAjudaOnline (String matriculaAluno, String disciplina) {
-		return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina);
+		String matriculaTutor = this.selecionarTutor(disciplina);
+		
+		return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina, matriculaTutor);
+	}
+	
+	private String selecionarTutor(String disciplina, String horario, String dia, String localInteresse) {
+		return this.controladorTutor.selecionarTutor(disciplina, horario, dia, localInteresse);
+	}
+	
+	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
+		String matriculaTutor = this.selecionarTutor(disciplina, horario, dia, localInteresse); 
+		
+		return this.controladorAjuda.pedirAjudaPresencial(matriculaAluno, disciplina, horario, dia,
+			   localInteresse, matriculaTutor);
 	}
 	
 	public String pegarTutor(int idAjuda) {
-		//AQUI PRECISA FAZER UM ENUM PRO GETINFOAJUDA PRA PEGAR OS DADOS DE Ajuda A PARTIR DO ID E JOGAR PRA escolherTutor
-		//this.controladorTutor.escolheTutor(disciplina, horario, dia, localInteresse) ;
-		return null;
+		return this.controladorAjuda.pegarTutor(idAjuda);
+	}
+	
+	public String getInfo(int idAjuda, String atributo) {
+		return this.controladorAjuda.getInfoAjuda(idAjuda, atributo);
 	}
 
 }

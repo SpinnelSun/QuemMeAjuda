@@ -6,6 +6,8 @@ import java.util.Map;
 import models.Ajuda;
 import models.AjudaOnline;
 import models.AjudaPresencial;
+import models.InfoAjuda;
+import models.InfoAluno;
 
 public class AjudaController {
 	
@@ -30,10 +32,11 @@ public class AjudaController {
 	}
 
 	public String pegarTutor(int idAjuda) {
-		return this.ajudas.get(idAjuda).getMatriculaTutor();
+		return this.ajudas.get(idAjuda).toString();
 	}
 	
-	String getInfoAjuda(int idAjuda, String atributo) {
-		return this.ajudas.get(idAjuda).getInfo(atributo);
+	public String getInfoAjuda(int idAjuda, String atributo) {
+		return this.ajudas.get(idAjuda).getInfo(atributo, this.ajudas.get(idAjuda));
 	}
+
 }

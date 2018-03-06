@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import models.AjudaPresencial;
+import models.Candidato;
 import models.Tutor;
 import models.Habilidade;
 import utility.Validador;
@@ -109,32 +110,45 @@ public class TutorController {
 		}
 	}
 	
-	private String melhorProficiencia(List<Tutor> tutores) {
-		int maiorProficiencia = 0;
-		String matriculaMelhorTutor = "";
-		
-		for(Tutor tutor: tutores) {
-			for(Habilidade tutoria : tutor.getHabilidades()) {
-				if(tutoria.getProficiencia() >= maiorProficiencia) {
-					maiorProficiencia = tutoria.getProficiencia();
-					matriculaMelhorTutor = tutor.getMatricula();
-				}
+	
+	
+
+	private List<Candidato> listarCandidatos(String disciplina) {
+		List<Candidato> candidatos = new ArrayList<Candidato>();
+		for (Tutor tutor : this.tutoresToList()) {
+			if (tutor.consultaHabilidade(disciplina)) {
+				candidatos.add(new Candidato(tutor.getMatricula(), tutor.getProficiencia(disciplina),
+							   tutor.getNumeroCadastro()));
 			}
 		}
-		return matriculaMelhorTutor;
+		
+		return candidatos;
 	}
 	
-	public String escolheTutor(String disciplina, String horario, String dia, String localInteresse) {
-		List<Tutor> tutoresDisponiveis = new ArrayList<>();
-		String maiorProficiencia = "";
-		
-		for(Tutor tutor : this.tutoresToList()) {
-			if(tutor.tutorContainsHabilidades(disciplina)) {
-				if(tutor.consultaHorario(horario, dia) && tutor.consultaLocal(localInteresse)) {
-					tutoresDisponiveis.add(tutor);
-				}
+	private List<Candidato> listarCandidatos(String disciplina, String hora, String dia, String local) {
+		List<Candidato> candidatos = this.listarCandidatos(disciplina);
+		for (Tutor tutor : this.tutoresToList()) {
+			if (tutor.consultaHabilidade(disciplina) && tutor.consultaDisponibilidade(hora, dia, local)) {
+				candidatos.add(new Candidato(tutor.getMatricula(), tutor.getProficiencia(disciplina),
+							   tutor.getNumeroCadastro()));
 			}
 		}
-		return this.melhorProficiencia(tutoresDisponiveis);
-	}	
+		
+		return candidatos;
+	}
+	
+	public String selecionarTutor(String disciplina) {
+		List<Candidato> candidatos = this.listarCandidatos(disciplina);
+		candidatos.sort(new CandidatoPorProficiencia());
+		
+		return candidatos.isEmpty() ? "" : candidatos.get(0).getMatricula();
+	}
+	
+	public String selecionarTutor(String disciplina, String hora, String dia, String local) {
+		List<Candidato> candidatos = this.listarCandidatos(disciplina, hora, dia, local);
+		candidatos.sort(new CandidatoPorProficiencia());
+		
+		return candidatos.isEmpty() ? "" : candidatos.get(0).getMatricula();
+	}
+	
 }

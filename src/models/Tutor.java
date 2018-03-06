@@ -49,6 +49,10 @@ public class Tutor extends Academico {
 		this.setNota(4.0);
 	}
 	
+	public int getNumeroCadastro() {
+		return this.numeroCadastro;
+	}
+	
 	public int getDinheiroRecebido() {
 		return this.dinheiroRecebido;
 	}
@@ -143,13 +147,22 @@ public class Tutor extends Academico {
 		return this.disponibilidade.verificarLocalCadastrado(local);
 	}
 	
-	public boolean tutorContainsHabilidades(String disciplina){
-		for(Habilidade tutoria : this.habilidades) {
-			if(tutoria.getDisciplina().equals(disciplina)) {
-				return true;
+	public boolean consultaDisponibilidade(String hora, String dia, String local){
+		return this.consultaHorario(hora, dia) && this.consultaLocal(local);
+	}
+	
+	public boolean consultaHabilidade(String disciplina){
+		return this.habilidades.contains(new Habilidade(disciplina, 1));
+	}
+	
+	public int getProficiencia(String disciplina) {
+		for (Habilidade habilidade : this.habilidades) {
+			if (habilidade.getDisciplina().equals(disciplina)) {
+				return habilidade.getProficiencia();
 			}
 		}
-		return false;
+		
+		return 0;
 	}
 	
 	public Disponibilidade getDisponibilidade() {

@@ -39,7 +39,7 @@ public enum InfoAjudaPresencial implements SeletorInfoAjudaPresencial {
 		}
 	},
 	
-	LOCAL("LOCAL") {
+	LOCALINTERESSE("LOCALINTERESSE") {
 		@Override
 		public String getInfo(AjudaPresencial ajuda) {
 			return ajuda.getLocal();
