@@ -4,8 +4,8 @@ import utility.Validador;
 
 /**
  * Representacao de um Horario a ser registrado numa Disponibilidade. Como atributos, um Horario pos-
- * sui uma String representando um horario e uma String representando um dia. O Horario refere-se a
- * um horario especifico de um dia especifico da semana.
+ * sui uma String representando uma hora e uma String representando um dia. O Horario refere-se a uma
+ * hora especifica de um dia especifico da semana.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -19,21 +19,32 @@ public class Horario {
 	private String hora;
 	private String dia;
 	
-	
 	/**
 	 * Constroi um Horario a partir da hora e do dia da semana que o especificam. Nao e permitida a 
-	 * criacao de Horarios cuja hora e/ou dia seja null ou uma String vazia.
+	 * criacao de Horarios cuja hora e/ou dia sejam nulos ou vazios.
 	 * 
 	 * @param hora A hora do Horario.
 	 * @param dia O dia do Horario.
 	 * 
 	 */
 	public Horario(String hora, String dia) {
-		Validador.validarStringNaoVaziaNaoNula("horario nao pode ser vazio ou em branco", hora);
-		Validador.validarStringNaoVaziaNaoNula("dia nao pode ser vazio ou em branco", dia);
+		this.validarAtributos(hora, dia);
 		
 		this.hora = hora.trim();
 		this.dia = dia.trim();
+	}
+	
+	/**
+	 * Valida os atributos a serem usados na construcao de um Horario. Nao e permitida a criacao de
+	 * Horarios cuja hora e/ou dia sejam nulos ou vazios.
+	 * 
+	 * @param hora A hora do Horario.
+	 * @param dia O dia do Horario.
+	 * 
+	 */
+	private void validarAtributos(String hora, String dia) {
+		Validador.validarStringNaoVaziaNaoNula("horario nao pode ser vazio ou em branco", hora);
+		Validador.validarStringNaoVaziaNaoNula("dia nao pode ser vazio ou em branco", dia);
 	}
 
 	public String getHora() {
@@ -82,9 +93,7 @@ public class Horario {
 		
 		if (getClass() != obj.getClass()) { return false; }
 		
-		if (this.dia.equals(other.dia) && (this.hora.equals(other.hora))) {
-			return true;
-		}
+		if (this.dia.equals(other.dia) && (this.hora.equals(other.hora))) { return true; }
 		
 		return false;
 	}
