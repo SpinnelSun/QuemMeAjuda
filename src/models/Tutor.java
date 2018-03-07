@@ -68,12 +68,14 @@ public class Tutor extends Academico {
 	}
 	
 	/**
-	 * Impede o cadastro de uma Habilidade repetida no Tutor atraves do lancamento de excecao.
+	 * Verifica se o Tutor ja possui a Habilidade definida pela disciplina pela proficiencia passa-
+	 * das como parametro desse metodo. Caso a Habilidade ja tenha sido cadastrada no Set de Habi-
+	 * lidades do Tutor, ocorrera o lancamento de uma excecao adequada.
 	 * 
-	 * @param disciplina O nome da disciplina a ser cadastrada.
-	 * @param proficiencia O nivel de proficiencia na disciplina a ser cadastrada. 
+	 * @param disciplina O nome da disciplina da Habilidade.
+	 * @param proficiencia O nivel de proficiencia nessa disciplina. 
 	 * 
-	 * @returns null
+	 * @returns null.
 	 * 
 	 */
 	private void impedirHabilidadeRepetida(String disciplina, int proficiencia) {
@@ -83,12 +85,14 @@ public class Tutor extends Academico {
 	}
 	
 	/**
-	 * Adiciona uma nova Habilidade ao conjunto de Habilidades possuidas pelo Tutor.
+	 * Adiciona uma nova Habilidade ao Set de Habilidades do Tutor executando esse metodo. A nova
+	 * Habilidade cadastrada sera construida a partir da disciplina e do nivel de proficiencia pas-
+	 * sados como parametro desse metodo.
 	 * 
 	 * @param disciplina A nome da disciplina a ser cadastrada.
 	 * @param proficiencia O nivel de proficiencia na disciplina a ser cadastrada. 
 	 *  
-	 * @returns null
+	 * @returns null.
 	 * 
 	 */
 	public void adicionarHabilidade(String disciplina, int proficiencia) {
@@ -98,12 +102,14 @@ public class Tutor extends Academico {
 
 
 	/**
-	 * Adiciona um novo Horario na Disponibilidade do Tutor.
+	 * Cadastra um novo Horario na Dispoibilidade do Tutor. O Horario a ser cadastrado na Disponibi-
+	 * lidade do Tutor executando esse metodo sera construido a partir da hora e do dia passados co-
+	 * mo parametros.
 	 * 
-	 * @param hora A hora disponivel para atendimento do Tutor.
-	 * @param dia O dia da semana em que a hora esta disponivel. 
+	 * @param hora A hora disponivel para atendimento.
+	 * @param dia O dia disponivel para atendimento.
 	 * 
-	 * @returns null
+	 * @returns null.
 	 * 
 	 */
 	public void cadastrarHorario(String hora, String dia) {
@@ -111,11 +117,13 @@ public class Tutor extends Academico {
 	}
 	
 	/**
-	 * Adiciona um novo Local na Disponibilidade do Tutor.
+	 * Cadastra um novo Local na Dispoibilidade do Tutor. O Local a ser cadastrado na Disponibilida-
+	 * de do Tutor executando esse metodo sera construido a partir do nome do Local passado como pa-
+	 * rametro.
 	 * 
-	 * @param local O nome do local disponivel para atendimento do Tutor. 
+	 * @param local O nome do Local disponivel para atendimento.
 	 * 
-	 * @returns null
+	 * @returns null.
 	 * 
 	 */
 	public void cadastrarLocalDeAtendimento(String local) {
@@ -149,14 +157,45 @@ public class Tutor extends Academico {
 		return this.disponibilidade.verificarLocalCadastrado(local);
 	}
 	
+	/**
+	 * Verifica se o Tutor esta disponivel para atender em um determinado Local durante um Horario
+	 * especifico. O metodo retornara o boolean referente a existencia da disponibilidade para o Lo-
+	 * cal e Horario verificados.
+	 * 
+	 * @param hora A hora cuja disponibilidade sera verificada.
+	 * @param dia O dia da semana cuja disponibilidade sera verificada.
+	 * @param local O nome do local cuja disponibilidade sera verificada. 
+	 * 
+	 * @returns O boolean referente a disponibilidade do Local e do Horario.
+	 * 
+	 */
 	public boolean consultaDisponibilidade(String hora, String dia, String local){
 		return this.consultaHorario(hora, dia) && this.consultaLocal(local);
 	}
 	
+	/**
+	 * Verifica se o Tutor possui Habilidade em uma certa disciplina de interesse. O metodo retorna-
+	 * ra o boolean referente a existencia da Habilidade do Tutor nessa disciplina.
+	 * 
+	 * @param disciplina O nome da disciplina de interesse para a verificacao.
+	 * 
+	 * @returns O boolean referente a disponibilidade do Local e do Horario.
+	 * 
+	 */
 	public boolean consultaHabilidade(String disciplina){
 		return this.habilidades.contains(new Habilidade(disciplina, 1));
 	}
 	
+	/**
+	 * Retorna o nivel de proficiencia que o Tutor possui em uma determinada disciplina de interes-
+	 * se. Se a Habilidade definida por essa disciplina nao constar no Set de Habilidades do Tutor,
+	 * o metoro retornara 0.
+	 * 
+	 * @param disciplina O nome da disciplina de interesse para a verificacao.
+	 * 
+	 * @returns O nivel de proficiencia do Tutor na disciplina.
+	 * 
+	 */
 	public int getProficiencia(String disciplina) {
 		for (Habilidade habilidade : this.habilidades) {
 			if (habilidade.getDisciplina().equals(disciplina)) {
@@ -167,6 +206,16 @@ public class Tutor extends Academico {
 		return 0;
 	}
 	
+	/**
+	 * Calcula a nova media de avaliacao do Tutor executando esse metodo. O calculo ocorre a partir
+	 * da nota informada em uma nova avaliacao de uma Ajuda tutorada pelo Tutor. A nota passada como
+	 * parametro devera estar no intervalo [0, 5].
+	 * 
+	 * @param nota A nota informada na nova avaliacao da Ajuda tutorada.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void adicionarAvaliacao(int nota) {
 		Validador.validarIntNaoNegativo("nota nao pode ser menor que 0", nota);
 		Validador.validarIntMenorQueCinco("nota nao pode ser maior que 5", nota);
@@ -174,6 +223,14 @@ public class Tutor extends Academico {
 		this.setNota(((this.getNota() * 5) + nota) / 6);
 	}
 	
+	/**
+	 * Retorna a representacao textual do nivel de avaliacao do Tutor. O nivel sera definido a partir
+	 * da atual nota de avaliacao do Tutor que, por sua vez, varia de acordo com as avaliacoes recebi-
+	 * das apos os atendimentos do Tutor. 
+	 * 
+	 * @returns A representacao textual do nivel do Tutor.
+	 * 
+	 */
 	public String getNivel() {
 		if (this.nota <= 3.0) { return NivelAvaliacao.BAIXO.toString(); }
 		
@@ -182,6 +239,15 @@ public class Tutor extends Academico {
 		return NivelAvaliacao.ALTO.toString();
 	}
 	
+	/**
+	 * Registra o recebimento de uma nova doacao feita para o Tutor executando esse metodo. O para-
+	 * metro desse metodo e a quantidade de centavos que o Tutor recebera.
+	 * 
+	 * @param dinheiro O valor (em centavos) que o Tutor recebera.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void adicionarDoacao(int dinheiro) {
 		this.dinheiroRecebido += dinheiro;
 	}
