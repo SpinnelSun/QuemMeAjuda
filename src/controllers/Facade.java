@@ -201,44 +201,150 @@ public class Facade {
 		return Facade.sistema.consultaLocal(email, local);
 	}
 	
+	/**
+	 * Registra um novo pedido de Ajuda Presencial no Sistema.
+	 * 
+	 * @param matrAluno A matricula do Aluno solicitando Ajuda.
+	 * @param disciplina O nome da disciplina de interesse do Aluno.
+	 * @param horario A hora para atendimento de interesse do Aluno.
+	 * @param dia O dia para atendimento de interesse do Aluno.
+	 * @param localInteresse O nome do local de interesse para atendimento do Aluno.
+	 * 
+	 * @returns O ID da Ajuda Presencial registrada.
+	 * 
+	 * @see Sistema#pedirAjudaPresencial(String, String, String, String, String)
+	 * 
+	 */
 	public int pedirAjudaPresencial (String matrAluno, String disciplina, String horario, String dia, String localInteresse) {
 		return Facade.sistema.pedirAjudaPresencial(matrAluno, disciplina, horario, dia, localInteresse);
 	}
-	
+
+	/**
+	 * Registra um novo pedido de Ajuda Online no Sistema.
+	 * 
+	 * @param matrAluno A matricula do Aluno solicitando Ajuda.
+	 * @param disciplina O nome da disciplina de interesse do Aluno.
+	 * 
+	 * @returns O ID da Ajuda Online registrada.
+	 * 
+	 * @see Sistema#pedirAjudaOnline(String, String)
+	 * 
+	 */
 	public int pedirAjudaOnline (String matrAluno, String disciplina) {
 		return Facade.sistema.pedirAjudaOnline(matrAluno, disciplina);
 	}
 	
+	/**
+	 * Retorna a representacao textual do Tutor responsavel por uma Ajuda especifica.
+	 * 
+	 * @param idAjuda O ID da Ajuda a ser consultada.
+	 * 
+	 * @returns A representacao textual do Tutor responsavel pela Ajuda consultada.
+	 * 
+	 * @see Sistema#pegarTutor(int)
+	 * 
+	 */
 	public String pegarTutor(int idAjuda) {
 		return Facade.sistema.pegarTutor(idAjuda);
 	}
 	
+	/**
+	 * Recupera uma informacao especifica de uma Ajuda ja cadastrada no Sistema.
+	 * 
+	 * @param idAjuda O ID da Ajuda a ser consultada.
+	 * @param atributo A informacao de interesse a ser recuperada.
+	 * 
+	 * @returns A representacao textual da informacao solicitada ao Sistema.
+	 * 
+	 * @see Sistema#getInfoAjuda(int, String)
+	 * 
+	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		return Facade.sistema.getInfo(idAjuda, atributo);
 	}
 	
+	/**
+	 * Avalia o atendimento prestado por um Tutor durante uma Ajuda registrada no Sistema.
+	 * 
+	 * @param idAjuda O ID da Ajuda referente a avaliacao.
+	 * @param nota A nota atribuida a avaliacao da Ajuda.
+	 * 
+	 * @returns null.
+	 * 
+	 * @see Sistema#avaliarTutor(int, int)
+	 * 
+	 */
     public void avaliarTutor (int idAjuda, int nota) {
     	Facade.sistema.avaliarTutor(idAjuda, nota); 
     }
     
+    /**
+	 * Retorna a nota de avaliacao de um Tutor ja registrado no Sistema.
+	 * 
+	 * @param matrTutor A matricula do Tutor de interesse na consulta.
+	 * 
+	 * @returns A nota de avaliacao do Tutor consultado.
+	 * 
+	 * @see Sistema#pegarNota(String)
+	 * 
+	 */
     public String pegarNota(String matriculaTutor) {
     	return Facade.sistema.pegarNota(matriculaTutor);
     }
     
+    /**
+	 * Retorna o nivel de avaliacao de um Tutor ja registrado no Sistema.
+	 * 
+	 * @param matrTutor A matricula do Tutor de interesse na consulta.
+	 * 
+	 * @returns O nivel de avaliacao do Tutor consultado.
+	 * 
+	 * @see Sistema#pegarNivel(String)
+	 * 
+	 */
     public String pegarNivel(String matriculaTutor) {
     	return Facade.sistema.pegarNivel(matriculaTutor);
     }
     
+    /**
+	 * Registra a doacao de uma quantia de dinheiro para um Tutor ja registrado no Sistema.
+	 * 
+	 * @param matrTutor A matricula do Tutor de interesse na consulta.
+	 * @param matrTutor A quantia (em centavos) a ser doada.
+	 * 
+	 * @returns null.
+	 * 
+	 * @see Sistema#doar(String, int)
+	 * 
+	 */
     public void doar(String matriculaTutor, int totalCentavos) {
     	Facade.sistema.doar(matriculaTutor, totalCentavos);
     }
     
+    /**
+	 * Retorna a quantia de dinheiro ja recebida por um Tutor especifico registrado no Sistema.
+	 * 
+	 * @param emailTutor O email do Tutor de interesse na consulta.
+	 * 
+	 * @returns A quantia (em centavos) ja recebida pelo Tutor consultado.
+	 * 
+	 * @see Sistema#totalDinheiroTutor(String)
+	 * 
+	 */
     public int totalDinheiroTutor(String emailTutor) {
-    	return Facade.sistema.getTotalDinheiroTutor(emailTutor);
+    	return Facade.sistema.totalDinheiroTutor(emailTutor);
     }
     
+    /**
+	 * Retorna a quantia de dinheiro ja recebida pela Sistema do Quem Me Ajuda a partir das doacoes.
+	 * 
+	 * @returns A quantia (em centavos) ja recebida pelo Sistema do Quem Me Ajuda.
+	 * 
+	 * @see Sistema#totalDinheiroSistema(String)
+	 * 
+	 */
     public int totalDinheiroSistema() {
-    	return Facade.sistema.getCaixa();
+    	return Facade.sistema.totalDinheiroSistema();
     }
     
 }

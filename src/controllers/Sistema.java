@@ -434,7 +434,7 @@ public class Sistema {
 		}
 	}
 	
-	public int getCaixa() {
+	public int totalDinheiroSistema() {
 		return this.caixa;
 	}
 	
@@ -478,7 +478,7 @@ public class Sistema {
 	 * 
 	 * @returns A quantidade total que ja foi doada a um tutor do sistema
 	 */
-	public int getTotalDinheiroTutor(String emailTutor) {
+	public int totalDinheiroTutor(String emailTutor) {
 		return this.controladorTutor.getTotalDinheiro(emailTutor);
 	}
 
