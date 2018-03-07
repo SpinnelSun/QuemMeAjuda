@@ -9,8 +9,6 @@ import utility.Validador;
  * QuemMeAJuda. Todo sistema deve possuir um controller de Aluno, um controller de Tutor, um con-
  * troller de Ajuda e o caixa no qual sera depositado uma porcentagem de cada valor doado a um Tutor.
  * 
- * troller de Ajuda
- * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
  * @author Mateus de Lima Oliveira  - 117110219
@@ -385,7 +383,7 @@ public class Sistema {
 	public void avaliarTutor (int idAjuda, int nota) {
 		 try {
 			 Validador.validarIntNaoNegativo("nota nao pode ser menor que 0", nota);
-			Validador.validarIntMenorQueCinco("nota nao pode ser maior que 5", nota);	
+			 Validador.validarIntMenorQueCinco("nota nao pode ser maior que 5", nota);	
 			 
 			 this.controladorAjuda.registrarAvaliacao(idAjuda);
 			 this.controladorTutor.adicionarAvaliacao(this.controladorAjuda.getInfoAjuda(idAjuda,
@@ -408,7 +406,7 @@ public class Sistema {
 	 */ 
 	public String pegarNota(String matriculaTutor) {
 		try {
-			return this.controladorTutor.pegarNota(matriculaTutor);
+			return this.controladorTutor.pegarNotaString(matriculaTutor);
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -448,26 +446,13 @@ public class Sistema {
 	 * @returns null.
 	 */
 	public void doar(String matriculaTutor, int totalCentavos) {
-		
-		double valorTutor = 0;
-		double totalSistema = 0;
-		double notaTutor = this.controladorTutor.pegarNotaDouble(matriculaTutor);
-		
-		if(notaTutor> 4.5) {
-			totalSistema += 0.1 * totalCentavos;
-			valorTutor = (totalCentavos - totalSistema);
+		try {
 			
-		}if(notaTutor <= 4.5 && notaTutor > 3) {
-			totalSistema += 0.2 * totalCentavos;
-			valorTutor = (totalCentavos - totalSistema);
+			this.caixa += this.controladorTutor.doar(matriculaTutor, totalCentavos, this.caixa);
 			
-		}if(notaTutor <= 3 && notaTutor > 0) {
-			totalSistema += 0.6 * totalCentavos;
-			valorTutor = (totalCentavos - totalSistema);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na doacao para tutor: " + e.getMessage());
 		}
-		
-		this.caixa += Math.ceil(totalSistema);
-		this.controladorTutor.doar(matriculaTutor, (int)(valorTutor));
 	}
 	
 	/**
@@ -479,7 +464,13 @@ public class Sistema {
 	 * @returns A quantidade total que ja foi doada a um tutor do sistema
 	 */
 	public int totalDinheiroTutor(String emailTutor) {
-		return this.controladorTutor.getTotalDinheiro(emailTutor);
+		try {
+			Validador.validarStringNaoVaziaNaoNula("emailTutor nao pode ser vazio ou nulo", emailTutor);
+			
+			return this.controladorTutor.getTotalDinheiro(emailTutor);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: " + e.getMessage());
+		}
 	}
 
 }

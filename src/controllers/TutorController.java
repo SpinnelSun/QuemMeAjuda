@@ -36,7 +36,7 @@ public class TutorController {
 			this.tutores.get(matricula).adicionarHabilidade(disciplina, proficiencia);
 	}
 	
-	private void impedirTutorNaoCadastrado(String matricula, String msg) {
+	public void impedirTutorNaoCadastrado(String matricula, String msg) {
 		if (!this.tutores.containsKey(matricula)) {
 			throw new IllegalArgumentException(msg);
 		}
@@ -156,15 +156,38 @@ public class TutorController {
 		return candidatos.isEmpty() ? "" : candidatos.get(0).getMatricula();
 	}
 	
-	public void doar(String matriculaTutor, int totalCentavos) {
-		this.tutores.get(matriculaTutor).adicionarDoacao(totalCentavos);
+	public int doar(String matriculaTutor, int totalCentavos, int caixa) {
+		Validador.validarIntNaoNegativo("totalCentavos nao pode ser menor que zero", totalCentavos);
+		this.impedirTutorNaoCadastrado(matriculaTutor, "Tutor nao encontrado");
+		
+		int valorTutor = 0;
+		double totalSistema = 0;
+		double notaTutor = this.tutores.get(matriculaTutor).getNota();
+			
+		if(notaTutor> 4.5) {
+			totalSistema += (0.1 + 0.01 * ((notaTutor - 4.5) / 0.1)) * totalCentavos;
+				
+		}else if(notaTutor <= 4.5 && notaTutor > 3) {
+			totalSistema += 0.2 * totalCentavos;
+				
+		}else {
+			totalSistema += (0.61 + 0.01 * ((3.0 - notaTutor) / 0.1)) * totalCentavos;
+		}
+			
+		int valorSistema = (int) Math.floor(totalSistema);
+		
+		valorTutor = totalCentavos - valorSistema;
+				
+		this.tutores.get(matriculaTutor).adicionarDoacao(valorTutor);
+		
+		return valorSistema;
 	}
 	
 	public double pegarNotaDouble(String matricula) {
 		return tutores.get(matricula).getNota();
 	}
 	
-	public String pegarNota(String matricula) {
+	public String pegarNotaString(String matricula) {
 		this.impedirTutorNaoCadastrado(matricula, "Tutor nao encontrado");
 		
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -177,6 +200,7 @@ public class TutorController {
 	}
 	
 	public int getTotalDinheiro(String emailTutor) {
+		this.impedirTutorNaoCadastrado(this.getMatriculaPorEmail(emailTutor), "Tutor nao encontrado");
 		return this.tutores.get(getMatriculaPorEmail(emailTutor)).getDinheiroRecebido();
 	}
 	
