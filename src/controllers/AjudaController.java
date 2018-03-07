@@ -20,8 +20,8 @@ public class AjudaController {
 	
 	/**
 	 * Solicita uma Ajuda Presencial no sitema, sendo passado a matricula do aluno que esta pedindo a ajuda, a disciplina 
-	 * requisitada, horario e local desejados, além da matricula do tutor que irá dar a tutoria. É retornado um identifi-
-	 * cador do pedido que é gerado pela sua posicao na ordem de  pedidos.
+	 * requisitada, horario e local desejados, alem da matricula do tutor que ira dar a tutoria. E retornado um identifi-
+	 * cador do pedido que e gerado pela sua posicao na ordem de  pedidos.
 	 * 
 	 * @param matricula A matricula do Aluno.
 	 * @param disciplina A disciplina que se precisa de ajuda.
@@ -44,7 +44,7 @@ public class AjudaController {
 	
 	/**
 	 * Solicita uma Ajuda Online no sitema, sendo passado a matricula do aluno que esta pedindo a ajuda, a disciplina 
-	 * requisitada e a matricula do tutor que irá dar a tutoria. É retornado um identificador do pedido que é gerado
+	 * requisitada e a matricula do tutor que ira dar a tutoria. E retornado um identificador do pedido que e gerado
 	 * pela sua posicao na ordem de  pedidos.
 	 * 
 	 * @param matricula A matricula do Aluno.
@@ -60,7 +60,7 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Impede que seja possivel acessar uma Ajuda que não esta cadastrada.
+	 * Impede que seja possivel acessar uma Ajuda que nao esta cadastrada.
 	 * 
 	 * @param idAjuda Identificador da Ajuda.
 	 * 
