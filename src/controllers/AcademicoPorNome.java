@@ -5,7 +5,7 @@ import java.util.Comparator;
 import models.Academico;
 
 /**
- * Representaçao de um ordenador de Academicos cadastrados no Sistema do Quem Me Ajuda baseado nos
+ * Representacao de um ordenador de Academicos cadastrados no Sistema do Quem Me Ajuda baseado nos
  * nomes desses Academicos. Essa classe implementa a interface Comparator.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
@@ -18,7 +18,7 @@ import models.Academico;
 public class AcademicoPorNome implements Comparator<Academico> {
 
 	/**
-	 * Implementaçao do metodo de Comparator que determina qual dos Academicos passados como parame-
+	 * Implementacao do metodo de Comparator que determina qual dos Academicos passados como parame-
 	 * tros precede o outro. Um Academico A precedera o Academico B se seu nome for lexicograficamen-
 	 * te menor que o de B. Caso haja equivalencia, a matricula dos Academicos e usada para "desempa-
 	 * te".

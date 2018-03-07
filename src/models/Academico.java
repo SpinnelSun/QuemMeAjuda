@@ -4,7 +4,7 @@ import utility.Validador;
 
 /**
  * Representacao abstrata de um Academico. Como atributos, cada Academico possui o nome, o telefone,
- * o email e a matricula representados em Strings, além do codigo do curso ao qual e vinculado repre-
+ * o email e a matricula representados em Strings, alem do codigo do curso ao qual e vinculado repre-
  * sentado em int.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
