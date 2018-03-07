@@ -14,6 +14,10 @@ public class AjudaController {
 	
 	private Map<Integer, Ajuda> ajudas;
 	
+	/**
+	 * Constroi um controlador para Ajuda, inicializando a colecao ultizada para armazenar ajudas.
+	 * 
+	 */
 	public AjudaController() {
 		this.ajudas = new HashMap<Integer, Ajuda>();
 	}
@@ -90,7 +94,7 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Realiza uma busca pelo valor de determinado atributo. 
+	 * Realiza uma busca pelo valor de determinado atributo de Ajuda. 
 	 * A partir do ID da Ajuda e retornada a informacao desejada (atributo) da Ajuda.
 	 * 
 	 * @param idAjuda Identificador da Ajuda.
@@ -107,8 +111,9 @@ public class AjudaController {
 	}
 	
 	/**
-	 *Registra avaliacao feita por aluno para determinada ajuda prestada por algum tutor. Sendo passado o ID de ajuda, a avali-
-	 *acao e registrada e atribuida ao tutor daquela determinada ajuda. 
+	 * Registra avaliacao feita por aluno para determinada ajuda prestada por algum tutor. Sendo passado o ID de ajuda, a avali-
+	 * acao e registrada e atribuida ao tutor daquela determinada ajuda. 
+	 * Nao eh possivel fazer busca por matriculas nao cadastradas ou atributos inexistentes.
 	 * 
 	 * @param idAjuda Identificador da Ajuda.
 	 * @param atributo Informacao desejada
