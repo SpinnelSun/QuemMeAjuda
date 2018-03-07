@@ -4,7 +4,7 @@ import utility.Validador;
 
 /**
  * Representacao de uma Habilidade de um Tutor. Como atributos, cada Habilidade possui o nome de uma
- * disciplina e a proficiencia do Tutor na mesma.
+ * disciplina e o nivel de proficiencia do Tutor nessa disciplina.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -19,19 +19,32 @@ public class Habilidade {
 	private int proficiencia;
 	
 	/**
-	 * Constroi uma Habilidade a partir do nome da disciplina e da proficiencia nela. Nao e permitida
-	 * a criacao de Habilidades com disciplina vazia ou nula, tampouco com proficiencia nao-positiva.
+	 * Constroi uma Habilidade a partir do nome da disciplina e da proficiencia do Tutor nela. Nao e
+	 * permitida a criacao de Habilidades com disciplina vazia ou nula, tampouco com proficiencia
+	 * nao-positiva.
 	 * 
 	 * @param disciplina O nome da disciplina da Habilidade.
-	 * @param proficiencia O nivel de proficiencia da Habilidade.
+	 * @param proficiencia O nivel de proficiencia do Tutor na disciplina.
 	 * 
 	 */
 	public Habilidade(String disciplina, int proficiencia) {
-		Validador.validarStringNaoVaziaNaoNula("Disciplina nao pode ser vazia ou nula", disciplina);
-		Validador.validarIntUmACinco("Proficiencia invalida", proficiencia);
+		this.validarAtributos(disciplina, proficiencia);
 		
 		this.disciplina = disciplina.trim();
 		this.proficiencia = proficiencia;
+	}
+	
+	/**
+	 * Valida os atributos a serem usados na construcao de uma Habilidade. Nao e permitida a criacao
+	 * de Habilidades com disciplina vazia ou nula, tampouco com proficiencia nao-positiva.
+	 * 
+	 * @param disciplina O nome da disciplina da Habilidade.
+	 * @param proficiencia O nivel de proficiencia do Tutor na disciplina.
+	 * 
+	 */
+	private void validarAtributos(String disciplina, int proficiencia) {
+		Validador.validarStringNaoVaziaNaoNula("Disciplina nao pode ser vazia ou nula", disciplina);
+		Validador.validarIntUmACinco("Proficiencia invalida", proficiencia);
 	}
 
 	public String getDisciplina() {
