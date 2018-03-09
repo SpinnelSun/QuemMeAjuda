@@ -1,7 +1,6 @@
 package controllers;
 
 import easyaccept.EasyAccept;
-import models.InfoAjuda;
 
 /**
  * Facade Controller do Quem Me Ajuda.

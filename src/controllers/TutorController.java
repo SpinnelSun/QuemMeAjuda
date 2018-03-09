@@ -3,21 +3,25 @@ package controllers;
 import java.util.List;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.HashMap;
 
-import models.AjudaPresencial;
+import models.Academico;
+import models.Aluno;
 import models.Candidato;
+import models.Ordenacao;
 import models.Tutor;
-import models.Habilidade;
 import utility.Validador;
 
 public class TutorController {
 	
 	private Map<String, Tutor> tutores;
+	private Comparator<Academico> ordenadorTutores;
 	
 	public TutorController() {
 		this.tutores = new HashMap<String, Tutor>();
+		this.ordenadorTutores = new AcademicoPorNome();
 	}
 		
 	public void criarNovoTutor(String matricula, String nome, String codigoCurso, String telefone, String email) {
@@ -47,26 +51,28 @@ public class TutorController {
 		return this.tutores.get(matricula).toString();
 	}
 	
-	private List<Tutor> tutoresToList() {
+	private List<Tutor> ordenarTutores() {
+		
 		List<Tutor> listaDeTutores = new ArrayList<Tutor>();
 		listaDeTutores.addAll(this.tutores.values());
-		
+		listaDeTutores.sort(this.ordenadorTutores);
+			
 		return listaDeTutores;
 	}
 	
 	public String listarTutores() {
 		String listagemTutores = "";
 		
-		for (int i = 0; i < this.tutoresToList().size() - 1; i++) {
-			listagemTutores += tutoresToList().get(i).toString() + ", ";
+		for (int i = 0; i < this.ordenarTutores().size() - 1; i++) {
+			listagemTutores += ordenarTutores().get(i).toString() + ", ";
 		}
 		
-		listagemTutores += tutoresToList().get(tutoresToList().size() - 1).toString();		
+		listagemTutores += ordenarTutores().get(ordenarTutores().size() - 1).toString();		
 		return listagemTutores;
 	}
 	
 	private String getMatriculaPorEmail(String email) {
-		for(Tutor tutor : this.tutoresToList()) {
+		for(Tutor tutor : this.ordenarTutores()) {
 			if(tutor.getEmail().equals(email)) {
 				return tutor.getMatricula();
 			}
@@ -120,7 +126,7 @@ public class TutorController {
 
 	private List<Candidato> listarCandidatos(String disciplina) {
 		List<Candidato> candidatos = new ArrayList<Candidato>();
-		for (Tutor tutor : this.tutoresToList()) {
+		for (Tutor tutor : this.ordenarTutores()) {
 			if (tutor.consultaHabilidade(disciplina)) {
 				candidatos.add(new Candidato(tutor.getMatricula(), tutor.getProficiencia(disciplina),
 							   tutor.getNumeroCadastro()));
@@ -132,7 +138,7 @@ public class TutorController {
 	
 	private List<Candidato> listarCandidatos(String disciplina, String hora, String dia, String local) {
 		List<Candidato> candidatos = this.listarCandidatos(disciplina);
-		for (Tutor tutor : this.tutoresToList()) {
+		for (Tutor tutor : this.ordenarTutores()) {
 			if (tutor.consultaHabilidade(disciplina) && tutor.consultaDisponibilidade(hora, dia, local)) {
 				candidatos.add(new Candidato(tutor.getMatricula(), tutor.getProficiencia(disciplina),
 							   tutor.getNumeroCadastro()));
@@ -156,33 +162,6 @@ public class TutorController {
 		return candidatos.isEmpty() ? "" : candidatos.get(0).getMatricula();
 	}
 	
-	public int doar(String matriculaTutor, int totalCentavos, int caixa) {
-		Validador.validarIntNaoNegativo("totalCentavos nao pode ser menor que zero", totalCentavos);
-		this.impedirTutorNaoCadastrado(matriculaTutor, "Tutor nao encontrado");
-		
-		int valorTutor = 0;
-		double totalSistema = 0;
-		double notaTutor = this.tutores.get(matriculaTutor).getNota();
-			
-		if(notaTutor> 4.5) {
-			totalSistema += (0.1 + 0.01 * ((notaTutor - 4.5) / 0.1)) * totalCentavos;
-				
-		}else if(notaTutor <= 4.5 && notaTutor > 3) {
-			totalSistema += 0.2 * totalCentavos;
-				
-		}else {
-			totalSistema += (0.61 + 0.01 * ((3.0 - notaTutor) / 0.1)) * totalCentavos;
-		}
-			
-		int valorSistema = (int) Math.floor(totalSistema);
-		
-		valorTutor = totalCentavos - valorSistema;
-				
-		this.tutores.get(matriculaTutor).adicionarDoacao(valorTutor);
-		
-		return valorSistema;
-	}
-	
 	public double pegarNotaDouble(String matricula) {
 		return tutores.get(matricula).getNota();
 	}
@@ -199,13 +178,47 @@ public class TutorController {
 		return tutores.get(matricula).getNivel();
 	}
 	
-	public int getTotalDinheiro(String emailTutor) {
+	public void adicionarAvaliacao(String matricula, int nota) {
+		this.tutores.get(matricula).adicionarAvaliacao(nota);
+	}
+	
+	private double calcularTaxaTutor(int totalCentavos, double notaTutor) {
+		if (notaTutor > 4.5) {	return (0.9 + ((notaTutor - 4.5) * 0.1)); }
+		
+		if (notaTutor > 3.0) { return (0.8); }
+		
+		return (0.4 - ((3.0 - notaTutor) * 0.1));
+	}
+	
+	public int calcularComissao(String matriculaTutor, int totalCentavos) {
+		this.impedirTutorNaoCadastrado(matriculaTutor, "Tutor nao encontrado");
+		Validador.validarIntNaoNegativo("totalCentavos nao pode ser menor que zero", totalCentavos);
+		
+		double notaTutor = this.tutores.get(matriculaTutor).getNota();
+		
+		return (int) Math.ceil((1 - this.calcularTaxaTutor(totalCentavos, notaTutor)) * totalCentavos);
+	}
+	
+	private int calcularTotalTutor(String matriculaTutor, int totalCentavos) {
+		return totalCentavos - this.calcularComissao(matriculaTutor, totalCentavos);
+	}
+	
+	public void adicionarDoacao(String matriculaTutor, int totalCentavos) {
+		this.impedirTutorNaoCadastrado(matriculaTutor, "Tutor nao encontrado");
+		Validador.validarIntNaoNegativo("totalCentavos nao pode ser menor que zero", totalCentavos);
+		
+		int totalTutor = this.calcularTotalTutor(matriculaTutor, totalCentavos);
+		
+		this.tutores.get(matriculaTutor).adicionarDoacao(totalTutor);
+	}
+	
+	public int getTotalDinheiroTutor(String emailTutor) {
 		this.impedirTutorNaoCadastrado(this.getMatriculaPorEmail(emailTutor), "Tutor nao encontrado");
 		return this.tutores.get(getMatriculaPorEmail(emailTutor)).getDinheiroRecebido();
 	}
 	
-	public void adicionarAvaliacao(String matricula, int nota) {
-		this.tutores.get(matricula).adicionarAvaliacao(nota);
+	public void configurarOrdem(String atributo) {
+		this.ordenadorTutores = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
 	}
 	
 }

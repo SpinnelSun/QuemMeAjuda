@@ -1,7 +1,5 @@
 package controllers;
 
-import java.text.DecimalFormat;
-
 import utility.Validador;
 
 /**
@@ -432,10 +430,6 @@ public class Sistema {
 		}
 	}
 	
-	public int totalDinheiroSistema() {
-		return this.caixa;
-	}
-	
 	/**
 	 * Nao doa nada, apenas calcula o valor a ser destinado ao caixa do sistema e o valor a ser des-
 	 * tinado ao Tutor a partir do seu nivel.
@@ -447,10 +441,11 @@ public class Sistema {
 	 */
 	public void doar(String matriculaTutor, int totalCentavos) {
 		try {
-			
-			this.caixa += this.controladorTutor.doar(matriculaTutor, totalCentavos, this.caixa);
-			
-		} catch (IllegalArgumentException e) {
+			this.controladorTutor.adicionarDoacao(matriculaTutor, totalCentavos);
+			this.caixa += this.controladorTutor.calcularComissao(matriculaTutor, totalCentavos);
+		}
+
+		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro na doacao para tutor: " + e.getMessage());
 		}
 	}
@@ -466,11 +461,22 @@ public class Sistema {
 	public int totalDinheiroTutor(String emailTutor) {
 		try {
 			Validador.validarStringNaoVaziaNaoNula("emailTutor nao pode ser vazio ou nulo", emailTutor);
-			
-			return this.controladorTutor.getTotalDinheiro(emailTutor);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: " + e.getMessage());
+			return this.controladorTutor.getTotalDinheiroTutor(emailTutor);
 		}
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: " +
+												e.getMessage());
+		}
+	}
+	
+	public int totalDinheiroSistema() {
+		return this.caixa;
+	}
+	
+	public void configurarOrdem(String atributo) {
+		this.controladorAluno.configurarOrdem(atributo);
+		this.controladorTutor.configurarOrdem(atributo);
 	}
 
 }
