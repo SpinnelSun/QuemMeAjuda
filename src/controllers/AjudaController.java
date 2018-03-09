@@ -6,8 +6,6 @@ import java.util.Map;
 import models.Ajuda;
 import models.AjudaOnline;
 import models.AjudaPresencial;
-import models.InfoAjuda;
-import models.InfoAluno;
 import utility.Validador;
 
 public class AjudaController {
@@ -32,7 +30,7 @@ public class AjudaController {
 	 * @param hora A hora desejada para haver a tutoria.
 	 * @param dia O dia desejado para haver a tutoria.
 	 * @param local O local desejado para haver a tutoria
-	 * @param matriculaTutor A matricula do tutor que dará a tutoria.
+	 * @param matriculaTutor A matricula do tutor que darï¿½ a tutoria.
 	 * 
 	 * @returns null.
 	 * 
@@ -53,7 +51,7 @@ public class AjudaController {
 	 * 
 	 * @param matricula A matricula do Aluno.
 	 * @param disciplina A disciplina que se precisa de ajuda.
-	 * @param matriculaTutor A matricula do tutor que dará a tutoria.
+	 * @param matriculaTutor A matricula do tutor que darï¿½ a tutoria.
 	 * 
 	 * @returns null.
 	 * 

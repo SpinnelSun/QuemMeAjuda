@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Comparator;
 
 import models.InfoAluno;
+import models.Ordenacao;
 import models.Academico;
 import models.Aluno;
 
@@ -110,11 +111,11 @@ public class AlunoController {
 	 * 
 	 */
 	private List<Aluno> ordenarAlunos() {
-		List<Aluno> alunosPorNome = new ArrayList<Aluno>();
-		alunosPorNome.addAll(this.alunos.values());
-		alunosPorNome.sort(this.ordenadorAlunos);
+		List<Aluno> listaDeAlunos = new ArrayList<Aluno>();
+		listaDeAlunos.addAll(this.alunos.values());
+		listaDeAlunos.sort(this.ordenadorAlunos);
 		
-		return alunosPorNome;
+		return listaDeAlunos;
 	}
 	
 	/**
@@ -147,6 +148,10 @@ public class AlunoController {
 	public String getInfoAluno(String matricula, String atributo) {
 		this.impedirAlunoNaoCadastrado(matricula, "Aluno nao encontrado");
 		return InfoAluno.valueOf(atributo.toUpperCase()).getInfo(this.alunos.get(matricula));			
+	}
+	
+	public void configurarOrdem(String atributo) {
+		this.ordenadorAlunos = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
 	}
 
 }
