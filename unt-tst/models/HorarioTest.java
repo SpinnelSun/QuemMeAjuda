@@ -56,24 +56,28 @@ public class HorarioTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarHorarioHoraVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Horario cuja hora seja uma String vazia.";
+		
 		Horario horario = new Horario("", "Segunda");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarHorarioHoraNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Horario cuja hora seja um null.";
+		
 		Horario horario = new Horario(null, "Segunda");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarHorarioDiaVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Horario cujo dia seja uma String vazia.";
+		
 		Horario horario = new Horario("00:00", "");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarHorarioDiaNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Horario cujo dia seja um null.";
+		
 		Horario horario = new Horario("00:00", null);
 	}
 

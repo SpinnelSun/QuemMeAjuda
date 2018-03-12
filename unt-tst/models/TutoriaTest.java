@@ -12,7 +12,7 @@ public class TutoriaTest {
 	private Habilidade tutoria3;
 	
 	@Before
-	public void criarTutoria() {
+	public void criaTutoria() {
 		this.tutoria1 = new Habilidade(" Programacao 2 ", 5);
 		this.tutoria2 = new Habilidade("Programacao 1", 5);
 		this.tutoria3 = new Habilidade("Programacao 2", 4);
@@ -51,30 +51,35 @@ public class TutoriaTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaDisciplinaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja disciplina esteja vazia.";
+		
 		Habilidade tutoria = new Habilidade("", 5);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarTutoriaDisciplinaNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja disciplina seja null.";
+		
 		Habilidade tutoria = new Habilidade(null, 5);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaProficienciaNegativa() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja proficiencia seja negativa.";
+		
 		Habilidade tutoria = new Habilidade("Programacao 2", -1);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarTutoriaProficienciaZero() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria cuja proficiencia seja zero.";
+		
 		Habilidade tutoria = new Habilidade("Programacao 2", 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testCriarTutoriaProficienciaMaior() {
+	public void testCriarTutoriaProficienciaPositiva() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma Tutoria com proficiencia maior que 5.";
+		
 		Habilidade tutoria = new Habilidade("Programacao 2", 6);
 	}
 

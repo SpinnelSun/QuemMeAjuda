@@ -26,6 +26,7 @@ public class DisponibilidadeTest {
 	@Test
 	public void testAdicionarLocal() {
 		this.disponibilidade.adicionarLocal("CAA");
+		
 		String msg = "Avaliacao do armazenamento adequado de um Local na Disponibilidade.";
 		assertTrue(msg, this.disponibilidade.totalLocaisCadastrados() == 1);
 		
@@ -37,6 +38,7 @@ public class DisponibilidadeTest {
 	@Test
 	public void testAdicionarHorario() {
 		this.disponibilidade.adicionarHorario("00:00", "Segunda");
+		
 		String msg = "Avaliacao do armazenamento adequado de um Horario na Disponibilidade.";
 		assertTrue(msg, this.disponibilidade.totalHorariosCadastrados() == 1);
 		
@@ -48,6 +50,7 @@ public class DisponibilidadeTest {
 	@Test
 	public void testVerificarHorarioCadastrado() {
 		this.disponibilidade.adicionarHorario("00:00", "Segunda");
+		
 		String msg = "Avaliacao da checagem adequada de um Horario cadastrado na Disponibilidade.";
 		assertTrue(msg, this.disponibilidade.verificarHorarioCadastrado("00:00", "Segunda"));
 		
@@ -58,6 +61,7 @@ public class DisponibilidadeTest {
 	@Test
 	public void testVerificarLocalCadastrado() {
 		this.disponibilidade.adicionarLocal("CAA");
+		
 		String msg = "Avaliacao da checagem adequada de um Local cadastrado na Disponibilidade.";
 		assertTrue(msg, this.disponibilidade.verificarLocalCadastrado("CAA"));
 		
