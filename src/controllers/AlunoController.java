@@ -11,15 +11,26 @@ import models.Ordenacao;
 import models.Academico;
 import models.Aluno;
 
-
+/**
+ * Representacao do Controlador dos Alunos cadastrados no Sistema do Quem Me Ajuda. Como atributos,
+ * o AlunoController possui um Map contendo os Alunos cadastrados (mapeados a partir de suas respec-
+ * tivas matriculas) e um Comparator que define a atual ordenacao desses Alunos.
+ * 
+ * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
+ * 
+ * @author Mateus de Lima Oliveira  - 117110219
+ * @author Matheus Alves dos Santos - 117110503
+ * @author Misael Augusto Silva da Costa - 117110525
+ *
+ */
 public class AlunoController {
 	
 	private Map<String, Aluno> alunos;
 	private Comparator<Academico> ordenadorAlunos;
 	
 	/**
-	 * Constroi um controlador para aluno, inicializando a colecao ultizada para armazenar alunos e especificando o tipo de ordena-
-	 * cao que sera ultilizada na listagem de alunos.
+	 * Constroi o AlunoController. O Map de Alunos sera inicialmente vazio, enquanto a ordenacao
+	 * dos Alunos sera inicialmente feita a partir de seus respectivos nomes.
 	 * 
 	 */
 	public AlunoController() {
@@ -28,21 +39,22 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Retorna a quantidade de Alunos cadastrados no sistema.
+	 * Retorna a quantidade de Alunos atualmente mapeados pelo AlunoController. 
 	 * 
-	 * @returns int A quantidadede alunos cadastrados.
+	 * @returns A quantidade atual de Alunos cadastrados.
 	 * 
 	 */
-	public int quantAlunos() {
-		return alunos.size();
+	public int getTotalAlunos() {
+		return this.alunos.size();
 	}
 	
 	/**
-	 * Metodo auxiliar que impede o cadastro de alunos de mesma matricula, ou seja, de alunos repetidos. Sendo retornado uma
-	 * excecao caso esta tentativa de cadastro seja feita.
+	 * Verifica se ja existe cadastro de um Aluno cuja matricula e a informada atraves do primeiro
+	 * parametro desse metodo. Caso o Aluno ja tenha sido cadastrado, uma excecao adequada sera lan-
+	 * cada com a mensagem tambem informada como parametro.
 	 * 
-	 * @param matricula Matricula do aluno a ser analisada.
-	 * @param msg Mensagem retornada caso a matricula ja esteja cadastrada.
+	 * @param matricula A matricula do Aluno a ser verificada.
+	 * @param msg A mensagem a ser associada a excecao possivelmente lancada.
 	 * 
 	 * @returns null.
 	 * 
@@ -54,15 +66,15 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Realiza o cadastro de Aluno no Sistema. Sendo passado o nome, matricula, codigo do curso e email obrigatoriamente,
-	 * nao e permitido cadastro de alunos com matriculas ja cadastradas ou com demais atributos vazios (apenas telefone),
-	 * nulos ou invalidos
+	 * A partir das informacoes passada como parametros desse metodo, cria um novo Aluno e o mapeia
+	 * a partir de sua matricula. Caso a matricula informada pertenca a algum Aluno ja cadastrado, a
+	 * excecao adequada sera lancada.
 	 * 
-	 * @param nome O nome do Aluno.
-	 * @param matricula A matricula do Aluno.
-	 * @param codigoCurso O codigo do curso do Aluno.
-	 * @param telefone O telefone do Aluno.
-	 * @param email O email do Aluno.
+	 * @param nome O nome do Aluno a ser cadastrado.
+	 * @param matricula A matricula do Aluno a ser cadastrado.
+	 * @param codigoCurso O codigo do curso do Aluno a ser cadastrado.
+	 * @param telefone O telefone do Aluno a ser cadastrado.
+	 * @param email O email do Aluno a ser cadastrado.
 	 * 
 	 * @returns null.
 	 * 
@@ -75,11 +87,12 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Metodo auxiliar que impede recuperacao de alunos que nao estejam com matriculas no sistema, ou seja, de alunos 
-	 * nao cadastrados. Sendo retornado uma excecao caso esta tentativa de cadastro seja feita.
+	 * Verifica se existe cadastro de um Aluno cuja matricula e a informada atraves do primeiro pa-
+	 * rametro desse metodo. Caso o Aluno nao tenha sido cadastrado, uma excecao adequada sera lan-
+	 * cada com a mensagem tambem informada como parametro.
 	 * 
-	 * @param matricula Matricula do aluno a ser analisada.
-	 * @param msg Mensagem retornada caso a matriculan nao esteja cadastrada.
+	 * @param matricula A matricula do Aluno a ser verificada.
+	 * @param msg A mensagem a ser associada a excecao possivelmente lancada.
 	 * 
 	 * @returns null.
 	 * 
@@ -91,12 +104,13 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Realiza uma busca pelo matricula e retorna a representacao de um Aluno desejado. 
-	 * A partir da matricula do Aluno eh retornado o Aluno.
+	 * Retorna a representacao textual de um dos Alunos cadastrados. O Aluno a ser recuperado sera
+	 * aquele cuja matricula for informada como parametro do metodo. Caso a matricula informada nao
+	 * pertenca a nenhum dos Alunos cadastrados, a excecao adequada sera lancada.
 	 * 
-	 * @param matricula Matricula do Aluno.
+	 * @param matricula A matricula do Aluno a ser acessado.
 	 * 
-	 * @returns String Representacao textual do aluno, contendo suas informacoes.
+	 * @returns A representacao textual do Aluno de interesse.
 	 * 
 	 */
 	public String recuperaAluno(String matricula) {
@@ -105,9 +119,10 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Metodo auxiliar que faz a ordenacao de alunos por ordem alfabetica para poderem ser listados.
+	 * A partir do atributo ordenadorAlunos de AlunoController, esse metodo retornara a lista dos
+	 * Alunos cadastrados organizando-os de acordo com a ordem atualmente configurada.
 	 * 
-	 * @returns List<> Lista de alunos ordenados pelo nome.
+	 * @returns A List ordenada dos Alunos cadastrados.
 	 * 
 	 */
 	private List<Aluno> ordenarAlunos() {
@@ -119,9 +134,11 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Retorna uma lista de representacoes de um Alunos registrados no sistema em ordem alfabetica pelo nome. 
+	 * Retorna a listagem dos Alunos atualmente cadastrados. Cada Aluno sera representado por seu
+	 * respectivo toString(). A listagem sera feita em linha unica (separando os Alunos por virgu-
+	 * la).
 	 * 
-	 * @returns String Lista de alunos.
+	 * @returns A listagem dos Alunos cadastrados.
 	 * 
 	 */
 	public String listarAlunos() {
@@ -135,14 +152,15 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Realiza uma busca pelo valor armazenado de determinado atributo de Aluno. 
-	 * A partir da Matricula do Aluno e retornada a informacao desejada (atributo) do Aluno.
-	 * Nao eh possivel fazer busca por matriculas nao cadastradas ou atributos inexistentes.
+	 * Retorna a representacao textual de um dos atributos de um Aluno ja cadastrado. O Aluno que
+	 * tera o atributo recuperado e aquele cuja matriculada for igual a informada como parametro
+	 * do metodo. Caso nenhum dos Alunos cadastrados possua a matricula informada, a excecao ade-
+	 * quada sera lancada.
 	 * 
-	 * @param matricula Matricula do Aluno.
-	 * @param atributo Informacao desejada do aluno.
+	 * @param matricula A matricula do Aluno de interesse na consulta.
+	 * @param atributo O nome do atributo de interesse na consulta.
 	 * 
-	 * @returns String o valor do atributo desejado.
+	 * @returns A informacao desejada sobre o Aluno consultado.
 	 * 
 	 */
 	public String getInfoAluno(String matricula, String atributo) {
@@ -150,6 +168,15 @@ public class AlunoController {
 		return InfoAluno.valueOf(atributo.toUpperCase()).getInfo(this.alunos.get(matricula));			
 	}
 	
+	/**
+	 * Modifica a ordenacao utilizada em listarAlunos() para gerar uma listagem dos Alunos cadas-
+	 * trados.
+	 * 
+	 * @param atributo O nome do atributo a ser utilizado para a ordenacao.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void configurarOrdem(String atributo) {
 		this.ordenadorAlunos = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
 	}

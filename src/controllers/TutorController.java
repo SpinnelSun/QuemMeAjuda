@@ -12,6 +12,7 @@ import models.Candidato;
 import models.Ordenacao;
 import models.Tutor;
 import utility.Validador;
+
 /**
  * Representacao do Controlador dos Tutores cadastrados no Sistema do Quem Me Ajuda. Como atributos,
  * o TutorController possui um Map contendo os Tutores cadastrados (mapeados a partir de suas respec-
@@ -42,7 +43,7 @@ public class TutorController {
 	/**
 	 * Retorna a quantidade de Tutores atualmente mapeados pelo TutorController. 
 	 * 
-	 * @returns A quantidade atual de Tutores cadastrados..
+	 * @returns A quantidade atual de Tutores cadastrados.
 	 * 
 	 */
 	public int getTotalTutores() {
@@ -74,13 +75,13 @@ public class TutorController {
 	 * rametro desse metodo. Caso nao haja cadastro desse Tutor, uma excecao adequada sera lancada
 	 * com a mensagem tambem informada como parametro.
 	 * 
-	 * @param matricula A matricula do Tutor a ser verificado.
+	 * @param matricula A matricula do Tutor a ser verificada.
 	 * @param msg A mensagem a ser associada a excecao possivelmente lancada.
 	 * 
 	 * @returns null.
 	 * 
 	 */
-	public void impedirTutorNaoCadastrado(String matricula, String msg) {
+	private void impedirTutorNaoCadastrado(String matricula, String msg) {
 		if (!this.tutores.containsKey(matricula)) {
 			throw new IllegalArgumentException(msg);
 		}
@@ -442,7 +443,7 @@ public class TutorController {
 	
 	/**
 	 * Realiza a doacao de uma certa quantia (em centavos) para um  dos Tutores cadastrados. Caso se
-	 * tente realizar a doacao a um Tutor nao cadastrado ou se tente doar uma quantia invalidade, as
+	 * tente realizar a doacao a um Tutor nao cadastrado ou se tente doar uma quantia invalida, as
 	 * excecoes adequadas serao lancadas.
 	 * 
 	 * @param matriculaTutor A matricula do Tutor que recebera a doacao.

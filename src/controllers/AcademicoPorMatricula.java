@@ -19,8 +19,8 @@ public class AcademicoPorMatricula implements Comparator<Academico> {
 	
 	/**
 	 * Implementacao do metodo de Comparator que determina qual dos Academicos passados como parame-
-	 * tros precede o outro. Um Academico A precedera o Academico B se sua matricula nome for menor
-	 * que a de B.
+	 * tros precede o outro. Um Academico A precedera o Academico B se sua matricula nome for lexi-
+	 * cograficamente  menorque a de B.
 	 * 
 	 * @param academico1 O primeiro Academico.
 	 * @param academico2 O segundo Academico.

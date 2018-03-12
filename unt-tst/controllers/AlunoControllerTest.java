@@ -1,7 +1,6 @@
 package controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -21,7 +20,7 @@ public class AlunoControllerTest {
 	public void criarAlunoTest() {
 		String msg = "Avaliacao da criaco e armazenamento de aluno.";
 		alunoController.cadastrarAluno("Nome 2", "2", 2, "00000-0000", "adress2@email.com");
-		assertTrue(msg, alunoController.quantAlunos() == 2);
+		assertTrue(msg, alunoController.getTotalAlunos() == 2);
 	}
 	
 	@Test
