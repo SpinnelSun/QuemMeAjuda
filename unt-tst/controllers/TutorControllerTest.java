@@ -21,7 +21,7 @@ public class TutorControllerTest {
 	@Test
 	public void quantTutorTest() {
 		String msg = "Avaliacao da quantidade de tutores registrados.";
-		assertTrue(1 == tutorController.quantTudores());
+		assertTrue(1 == tutorController.getTotalTutores());
 	}
 	
 	@Test
@@ -29,14 +29,14 @@ public class TutorControllerTest {
 		String msg = "Avaliacao do armazenamento adequado de Tutor.";
 		tutorController.criarNovoTutor("000000000", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
 		tutorController.criarNovoTutor("000000001", "Otavio Rocha Alvez", "2", "", "otavio@gmail.com");
-		assertTrue(3 == tutorController.quantTudores());
+		assertTrue(3 == tutorController.getTotalTutores());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void criarNovoTutorSemMatriculaTest() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Tutor cuja matricula seja uma String vazia.";
 		tutorController.criarNovoTutor("", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
-		assertTrue(1 == tutorController.quantTudores());
+		assertTrue(1 == tutorController.getTotalTutores());
 	}	
 	
 	@Test

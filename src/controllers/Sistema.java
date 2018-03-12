@@ -267,7 +267,7 @@ public class Sistema {
 	
 	private String selecionarTutor(String disciplina) {
 		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
-		return this.controladorTutor.selecionarTutor(disciplina);
+		return this.controladorTutor.selecionarCandidato(disciplina);
 	}
 	
 	/**
@@ -297,7 +297,7 @@ public class Sistema {
 	
 	private String selecionarTutor(String disciplina, String horario, String dia, String localInteresse) {
 		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
-		return this.controladorTutor.selecionarTutor(disciplina, horario, dia, localInteresse);
+		return this.controladorTutor.selecionarCandidato(disciplina, horario, dia, localInteresse);
 	}
 	
 	/**
@@ -404,7 +404,7 @@ public class Sistema {
 	 */ 
 	public String pegarNota(String matriculaTutor) {
 		try {
-			return this.controladorTutor.pegarNotaString(matriculaTutor);
+			return this.controladorTutor.pegarNota(matriculaTutor);
 		}
 		
 		catch (IllegalArgumentException e) {
