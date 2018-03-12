@@ -41,13 +41,6 @@ public class AlunoTest {
 	}
 
 	@Test
-	public void testSetNota() {
-		this.alunoComTelefone.setNota(4.6);
-		String msg = "Avaliacao da alteracao e do armazenamento adequado da nota do aluno em um Aluno.";
-		assertTrue(msg, this.alunoComTelefone.getNota() == 4.6);
-	}
-
-	@Test
 	public void testToString() {
 		String msg = "Avaliacao da representacao textual adequada de um Aluno.";
 		assertEquals(msg, "111111111 - Nome 1 - 1 - 0000-0000 - address@email.com",
