@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao de uma Habilidade de um Tutor. Como atributos, cada Habilidade possui o nome de uma

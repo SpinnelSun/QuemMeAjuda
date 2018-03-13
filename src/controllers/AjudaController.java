@@ -11,12 +11,12 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import general.Validador;
 import models.Ajuda;
 import models.AjudaOnline;
 import models.AjudaPresencial;
 import models.Aluno;
 import models.Tutor;
-import utility.Validador;
 
 /**
  * Representacao do Controlador dos Ajudas cadastradas no Sistema do Quem Me Ajuda. Como atributos,

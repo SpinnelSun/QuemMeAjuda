@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao de um Horario a ser registrado numa Disponibilidade. Como atributos, um Horario pos-

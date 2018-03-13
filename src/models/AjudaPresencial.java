@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao de uma AjudaPresencial no sistema do Quem Me Ajuda. Como atributos, cada AjudaPre-

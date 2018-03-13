@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao abstrata de uma Ajuda. Como atributos, cada Ajuda possui o nome da disciplina, a ma- 

@@ -13,8 +13,12 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.util.Map;
 
+import general.AjudaException;
+import general.AlunoException;
+import general.AvaliacaoException;
+import general.TutorException;
+import general.Validador;
 import models.Tutor;
-import utility.Validador;
 
 /**
  * Representacao do Sistema que controla as entidades e suas respectivas propriedades do sistema
@@ -77,12 +81,8 @@ public class Sistema implements Serializable {
 			this.controladorAluno.cadastrarAluno(nome, matricula, codigoCurso, telefone, email);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no cadastro de aluno: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro no cadastro de aluno: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new AlunoException("Erro no cadastro de aluno: " + e.getMessage());
 		}
 	}
 	
@@ -101,8 +101,8 @@ public class Sistema implements Serializable {
 			return this.controladorAluno.recuperaAluno(matricula);	
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na busca por aluno: " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AlunoException("Erro na busca por aluno: " + e.getMessage());
 		}
 	}
 
@@ -135,8 +135,8 @@ public class Sistema implements Serializable {
 			return this.controladorAluno.getInfoAluno(matricula, atributo);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na obtencao de informacao de aluno: " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AlunoException("Erro na obtencao de informacao de aluno: " + e.getMessage());
 		}
 	}
 	
@@ -155,13 +155,18 @@ public class Sistema implements Serializable {
 	 * 
 	 */
 	private void criarNovoTutor(String matricula) {
-		this.controladorAluno.impedirAlunoNaoCadastrado(matricula, "Tutor nao encontrado");
-		
-		this.controladorTutor.criarNovoTutor(this.controladorAluno.getInfoAluno(matricula, "Matricula"), 
+		try {
+			this.controladorAluno.impedirAlunoNaoCadastrado(matricula, "Tutor nao encontrado");
+			this.controladorTutor.criarNovoTutor(this.controladorAluno.getInfoAluno(matricula, "Matricula"), 
 											 this.controladorAluno.getInfoAluno(matricula, "Nome"),
 											 this.controladorAluno.getInfoAluno(matricula, "Curso"),
 											 this.controladorAluno.getInfoAluno(matricula, "Telefone"),
 											 this.controladorAluno.getInfoAluno(matricula, "Email"));
+		}
+		
+		catch (RuntimeException e) {
+			throw new AlunoException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -181,12 +186,8 @@ public class Sistema implements Serializable {
 			this.controladorTutor.tornarTutor(matricula, disciplina, proficiencia);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro na definicao de papel: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro na definicao de papel: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new TutorException("Erro na definicao de papel: " + e.getMessage());
 		}
 		
 	}
@@ -206,13 +207,10 @@ public class Sistema implements Serializable {
 			return this.controladorTutor.recuperaTutor(matricula);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro na busca por tutor: " + e1.getMessage());
+		catch (RuntimeException e) {
+			throw new TutorException("Erro na busca por tutor: " + e.getMessage());
 		}
 		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro na busca por tutor: " + e2.getMessage());
-		}
 	}
 	
 	/**
@@ -244,12 +242,8 @@ public class Sistema implements Serializable {
 			this.controladorTutor.cadastrarHorario(email, hora, dia);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no cadastrar horario: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro no cadastrar horario: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new TutorException("Erro no cadastrar horario: " + e.getMessage());
 		}
 	}
 	
@@ -269,12 +263,8 @@ public class Sistema implements Serializable {
 			this.controladorTutor.cadastrarLocalDeAtendimento(email, local);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no cadastrar local de atendimento: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro no cadastrar local de atendimento: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new TutorException("Erro no cadastrar local de atendimento: " + e.getMessage());
 		}
 	}
 	
@@ -339,12 +329,8 @@ public class Sistema implements Serializable {
 				   this.selecionarCandidato(disciplina));
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no pedido de ajuda online: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro no pedido de ajuda online: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new AjudaException("Erro no pedido de ajuda online: " + e.getMessage());
 		}
 	}
 	
@@ -386,12 +372,8 @@ public class Sistema implements Serializable {
 				   localInteresse, this.selecionarTutor(disciplina, horario, dia, localInteresse));
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no pedido de ajuda presencial: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new NullPointerException("Erro no pedido de ajuda presencial: " + e2.getMessage());
+		catch (RuntimeException e) {
+			throw new AjudaException("Erro no pedido de ajuda presencial: " + e.getMessage());
 		}
 	}
 	
@@ -410,8 +392,8 @@ public class Sistema implements Serializable {
 			return this.controladorAjuda.pegarTutor(idAjuda);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro ao tentar recuperar tutor : " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AjudaException("Erro ao tentar recuperar tutor : " + e.getMessage());
 		}
 	}
 	
@@ -431,8 +413,8 @@ public class Sistema implements Serializable {
 			return this.controladorAjuda.getInfoAjuda(idAjuda, atributo);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro ao tentar recuperar info da ajuda : " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AjudaException("Erro ao tentar recuperar info da ajuda : " + e.getMessage());
 		}
 	}
 	
@@ -457,8 +439,8 @@ public class Sistema implements Serializable {
 					 								  "TUTOR"), nota);
 		 }
 		 
-		 catch (IllegalArgumentException e) {
-				throw new IllegalArgumentException("Erro na avaliacao de tutor: " + e.getMessage());
+		 catch (RuntimeException e) {
+				throw new AvaliacaoException("Erro na avaliacao de tutor: " + e.getMessage());
 		} 
 	}
 	
@@ -477,8 +459,8 @@ public class Sistema implements Serializable {
 			return this.controladorTutor.pegarNota(matriculaTutor);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro ao tentar pegar nota de tutor : " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AvaliacaoException("Erro ao tentar pegar nota de tutor : " + e.getMessage());
 		}
 	}
 	
@@ -497,8 +479,8 @@ public class Sistema implements Serializable {
 			return this.controladorTutor.pegarNivel(matriculaTutor);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro ao tentar pegar nivel de tutor : " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new AvaliacaoException("Erro ao tentar pegar nivel de tutor : " + e.getMessage());
 		}
 	}
 	
@@ -520,8 +502,8 @@ public class Sistema implements Serializable {
 																				   totalCentavos));
 		}
 
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na doacao para tutor: " + e.getMessage());
+		catch (RuntimeException e) {
+			throw new TutorException("Erro na doacao para tutor: " + e.getMessage());
 		}
 	}
 	
@@ -542,8 +524,8 @@ public class Sistema implements Serializable {
 			return this.controladorTutor.getTotalDinheiroTutor(emailTutor);
 		}
 		
-		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na consulta de total de dinheiro do tutor: " +
+		catch (RuntimeException e) {
+			throw new TutorException("Erro na consulta de total de dinheiro do tutor: " +
 												e.getMessage());
 		}
 	}

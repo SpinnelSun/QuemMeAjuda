@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao de um Tutor no sistema do Quem Me Ajuda. Como atributos, cada Tutor possui o nome,

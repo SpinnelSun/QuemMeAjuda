@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao abstrata de um Academico. Como atributos, cada Academico possui o nome, o telefone,

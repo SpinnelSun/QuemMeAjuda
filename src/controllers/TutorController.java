@@ -12,13 +12,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
+
+import general.Validador;
+
 import java.util.HashMap;
 
 import models.Academico;
 import models.Candidato;
 import models.Ordenacao;
 import models.Tutor;
-import utility.Validador;
 
 /**
  * Representacao do Controlador dos Tutores cadastrados no Sistema do Quem Me Ajuda. Como atributos,

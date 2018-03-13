@@ -1,6 +1,6 @@
 package models;
 
-import utility.Validador;
+import general.Validador;
 
 /**
  * Representacao de um Candidato no sistema do Quem Me Ajuda. O Candidato e uma versao simplificada
