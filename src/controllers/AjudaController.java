@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -156,17 +157,16 @@ public class AjudaController {
 	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Ajudas.txt");		
-			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			File file = new File("database/Ajudas.dat");
+			FileOutputStream fos = new FileOutputStream(file);		
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			for(Ajuda ajuda: this.ajudas.values()) {
-				objGravar.writeObject(ajuda);	
-			}
+			oos.writeObject(this.ajudas);	
 			
-			objGravar.close();
-			arquivoGrav.close();
+			oos.close();
+			fos.close();
 			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -178,7 +178,7 @@ public class AjudaController {
 	 * 
 	 */
 	public void limpar() throws IOException {
-		Writer out = new FileWriter("Ajudas.txt");
+		Writer out = new FileWriter("database/Ajudas.dat");
         out.write("");
         out.flush();
     }
@@ -189,19 +189,21 @@ public class AjudaController {
 	 * @returns null.
 	 * 
 	 */
-	public void carregar() throws IOException {
-		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Ajudas.txt");
-		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
-		   
-		while(true){
-			try{
-				Ajuda ajuda = (Ajuda)objLeitura.readObject();
-		    	//ajudas.put(ajuda.getId, ajuda);
-		    }catch(Exception e){ break; }
+	public void carregar() {
+		try {
+			File file = new File("database/Ajudas.dat");
+			FileInputStream fis = new FileInputStream(file);		
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			   
+			this.ajudas = (HashMap<Integer, Ajuda>) ois.readObject(); 
+			
+			ois.close();
+			fis.close();
 		}
 		
-		objLeitura.close();
-		arquivoLeitura.close();
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

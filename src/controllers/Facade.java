@@ -22,6 +22,7 @@ public class Facade {
 		args = new String[] {"controllers.Facade", "acc-tst/us1_test.txt", "acc-tst/us2_test.txt",
 							 "acc-tst/us3_test.txt", "acc-tst/us4_test.txt", "acc-tst/us5_test.txt",
 							 "acc-tst/us6_test.txt"};
+		
 		EasyAccept.main(args);
 	}
 	
@@ -346,15 +347,39 @@ public class Facade {
     	return Facade.sistema.totalDinheiroSistema();
     }
     
-    public void salvar() {
+    /**
+   	 * Armazena todos os dados atualmente cadastrados no Quem Me Ajuda.
+   	 *  
+   	 * @returns null.
+   	 * 
+   	 * @see Sistema#salvar()
+   	 * 
+   	 */
+    public static void salvar() {
     	Facade.sistema.salvar();
     }
     
-    public void carregar() {
+    /**
+   	 * Carrega os dados cadastrados no Quem Me Ajuda que foram salvos previamente.
+   	 *  
+   	 * @returns null.
+   	 * 
+   	 * @see Sistema#carregar()
+   	 * 
+   	 */
+    public static void carregar() {
     	Facade.sistema.carregar();
     }
     
-    public void limpar() {
+    /**
+   	 * Apaga os dados cadastrados no Quem Me Ajuda que haviam sido armazenados, reiniciando-o.
+   	 *  
+   	 * @returns null.
+   	 * 
+   	 * @see Sistema#limpar()
+   	 * 
+   	 */
+    public static void limpar() {
     	Facade.sistema.limpar();
     }
     

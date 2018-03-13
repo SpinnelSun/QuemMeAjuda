@@ -6,18 +6,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 
-import models.Ajuda;
 import utility.Validador;
 
 /**
  * Representacao do Sistema que controla as entidades e suas respectivas propriedades do sistema
  * QuemMeAJuda. Todo sistema deve possuir um controller de Aluno, um controller de Tutor, um con-
- * troller de Ajuda e o caixa no qual sera depositado uma porcentagem de cada valor doado a um Tutor.
+ * troller de Ajuda e o caixa no qual sera depositado uma porcentagem de cada valor doado a um
+ * Tutor.
  * 
  * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
  * 
@@ -26,7 +24,7 @@ import utility.Validador;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Sistema implements Serializable{
+public class Sistema implements Serializable {
 	
 	private AlunoController controladorAluno;
 	private TutorController controladorTutor;
@@ -499,9 +497,9 @@ public class Sistema implements Serializable{
 	 */
 	private void salvarCaixaSistema() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/CaixaSistema.txt");		
-			OutputStreamWriter gravar = new OutputStreamWriter(arquivoGrav);
-			BufferedWriter bw = new BufferedWriter(gravar);
+			FileOutputStream fos = new FileOutputStream("database/CaixaSistema.txt");		
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			BufferedWriter bw = new BufferedWriter(osw);
 			bw.write(String.valueOf(this.caixa));
 			bw.newLine();
 			
@@ -532,28 +530,25 @@ public class Sistema implements Serializable{
 	 * 
 	 */
 	private void carregarCaixaSistema() throws IOException {
-		FileInputStream arquivoLeitura = new FileInputStream("CaixaSistema.txt");
-		InputStreamReader leitura = new InputStreamReader(arquivoLeitura);
-		BufferedReader br = new BufferedReader(leitura);
+		FileInputStream fis = new FileInputStream("CaixaSistema.txt");
+		InputStreamReader isr = new InputStreamReader(fis);
+		BufferedReader br = new BufferedReader(isr);
 		
 		this.caixa = Integer.parseInt(br.readLine());
 		
-		arquivoLeitura.close();
+		fis.close();
 	}
 	
 	/**
-	 * Carrega a partir dos arquivos txt's registrados as informações de Tutores, Alunos, Ajudas e detalhes do sistema.
+	 * Carrega a partir dos arquivos txt's registrados as informaï¿½ï¿½es de Tutores, Alunos, Ajudas e detalhes do sistema.
 	 * 
 	 * @returns null.
 	 * 
 	 */
     public void carregar() {
-    	try {
-    		this.carregarCaixaSistema();
-    		this.controladorAluno.carregar();
-        	this.controladorTutor.carregar();
-        	
-    	} catch(IOException e) {e.printStackTrace();}    	
+    	this.controladorAluno.carregar();
+    	this.controladorTutor.carregar();
+    	this.controladorAjuda.carregar();
     }
     
     /**
@@ -564,13 +559,13 @@ public class Sistema implements Serializable{
 	 */
     public void limpar()  {
     	try {
-    		
 	    	this.controladorAluno.limpar();
 	    	this.controladorAjuda.limpar();
 	    	this.controladorTutor.limpar();
 	    	
-    	} catch(IOException e) {e.printStackTrace();}
-    	
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
     }
 
 }

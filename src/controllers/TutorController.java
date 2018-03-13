@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import models.Academico;
+import models.Ajuda;
 import models.Aluno;
 import models.Candidato;
 import models.Ordenacao;
@@ -507,17 +509,16 @@ public class TutorController {
 	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Tutores.txt");		
-			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			File file = new File("database/Tutores.dat");
+			FileOutputStream fos = new FileOutputStream(file);		
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			for(Tutor tutor: this.tutores.values()) {
-				objGravar.writeObject(tutor);	
-			}
+			oos.writeObject(this.tutores);	
 			
-			objGravar.close();
-			arquivoGrav.close();
+			oos.close();
+			fos.close();
 			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -529,7 +530,7 @@ public class TutorController {
 	 * 
 	 */
 	public void limpar() throws IOException {
-		Writer out = new FileWriter("Tutores.txt");
+		Writer out = new FileWriter("database/Tutores.dat");
         out.write("");
         out.flush();
     }
@@ -540,19 +541,21 @@ public class TutorController {
 	 * @returns null.
 	 * 
 	 */
-	public void carregar() throws IOException {
-		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Tutores.txt");
-		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
-		   
-		while(true){
-			try{
-				Tutor tutor = (Tutor)objLeitura.readObject();
-		    	tutores.put(tutor.getMatricula(), tutor);
-		    }catch(Exception e){ break; }
+	public void carregar() {
+		try {
+			File file = new File("database/Tutores.dat");
+			FileInputStream fis = new FileInputStream(file);		
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			   
+			this.tutores = (Map<String, Tutor>) ois.readObject(); 
+			
+			ois.close();
+			fis.close();
 		}
 		
-		objLeitura.close();
-		arquivoLeitura.close();
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

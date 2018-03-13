@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.util.Comparator;
 
 import models.InfoAluno;
 import models.Ordenacao;
+import models.Tutor;
 import models.Academico;
 import models.Aluno;
 
@@ -198,18 +200,15 @@ public class AlunoController {
 	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Alunos.txt");		
-			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			File file = new File("database/Alunos.dat");
+			FileOutputStream fos = new FileOutputStream(file);		
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
-			for(Aluno aluno: this.alunos.values()) {
-				objGravar.writeObject(aluno);
-				objGravar.flush();
-			}
+			oos.writeObject(this.alunos);
+			oos.close();
+			fos.close();
 			
-			objGravar.close();
-			arquivoGrav.close();
-			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -221,7 +220,7 @@ public class AlunoController {
 	 * 
 	 */
 	public void limpar() throws IOException {
-		Writer out = new FileWriter("Alunos.txt");
+		Writer out = new FileWriter("database/Alunos.dat");
         out.write("");
         out.flush();
     }
@@ -232,23 +231,21 @@ public class AlunoController {
 	 * @returns null.
 	 * 
 	 */
-	public void carregar() throws IOException {
-		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Alunos.txt");
-		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
-		   
-		while(true){
-			try{
-				Aluno aluno = (Aluno)objLeitura.readObject();
-		    	alunos.put(aluno.getMatricula(), aluno);
-		    }catch(Exception e){ break; }
+	public void carregar() {
+		try {
+			File file = new File("database/Tutores.dat");
+			FileInputStream fis = new FileInputStream(file);		
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			   
+			this.alunos = (Map<String, Aluno>) ois.readObject(); 
+			
+			ois.close();
+			fis.close();
 		}
 		
-		objLeitura.close();
-		arquivoLeitura.close();
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-		 
-		    
     	
 }
-
-
