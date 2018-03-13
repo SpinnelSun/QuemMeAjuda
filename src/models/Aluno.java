@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Representacao de um Aluno no sistema do Quem Me Ajuda. Como atributos, cada Aluno possui o nome,
  * o telefone, o email e matricula representados em Strings, o codigo de seu curso representado em
@@ -12,7 +14,7 @@ package models;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Aluno extends Academico {
+public class Aluno extends Academico implements Serializable {
 	
 	private double nota;
 	

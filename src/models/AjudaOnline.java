@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Representacao de uma AjudaOnline no sistema do Quem Me Ajuda. Como atributos, cada AjudaOnline pos-
  * sui o nome da disciplina, a matricula do Aluno solicitante e a matricula do Tutor responsavel re-
@@ -12,7 +14,7 @@ package models;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class AjudaOnline extends Ajuda {
+public class AjudaOnline extends Ajuda implements Serializable {
 	
 	/**
 	 * Constroi uma AjudaOnline a partir da matricula do Aluno solicitante, do nome da disciplina 

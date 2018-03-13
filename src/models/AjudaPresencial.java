@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 import utility.Validador;
 
 /**
@@ -16,7 +18,7 @@ import utility.Validador;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class AjudaPresencial extends Ajuda {
+public class AjudaPresencial extends Ajuda implements Serializable {
 
 	private Horario horario;
 	private Local local;

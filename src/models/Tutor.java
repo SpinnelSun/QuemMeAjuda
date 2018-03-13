@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import utility.Validador;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Tutor extends Academico {
+public class Tutor extends Academico implements Serializable {
 	
 	private double nota;
 	private int numeroCadastro;
