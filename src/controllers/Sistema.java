@@ -1,5 +1,17 @@
 package controllers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Serializable;
+
+import models.Ajuda;
 import utility.Validador;
 
 /**
@@ -14,7 +26,7 @@ import utility.Validador;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Sistema {
+public class Sistema implements Serializable{
 	
 	private AlunoController controladorAluno;
 	private TutorController controladorTutor;
@@ -479,18 +491,85 @@ public class Sistema {
 		this.controladorTutor.configurarOrdem(atributo);
 	}
 	
+	/**
+	 * Registra em um arquivo txt o caixa do Sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	private void salvarCaixaSistema() {
+		try{
+			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/CaixaSistema.txt");		
+			OutputStreamWriter gravar = new OutputStreamWriter(arquivoGrav);
+			BufferedWriter bw = new BufferedWriter(gravar);
+			bw.write(String.valueOf(this.caixa));
+			bw.newLine();
+			
+			bw.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Registra em arquivos txt's os Tutores, Alunos, Ajudas e detalhes do sistema registrados no Sistema ate o momento.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void salvar() {
+		this.salvarCaixaSistema();
 		this.controladorAluno.salvar();
 		this.controladorTutor.salvar();
-		this.controladorAjuda.salvar();
-		
-    	
+		this.controladorAjuda.salvar();    	
     }
+	
+	/**
+	 * Carrega Caixa do Sistema registrado em um arquivo txt e retorna para o Sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	private void carregarCaixaSistema() throws IOException {
+		FileInputStream arquivoLeitura = new FileInputStream("CaixaSistema.txt");
+		InputStreamReader leitura = new InputStreamReader(arquivoLeitura);
+		BufferedReader br = new BufferedReader(leitura);
+		
+		this.caixa = Integer.parseInt(br.readLine());
+		
+		arquivoLeitura.close();
+	}
+	
+	/**
+	 * Carrega a partir dos arquivos txt's registrados as informações de Tutores, Alunos, Ajudas e detalhes do sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
     public void carregar() {
-    	
+    	try {
+    		this.carregarCaixaSistema();
+    		this.controladorAluno.carregar();
+        	this.controladorTutor.carregar();
+        	
+    	} catch(IOException e) {e.printStackTrace();}    	
     }
     
-    public void limpar() {
+    /**
+	 * Limpa os arquivos txt onde estao armazenados os dados do Sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+    public void limpar()  {
+    	try {
+    		
+	    	this.controladorAluno.limpar();
+	    	this.controladorAjuda.limpar();
+	    	this.controladorTutor.limpar();
+	    	
+    	} catch(IOException e) {e.printStackTrace();}
     	
     }
 
