@@ -478,5 +478,20 @@ public class Sistema {
 		this.controladorAluno.configurarOrdem(atributo);
 		this.controladorTutor.configurarOrdem(atributo);
 	}
+	
+	public void salvar() {
+		this.controladorAluno.salvar();
+		this.controladorTutor.salvar();
+		this.controladorAjuda.salvar();
+		
+    	
+    }
+    public void carregar() {
+    	
+    }
+    
+    public void limpar() {
+    	
+    }
 
 }
