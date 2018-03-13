@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TutoriaTest {
+public class HabilidadeTest {
 	
 	private Habilidade tutoria1;
 	private Habilidade tutoria2;

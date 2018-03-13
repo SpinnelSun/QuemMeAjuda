@@ -45,13 +45,13 @@ public class TutorControllerTest {
 		tutorController.tornarTutor("111111111", "ATAl", 4);
 	}
 	
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void tornarTutorMatriculaInvalidaTest() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula no esteja cadastrada.";
 		tutorController.tornarTutor("000000000", "ATAl", 4);
 	}
 	
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void tornarTutorMatriculaVaziaTest() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula seja vazia.";
 		tutorController.tornarTutor("", "ATAl", 4);

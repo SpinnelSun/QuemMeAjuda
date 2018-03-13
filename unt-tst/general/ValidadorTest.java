@@ -1,8 +1,10 @@
-package utility;
+package general;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import utility.Validador;
 
 public class ValidadorTest {
 

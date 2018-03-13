@@ -24,7 +24,7 @@ public class AlunoPorEmailTest {
 		
 		this.aluno1 = new Aluno("A", "1", 1, "00000-0000", "a@email.com");
 		this.aluno2 = new Aluno("B", "2", 1, "00000-0000", "b@email.com");
-		this.aluno3 = new Aluno("A", "3", 1, "00000-0000", "c@email.com");
+		this.aluno3 = new Aluno("C", "3", 1, "00000-0000", "a@email.com");
 	}
 	
 	@Test
