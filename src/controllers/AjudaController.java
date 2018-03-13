@@ -8,12 +8,24 @@ import models.AjudaOnline;
 import models.AjudaPresencial;
 import utility.Validador;
 
+/**
+ * Representacao do Controlador dos Ajudas cadastradas no Sistema do Quem Me Ajuda. Como atributos,
+ * o AjudaController possui um Map contendo as Ajudas cadastradas (mapeadas a partir de seus respec-
+ * tivos IDs).
+ * 
+ * Laboratorio de Programacao 2 - Projeto de Laboratorio - Quem Me Ajuda
+ * 
+ * @author Mateus de Lima Oliveira  - 117110219
+ * @author Matheus Alves dos Santos - 117110503
+ * @author Misael Augusto Silva da Costa - 117110525
+ *
+ */
 public class AjudaController {
 	
 	private Map<Integer, Ajuda> ajudas;
 	
 	/**
-	 * Constroi um controlador para Ajuda, inicializando a colecao ultizada para armazenar ajudas.
+	 * Constroi o AjudaController. O Map de Ajudas sera inicialmente vazio.
 	 * 
 	 */
 	public AjudaController() {
@@ -21,18 +33,18 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Solicita uma Ajuda Presencial no sitema, sendo passado a matricula do aluno que esta pedindo a ajuda, a disciplina 
-	 * requisitada, horario e local desejados, alem da matricula do tutor que ira dar a tutoria. E retornado um identifi-
-	 * cador do pedido que e gerado pela sua posicao na ordem de  pedidos.
+	 * A partir das informacoes passadas como parametros desse metodo, cria uma nova AjudaPresencial
+	 * e a mapeia partir de seu ID (que sera o número de Ajudas cadastradas apos a execucao desse me-
+	 * todo). Por fim, retorna o ID da AjudaPresencial cadastrada.
 	 * 
-	 * @param matricula A matricula do Aluno.
-	 * @param disciplina A disciplina que se precisa de ajuda.
-	 * @param hora A hora desejada para haver a tutoria.
-	 * @param dia O dia desejado para haver a tutoria.
-	 * @param local O local desejado para haver a tutoria
-	 * @param matriculaTutor A matricula do tutor que dar� a tutoria.
+	 * @param matricula A matricula do Aluno solicitante da Ajuda.
+	 * @param disciplina A disciplina referente a Ajuda.
+	 * @param hora A hora do atendimento.
+	 * @param dia O dia do atendimento.
+	 * @param local O local do atendimento.
+	 * @param matriculaTutor A matricula do Tutor responsavel pelo atendimento.
 	 * 
-	 * @returns null.
+	 * @returns O ID da AjudaPresencial cadastrada.
 	 * 
 	 */
 	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String hora, String dia,
@@ -45,15 +57,15 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Solicita uma Ajuda Online no sitema, sendo passado a matricula do aluno que esta pedindo a ajuda, a disciplina 
-	 * requisitada e a matricula do tutor que ira dar a tutoria. E retornado um identificador do pedido que e gerado
-	 * pela sua posicao na ordem de  pedidos.
+	 * A partir das informacoes passadas como parametros desse metodo, cria uma nova AjudaOnline e a
+	 * mapeia partir de seu ID (que sera o número de Ajudas cadastradas apos a execucao desse metodo).
+	 * Por fim, retorna o ID da AjudaOnline cadastrada.
 	 * 
-	 * @param matricula A matricula do Aluno.
-	 * @param disciplina A disciplina que se precisa de ajuda.
-	 * @param matriculaTutor A matricula do tutor que dar� a tutoria.
+	 * @param matricula A matricula do Aluno solicitante da Ajuda.
+	 * @param disciplina A disciplina referente a Ajuda.
+	 * @param matriculaTutor A matricula do Tutor responsavel pelo atendimento.
 	 * 
-	 * @returns null.
+	 * @returns O ID da AjudaOnline cadastrada.
 	 * 
 	 */
 	public int pedirAjudaOnline (String matriculaAluno, String disciplina, String matriculaTutor) {
@@ -62,65 +74,68 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Impede que seja possivel acessar uma Ajuda que nao esta cadastrada.
+	 * Verifica se existe cadastro de uma Ajuda cujo ID e o informado como primeiro parametro desse
+	 * metodo. Caso a Ajuda nao tenha sido cadastrada, uma excecao adequada sera lancada com a men-
+	 * sagem tambem informada como parametro.
 	 * 
-	 * @param idAjuda Identificador da Ajuda.
+	 * @param idAjuda O ID da Ajuda a ser verificada.
+	 * @param msg A mensagem a ser associada a excecao possivelmente lancada.
 	 * 
 	 * @returns null.
 	 * 
 	 */
-	private void impedirAjudaNaoCadastrada(int idAjuda) {
+	private void impedirAjudaNaoCadastrada(int idAjuda, String msg) {
 		if (!this.ajudas.containsKey(idAjuda)) {
-			throw new IllegalArgumentException("id nao encontrado ");
+			throw new IllegalArgumentException(msg);
 		}
 	}
 
 	/**
-	 * A partir das requisicoes da Ajuda, e buscado um tutor que seja compativel com as especificacoes de ajuda e que
-	 * se sobressaia dos demais tutores em questao de proficiencia e posicao no sistema.
+	 * Retorna a representacao textual do Tutor responsavel por atender a uma Ajuda castrada. A Aju-
+	 * da a ser consultada sera aquela cujo ID for igual ao informado como parametro do metodo. Caso
+	 * se tente recuperar o Tutor de uma Ajuda nao adastrada, a excecao adequada sera lancada.
 	 * 
-	 * @param idAjuda Identificador da Ajuda.
+	 * @param idAjuda O ID da Ajuda de interesse na consulta.
 	 * 
-	 * @returns String representacao textual do uma Ajuda.
+	 * @returns A representacao textual do Tutor responsavel pela Ajuda.
 	 * 
 	 */
 	public String pegarTutor(int idAjuda) {
 		Validador.validarInteiroPositivo("id nao pode menor que zero ", idAjuda);
-		this.impedirAjudaNaoCadastrada(idAjuda);
+		this.impedirAjudaNaoCadastrada(idAjuda, "id nao encontrado ");
 		
 		return this.ajudas.get(idAjuda).toString();
 	}
 	
 	/**
-	 * Realiza uma busca pelo valor de determinado atributo de Ajuda. 
-	 * A partir do ID da Ajuda e retornada a informacao desejada (atributo) da Ajuda.
+	 * Retorna a representacao textual de um dos atributos de uma Ajuda ja cadastrada. A Ajuda que
+	 * tera o atributo recuperado e aquela cujo ID for igual ao informado como parametro do metodo.
+	 * Caso nenhuma das Ajudas cadastradas possua o ID informado, a excecao adequada sera lancada.
 	 * 
-	 * @param idAjuda Identificador da Ajuda.
-	 * @param atributo Informacao desejada
+	 * @param idAjuda O ID da Ajuda de interesse na consulta.
+	 * @param atributo O nome do atributo de interesse na consulta.
 	 * 
-	 * @returns String o valor do atributo desejado.
+	 * @returns A informacao desejada sobre a Ajuda consultada.
 	 * 
 	 */
 	public String getInfoAjuda(int idAjuda, String atributo) {
 		Validador.validarInteiroPositivo("id nao pode menor que zero ", idAjuda);
-		this.impedirAjudaNaoCadastrada(idAjuda);
+		this.impedirAjudaNaoCadastrada(idAjuda, "id nao encontrado ");
 		
 		return this.ajudas.get(idAjuda).getInfo(atributo);
 	}
 	
 	/**
-	 * Registra avaliacao feita por aluno para determinada ajuda prestada por algum tutor. Sendo passado o ID de ajuda, a avali-
-	 * acao e registrada e atribuida ao tutor daquela determinada ajuda. 
-	 * Nao eh possivel fazer busca por matriculas nao cadastradas ou atributos inexistentes.
+	 * Registra que uma das Ajudas cadastradas foi avaliada. Caso se tente avaliar uma Ajuda cujo ID
+	 * nao esteja cadastrado, a excecao adequada sera lancada.
 	 * 
-	 * @param idAjuda Identificador da Ajuda.
-	 * @param atributo Informacao desejada
+	 * @param idAjuda O ID da Ajuda a ser avaliada.
 	 * 
 	 * @returns null.
 	 * 
 	 */
 	public void registrarAvaliacao(int idAjuda) {
-		this.impedirAjudaNaoCadastrada(idAjuda);
+		this.impedirAjudaNaoCadastrada(idAjuda, "id nao encontrado ");
 		this.ajudas.get(idAjuda).registrarAvaliacao();
 	}
 

@@ -66,7 +66,7 @@ public class AlunoController {
 	}
 	
 	/**
-	 * A partir das informacoes passada como parametros desse metodo, cria um novo Aluno e o mapeia
+	 * A partir das informacoes passadas como parametros desse metodo, cria um novo Aluno e o mapeia
 	 * a partir de sua matricula. Caso a matricula informada pertenca a algum Aluno ja cadastrado, a
 	 * excecao adequada sera lancada.
 	 * 
@@ -153,7 +153,7 @@ public class AlunoController {
 	
 	/**
 	 * Retorna a representacao textual de um dos atributos de um Aluno ja cadastrado. O Aluno que
-	 * tera o atributo recuperado e aquele cuja matriculada for igual a informada como parametro
+	 * tera o atributo recuperado e aquele cuja matricula for igual a informada como parametro
 	 * do metodo. Caso nenhum dos Alunos cadastrados possua a matricula informada, a excecao ade-
 	 * quada sera lancada.
 	 * 
