@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 import utility.Validador;
 
 /**
@@ -15,7 +17,7 @@ import utility.Validador;
  *
  */
 
-public abstract class Academico {
+public abstract class Academico implements Serializable {
 	
 	private String nome;
 	private String matricula;

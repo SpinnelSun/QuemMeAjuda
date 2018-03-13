@@ -193,14 +193,15 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Registra em um arquivo txt os Alunos registrados no Sistema ate o momento.
-	 * 
-	 * @returns null.
-	 * 
+   	 * Armazena todos os dados dos Alunos registrados atualmente no AlunoController. O armazenamen-
+   	 * to dos dados sera feito em arquivos .dat.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void salvar() {
 		try{
-			File file = new File("database/Alunos.dat");
+			File file = new File("database//Alunos.dat");
 			FileOutputStream fos = new FileOutputStream(file);		
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
@@ -214,26 +215,31 @@ public class AlunoController {
 	}
 	
 	/**
-	 * Limpa o arquivo txt que os Alunos estavam registrados.
+	 * Limpa todos os dados sobre Alunos armazenados previamente pelo Quem Me Ajuda.
 	 * 
 	 * @returns null.
 	 * 
 	 */
-	public void limpar() throws IOException {
-		Writer out = new FileWriter("database/Alunos.dat");
-        out.write("");
-        out.flush();
+	public void limpar() {
+		try {
+			Writer wtr = new FileWriter("database//Alunos.dat");
+	        wtr.write("");
+	        wtr.flush();
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 	
 	/**
-	 * Carrega Alunos registrados de um arquivo txt e retorna para o Sistema.
-	 * 
-	 * @returns null.
-	 * 
+   	 * Carrega todos os dados dos Alunos (armazenados previamente) pelo Quem Me Ajuda.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void carregar() {
 		try {
-			File file = new File("database/Tutores.dat");
+			File file = new File("database//Alunos.dat");
 			FileInputStream fis = new FileInputStream(file);		
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			   

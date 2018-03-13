@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Disponibilidade {
+public class Disponibilidade implements Serializable {
 	
 	private Set<Local> locais;
 	private Set<Horario> horarios;

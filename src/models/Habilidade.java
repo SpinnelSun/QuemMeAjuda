@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 import utility.Validador;
 
 /**
@@ -13,7 +15,7 @@ import utility.Validador;
  * @author Misael Augusto Silva da Costa - 117110525
  *
  */
-public class Habilidade {
+public class Habilidade implements Serializable {
 	
 	private String disciplina;
 	private int proficiencia;

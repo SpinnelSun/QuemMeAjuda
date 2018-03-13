@@ -150,14 +150,15 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Registra em um arquivo txt as Ajudas registradas no Sistema ate o momento.
-	 * 
-	 * @returns null.
-	 * 
+   	 * Armazena todos os dados das Ajudas registradas atualmente no AjudaController. O armazenamen-
+   	 * to dos dados sera feito em arquivos .dat.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void salvar() {
 		try{
-			File file = new File("database/Ajudas.dat");
+			File file = new File("database//Ajudas.dat");
 			FileOutputStream fos = new FileOutputStream(file);		
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
@@ -172,26 +173,31 @@ public class AjudaController {
 	}
 	
 	/**
-	 * Limpa o arquivo txt que as Ajudas estavam registradas.
+	 * Limpa todos os dados sobre Ajudas armazenados previamente pelo Quem Me Ajuda.
 	 * 
 	 * @returns null.
 	 * 
 	 */
-	public void limpar() throws IOException {
-		Writer out = new FileWriter("database/Ajudas.dat");
-        out.write("");
-        out.flush();
+	public void limpar() {
+		try {
+			Writer wtr = new FileWriter("database//Ajudas.dat");
+	        wtr.write("");
+	        wtr.flush();
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
     }
 	
 	/**
-	 * Carrega Ajudas registradas de um arquivo txt e retorna para o Sistema.
-	 * 
-	 * @returns null.
-	 * 
+   	 * Carrega todos os dados das Ajudas (armazenadas previamente) pelo Quem Me Ajuda.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void carregar() {
 		try {
-			File file = new File("database/Ajudas.dat");
+			File file = new File("database//Ajudas.dat");
 			FileInputStream fis = new FileInputStream(file);		
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			   

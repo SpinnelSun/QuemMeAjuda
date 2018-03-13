@@ -478,7 +478,7 @@ public class TutorController {
 	 * o e-mail informado nao pertenca a nenhum dos Tutores cadastrados, a excecao adequada sera lan-
 	 * cada.
 	 * 
-	 * @param matricula A matricula do Tutor a ser acessado.
+	 * @param email O e-mail do Tutor a ser acessado.
 	 * 
 	 * @returns A quantia ja recebida pelo Tutor de interesse.
 	 * 
@@ -502,14 +502,15 @@ public class TutorController {
 	}
 	
 	/**
-	 * Registra em um arquivo txt os Tutores registrados no Sistema ate o momento.
-	 * 
-	 * @returns null.
-	 * 
+   	 * Armazena todos os dados dos Tutores registrados atualmente no TutorController. O armazenamen-
+   	 * to dos dados sera feito em arquivos .dat.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void salvar() {
 		try{
-			File file = new File("database/Tutores.dat");
+			File file = new File("database//Tutores.dat");
 			FileOutputStream fos = new FileOutputStream(file);		
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
@@ -524,26 +525,31 @@ public class TutorController {
 	}
 	
 	/**
-	 * Limpa o arquivo txt que os Tutores estavam registrados.
+	 * Limpa todos os dados sobre Tutores armazenados previamente pelo Quem Me Ajuda.
 	 * 
 	 * @returns null.
 	 * 
 	 */
-	public void limpar() throws IOException {
-		Writer out = new FileWriter("database/Tutores.dat");
-        out.write("");
-        out.flush();
+	public void limpar() {
+		try {
+			Writer wtr = new FileWriter("database//Tutores.dat");
+	        wtr.write("");
+	        wtr.flush();
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 	
 	/**
-	 * Carrega Tutores registrados de um arquivo txt e retorna para o Sistema. 
-	 * 
-	 * @returns null.
-	 * 
+   	 * Carrega todos os dados dos Tutores (armazenados previamente) pelo Quem Me Ajuda.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void carregar() {
 		try {
-			File file = new File("database/Tutores.dat");
+			File file = new File("database//Tutores.dat");
 			FileInputStream fis = new FileInputStream(file);		
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			   

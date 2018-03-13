@@ -2,13 +2,18 @@ package controllers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.util.Map;
 
+import models.Tutor;
 import utility.Validador;
 
 /**
@@ -33,8 +38,8 @@ public class Sistema implements Serializable {
 	private int caixa;
 	
 	/**
-	 * Constroi um Sistema. Instancia os controllers de Aluno, Tutor e Ajuda respectivamente e atribui
-	 * ao caixa o valor inicial padrao (zero).
+	 * Constroi o Sistema. Instancia os controllers de Alunos, Tutores e Ajudas, bem como inicia o
+	 * caixa em zero..
 	 * 
 	 */
 	public Sistema() {
@@ -45,18 +50,27 @@ public class Sistema implements Serializable {
 		this.caixa = 0;
 	}
 	
+	public int getCaixa() {
+		return this.caixa;
+	}
+	
+	public void setCaixa(int caixa) {
+		this.caixa = caixa;
+	}
+
 	/**
-	 * Cadastra um Aluno no controller de Aluno a partir de seu nome, de seu telefone, de sua matricu-
-	 * la, do codigo de seu curso e do seu email passados como parametro. Alem disso, verifica e relan-
-	 * ca as excecoes para os casos de invalidez de algum parametro.
+	 * A partir das informacoes passadas como parametros desse metodo, solicita ao Controller de A-
+	 * lunos o cadastro de um novo Aluno. Caso haja o lancamento de alguma excecao nesse processo,
+	 * ela sera tratada e relancada.
 	 * 
-	 * @param nome O nome do Aluno.
-	 * @param matricula A matricula do Aluno.
-	 * @param codigoCurso O codigo do curso do Aluno.
-	 * @param telefone O numero do telefone do Aluno.
-	 * @param email O email do Aluno.
+	 * @param nome O nome do Aluno a ser cadastrado.
+	 * @param matricula A matricula do Aluno a ser cadastrado.
+	 * @param codigoCurso O codigo do curso do Aluno a ser cadastrado.
+	 * @param telefone O telefone do Aluno a ser cadastrado.
+	 * @param email O email do Aluno a ser cadastrado.
 	 * 
 	 * @returns null.
+	 * 
 	 */
 	public void cadastrarAluno(String nome, String matricula, int codigoCurso, String telefone, String email) {
 		try {
@@ -73,15 +87,14 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata, a partir da matricula, um aluno do controller de Aluno e, caso este exista, retorna
-	 * a sua representacao textual, do contrario lanca uma excecao para o caso.
+	 * Retorna a representacao textual de um dos Alunos cadastrados no AlunoController. O Aluno a
+	 * ser recuperado sera aquele cuja matricula for informada como parametro do metodo. Caso haja
+	 * o lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * "matricula - nome - codigoCurso - telefone - email"
-	 * "matricula - nome - codigoCurso - email"
+	 * @param matricula A matricula do Aluno a ser acessado.
 	 * 
-	 * @param matricula A matricula do Aluno.
+	 * @returns A representacao textual do Aluno de interesse.
 	 * 
-	 * @returns A representacao textual de algum aluno do sistema.
 	 */
 	public String recuperaAluno(String matricula) {
 		try {
@@ -94,26 +107,28 @@ public class Sistema implements Serializable {
 	}
 
 	/**
-	 * Resgata e retorna uma mensagem montada pela representacao textual de todos os alunos cadastra-
-	 * dos no Sistema.
+	 * Retorna a listagem dos Alunos atualmente cadastrados no AlunoController. Cada Aluno sera re-
+	 * presentado por seu respectivo toString(). A listagem sera feita em linha unica (separando os
+	 * Alunos por virgula).
 	 * 
-	 * @returns A representacao textual de todos os alunos do sistema.
+	 * @returns A listagem dos Alunos cadastrados.
+	 * 
 	 */
 	public String listarAlunos() {
 		return this.controladorAluno.listarAlunos();
 	}
 	
 	/**
-	 * Resgata e retorna um atributo de determinado Aluno do Sistema a partir da matricula do aluno
-	 * e de uma String que represente um determinado atributo do Aluno. Caso o atributo passado como
-	 * parametro nao exista ou seja invalido (nulo ou vazio) uma excecao e lancada para o caso.
+	 * Retorna a representacao textual de um dos atributos de um Aluno ja cadastrado no AlunoContro-
+	 * ller. O Aluno que tera o atributo recuperado e aquele cuja matricula for igual a informada co-
+	 * mo parametro do metodo. Caso haja o lancamento de alguma excecao nesse processo, ela sera tra-
+	 * tada e relancada.
 	 * 
-	 * "atributoAluno"
+	 * @param matricula A matricula do Aluno de interesse na consulta.
+	 * @param atributo O nome do atributo de interesse na consulta.
 	 * 
-	 * @param matricula A matricula do Aluno
-	 * @param atributo O atributo do Aluno
+	 * @returns A informacao desejada sobre o Aluno consultado.
 	 * 
-	 * @returns O valor de determinado atributo do Aluno.
 	 */
 	public String getInfoAluno(String matricula, String atributo) {
 		try {
@@ -125,6 +140,20 @@ public class Sistema implements Serializable {
 		}
 	}
 	
+	/**
+	 * Caso ainda nao haja cadastro de um Tutor com a matricula informada no TutorController, esse 
+	 * metodo cadastrara um novo Tutor com os atributos passados como parametros no Controller ade-
+	 * quado. Nao sera possivel cadastrar um Tutor que nao esta cadastrado como Aluno.
+	 * 
+	 * @param nome O nome do Tutor a ser cadastrado.
+	 * @param matricula A matricula do Tutor a ser cadastrado.
+	 * @param codigoCurso O codigo do curso do Tutor a ser cadastrado.
+	 * @param telefone O telefone do Tutor a ser cadastrado.
+	 * @param email O email do Tutor a ser cadastrado.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	private void criarNovoTutor(String matricula) {
 		this.controladorAluno.impedirAlunoNaoCadastrado(matricula, "Tutor nao encontrado");
 		
@@ -136,14 +165,15 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Nao retorna nada, apenas resgata um aluno do sistema a partir da sua matricula e torna-o tu-
-	 * tor com a disciplina e a proficiencia passadas como parametro.
+	 * Adiciona uma Habilidade a um dos Tutores cadastrados no TutorController. Caso haja o lancamen-
+	 * to de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param matricula A matricula do Aluno
-	 * @param disciplina A disciplina do Tutor
-	 * @param proficiencia O nivel de conhecimento do Tutor na disciplina
+	 * @param matricula A matricula do Tutor a ser modificado.
+	 * @param disciplina O nome da disciplina em que o Tutor possui Habilidade.
+	 * @param proficiencia O nivel de proficiencia do Tutor na disciplina.
 	 * 
 	 * @returns null.
+	 * 
 	 */
 	public void tornarTutor(String matricula, String disciplina, int proficiencia) {
 		try {
@@ -162,15 +192,14 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata, a partir da matricula, um tutor do controller de Tutor e, caso este exista, retorna
-	 * a sua representacao textual, do contrario lanca uma excecao para o caso.
+	 * Retorna a representacao textual de um dos Tutores cadastrados no TutorController. O Tutor a
+	 * ser recuperado sera aquele cuja matricula for informada como parametro do metodo. Caso haja
+	 * o lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * "matricula - nome - codigoCurso - telefone - email"
-	 * "matricula - nome - codigoCurso - email"
+	 * @param matricula A matricula do Tutor a ser acessado.
 	 * 
-	 * @param matricula A matricula do Tutor.
+	 * @returns A representacao textual do Tutor de interesse.
 	 * 
-	 * @returns A representacao textual de algum tutor do sistema.
 	 */
 	public String recuperaTutor(String matricula) {
 		try {
@@ -187,24 +216,28 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna uma mensagem montada pela representacao textual de todos os tutores cadas-
-	 * trados no Sistema.
+	 * Retorna a listagem dos Tutores atualmente cadastrados no TutorController. Cada Tutor sera re-
+	 * presentado por seu respectivo toString(). A listagem sera feita em linha unica (separando os
+	 * Tutores por virgula).
 	 * 
-	 * @returns A representacao textual de todos os tutores do sistema.
+	 * @returns A listagem dos Tutores cadastrados.
+	 * 
 	 */
 	public String listarTutores() {
 		return this.controladorTutor.listarTutores();
 	}
 	
 	/**
-	 * Não retorna nada, apenas cadastra um horario do Tutor a partir do controller de Tutor utili-
-	 * zando-se do email do Tutor, da hora e do dia que formarao o horario passados como parametro.
+	 * Adiciona um Horario para atendimento na Disponibilidade de um dos Tutores cadastrados no Tu-
+	 * torController. Caso haja o lancamento de alguma excecao nesse processo, ela sera tratada e
+	 * relancada.
 	 * 
-	 * @param email O email do Tutor
-	 * @param hora A hora de atendimento
-	 * @param dia O dia de atendimento
+	 * @param email O e-mail do Tutor a ser modificado.
+	 * @param hora A hora a ser associada no Horario para atendimento.
+	 * @param dia O dia da semana a ser associado no Horario para atendimento.
 	 * 
 	 * @returns null.
+	 * 
 	 */
 	public void cadastrarHorario(String email, String hora, String dia) {
 		try {
@@ -221,13 +254,15 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Não retorna nada, apenas cadastra um local do Tutor a partir do controller de Tutor utili-
-	 * zando-se do email do Tutor e do local de atendimento passados como parametro.
+	 * Adiciona um Local para atendimento na Disponibilidade de um dos Tutores cadastrados no Tutor-
+	 * Controller. Caso haja o lancamento de alguma excecao nesse processo, ela sera tratada e
+	 * relancada.
 	 * 
-	 * @param email O email do Tutor
-	 * @param local O local de atendimento
+	 * @param email O e-mail do Tutor a ser modificado.
+	 * @param local O nome do Local para atendimento a ser cadastrado.
 	 * 
 	 * @returns null.
+	 * 
 	 */
 	public void cadastrarLocalDeAtendimento(String email, String local) {
 		try {
@@ -244,56 +279,64 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Consulta os horarios de um Tutor a partir do controller de Tutor utilizando-se do email do
-	 * Tutor, da hora e do dia que formarao o horario passados como parametro. Caso o horario consul-
-	 * tado esteja no conjunto de horarios do Tutor, o valor booleano true e retornado, do contrario
-	 * o valor false e retornado.
+	 * Verifica se um Tutor cadastrado no TutorController possui um Horario especifico cadastrado em
+	 * sua Disponibilidade. 
 	 * 
-	 * @param email O email do Tutor
-	 * @param hora A hora de atendimento consultada
-	 * @param dia O dia de atendimento consultado
+	 * @param email O e-mail do Tutor a ser analisado.
+	 * @param hora A hora de interesse para a verificacao.
+	 * @param dia O dia de interesse para a verificacao.
 	 * 
-	 * @returns Um valor booleano indicando se o horario consultado esta ou nao cadastrado.
+	 * @returns O boolean referente a disponibilidade do Horario de interesse.
+	 * 
 	 */
 	public boolean consultaHorario(String email, String hora, String dia) {
 		return this.controladorTutor.consultaHorario(email, hora, dia);
 	}
 	
 	/**
-	 * Consulta os locais de um Tutor a partir do controller de Tutor utilizando-se do email do Tutor
-	 * e do local de atendimento consultado passados como parametro. Caso o local de atendimento con-
-	 * sultado esteja no conjunto de locais do Tutor, o valor booleano true e retornado, do contrario
-	 * o valor false e retornado.
+	 * Verifica se um Tutor cadastrado no TutorController possui um Local especifico cadastrado em
+	 * sua Disponibilidade.
 	 * 
-	 * @param email O email do Tutor
-	 * @param local O local de atendimento consultado
+	 * @param email O e-mail do Tutor a ser analisado.
+	 * @param local O nome do Localde interesse para a verificacao.
 	 * 
-	 * @returns Um valor booleano indicando se o local consultado esta ou nao cadastrado.
+	 * @returns O boolean referente a disponibilidade do Local de interesse.
+	 * 
 	 */
 	public boolean consultaLocal(String email, String local) {
 		return this.controladorTutor.consultaLocal(email, local);
 	}
 	
-	
-	private String selecionarTutor(String disciplina) {
+	/**
+	 * Seleciona o mais apto dentre os Tutores cadastrados em TutorController que sao Candidatos ca-
+	 * pazes de assumir os atendimentos de uma AjudaOnline de certa disciplina.
+	 * 
+	 * @param disciplina O nome da disciplina de interesse na selecao.
+	 * 
+	 * @returns A matricula do Candidato/Tutor selecionado para prestar o atendimento.
+	 * 
+	 */
+	private String selecionarCandidato(String disciplina) {
 		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
 		return this.controladorTutor.selecionarCandidato(disciplina);
 	}
 	
 	/**
-	 * Solicita umaAjudaOnline a partir da matricula do Aluno que deseja ser ajudado e da disciplina
-	 * na qual quer ajuda passadas como parametro. Além disso, seleciona o tutor ideal para ajudar o
-	 * Aluno naquela disciplina e tambem verifica e trata a invalidez dos parametros.
+	 * A partir das informacoes passadas como parametros desse metodo, cadasta uma nova AjudaOnline
+	 * no AjudaController. O ID da nova AjudaOnline cadastrada sera retornado. Caso haja o lancamen-
+	 * to de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param matriculaAluno A matricula do Aluno
-	 * @param disciplina A disciplina na qual o Aluno quer ser ajudado
+	 * @param matricula A matricula do Aluno solicitante da Ajuda.
+	 * @param disciplina A disciplina referente a Ajuda.
+	 * @param matriculaTutor A matricula do Tutor responsavel pelo atendimento.
 	 * 
-	 * @returns O id da Ajuda.
+	 * @returns O ID da AjudaOnline cadastrada.
+	 * 
 	 */
 	public int pedirAjudaOnline (String matriculaAluno, String disciplina) {
 		try {
 			return this.controladorAjuda.pedirAjudaOnline(matriculaAluno, disciplina,
-				   this.selecionarTutor(disciplina));
+				   this.selecionarCandidato(disciplina));
 		}
 		
 		catch (IllegalArgumentException e1) {
@@ -305,24 +348,37 @@ public class Sistema implements Serializable {
 		}
 	}
 	
+	/**
+	 * Seleciona o mais apto dentre os Tutores cadastrados em TutorController que sao Candidatos ca-
+	 * pazes de assumir os atendimentos de uma AjudaPresencial de certa disciplina.
+	 * 
+	 * @param disciplina O nome da disciplina de interesse na selecao.
+	 * @param hora A hora de interesse para atendimento.
+	 * @param dia O dia de interesse na listagem para atendimento.
+	 * @param local O nome do local de interesse para atendimento.
+	 * 
+	 * @returns A matricula do Candidato/Tutor selecionado para prestar o atendimento.
+	 * 
+	 */
 	private String selecionarTutor(String disciplina, String horario, String dia, String localInteresse) {
 		Validador.validarStringNaoVaziaNaoNula("disciplina nao pode ser vazio ou em branco", disciplina);
 		return this.controladorTutor.selecionarCandidato(disciplina, horario, dia, localInteresse);
 	}
 	
 	/**
-	 * Solicita uma ajudaPresencial a partir da matricula do Aluno que deseja ser ajudado, da disci-
-	 * plina na qual quer ajuda, do horario, do dia e do local de interesse que sera programado para
-	 * a ajuda passados como parametro. Além disso, seleciona o tutor ideal para ajudar o
-	 * Aluno naquela disciplina e tambem verifica e trata a invalidez dos parametros.
+	 * A partir das informacoes passadas como parametros desse metodo, cadasta uma nova AjudaPresen-
+	 * cial no AjudaController. O ID da nova AjudaPresencial cadastrada sera retornado. Caso haja o
+	 * lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param matriculaAluno A matricula do Aluno
-	 * @param disciplina A disciplina na qual o Aluno quer ser ajudado
-	 * @param horario O horario de atendimento
-	 * @param dia O dia de atendimento
-	 * @param localInteresse O local de atendimento
+	 * @param matricula A matricula do Aluno solicitante da Ajuda.
+	 * @param disciplina A disciplina referente a Ajuda.
+	 * @param hora A hora do atendimento.
+	 * @param dia O dia do atendimento.
+	 * @param local O local do atendimento.
+	 * @param matriculaTutor A matricula do Tutor responsavel pelo atendimento.
 	 * 
-	 * @returns O id da Ajuda.
+	 * @returns O ID da AjudaOnline cadastrada.
+	 * 
 	 */
 	public int pedirAjudaPresencial (String matriculaAluno, String disciplina, String horario, String dia, String localInteresse) {
 		try {
@@ -340,13 +396,14 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna, a partir do id passado como parametro, a representacao textual de uma Ajuda
-	 * do controller de Ajuda. Alem disso, caso a ajuda nao esteja cadastrada no sistema
-	 * uma excecao e lancada para o caso.
+	 * Retorna a representacao textual do Tutor responsavel por atender a uma Ajuda castrada no Aju-
+	 * daController a partir do ID dessa Ajuda. Caso haja o lancamento de alguma excecao nesse pro-
+	 * cesso, ela sera tratada e relancada.
 	 * 
-	 * @param idAjuda O id de identificacao da Ajuda
+	 * @param idAjuda O ID da Ajuda de interesse na consulta.
 	 * 
-	 * @returns A representacao textual da Ajuda.
+	 * @returns A representacao textual do Tutor responsavel pela Ajuda.
+	 * 
 	 */
 	public String pegarTutor(int idAjuda) {
 		try {
@@ -359,14 +416,15 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna, a partir do id e do atributo da Ajuda passado como parametro, um atributo
-	 * de uma ajuda do controller de Ajuda. Alem disso, caso a ajuda nao esteja cadastrada no sistema
-	 * uma excecao e lancada para o caso.
+	 * Retorna a representacao textual de um dos atributos de uma Ajuda ja cadastrada. A Ajuda que
+	 * tera o atributo recuperado e aquela cujo ID for igual ao informado como parametro do metodo.
+	 * Caso haja o lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param idAjuda O id de identificacao da Ajuda
-	 * @param atributo Um atributo de Ajuda
+	 * @param idAjuda O ID da Ajuda de interesse na consulta.
+	 * @param atributo O nome do atributo de interesse na consulta.
 	 * 
-	 * @returns O valor de algum atributo de Ajuda
+	 * @returns A informacao desejada sobre a Ajuda consultada.
+	 * 
 	 */
 	public String getInfo(int idAjuda, String atributo) {
 		try {
@@ -379,9 +437,10 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Avalia um tutor a partir do id da Ajuda da qual o mesmo faz parte e a partir de um valor double
-	 * correspondente a nota a ser atribuida a ajuda deste tutor. Alem disso, verifica e lanca uma ex-
-	 * cecao caso a nota passada como parametro seja invalida (menor que 0 ou maior que 5).
+	 * Avalia o Tutor que prestou atendimento a uma das Ajudas cadastradas no AjudaController. Cada
+	 * Ajuda so podera ser avaliada uma vez. Alem disso, a nota atribuida devera estar no intervalo
+	 * adequado. Caso haja o lancamento de alguma excecao nesse processo, ela sera tratada e relan-
+	 * cada.
 	 *  
 	 * @param idAjuda O id de identificacao da Ajuda
 	 * @param nota O valor da nota a ser atribuida
@@ -404,13 +463,14 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna, a partir da matricula do Tutor, a sua nota atual. Alem disso, verifica e
-	 * lanca uma excecao caso o tutor nao esteja cadastrado no sistema.
+	 * Retorna a nota de avaliacao de um dos Tutores cadastrados no TutorController. O Tutor a ter
+	 * sua nota recuperada sera aquele cuja matricula for informada como parametro do metodo. Caso
+	 * haja o lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
+	 * @param matricula A matricula do Tutor a ser acessado.
 	 * 
-	 * @param matriculaTutor A matricula do Tutor
+	 * @returns A nota de avaliacao do Tutor de interesse.
 	 * 
-	 * @returns Uma representacao em String da nota do Tutor
 	 */ 
 	public String pegarNota(String matriculaTutor) {
 		try {
@@ -423,13 +483,15 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna, a partir da matricula do Tutor, o seu nivel atual. Alem disso, verifica e
-	 * lanca uma excecao caso o tutor nao esteja cadastrado no sistema.
+	 * Retorna o nivel de avaliacao de um dos Tutores cadastrados no TutorController. O Tutor a ter
+	 * seu nivel recuperado sera aquele cuja matricula for informada como parametro do metodo. Caso
+	 * haja o lancamento de alguma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param matriculaTutor A matricula do Tutor
+	 * @param matricula A matricula do Tutor a ser acessado.
 	 * 
-	 * @returns Uma representacao em String do nivel do Tutor
-	 */ 
+	 * @returns O nivel de avaliacao do Tutor de interesse.
+	 * 
+	 */
 	public String pegarNivel(String matriculaTutor) {
 		try {
 			return this.controladorTutor.pegarNivel(matriculaTutor);
@@ -441,18 +503,21 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Nao doa nada, apenas calcula o valor a ser destinado ao caixa do sistema e o valor a ser des-
-	 * tinado ao Tutor a partir do seu nivel.
+	 * Realiza uma doacao a um dos Tutores cadastrados no TutorController. O Sistema recebera uma
+	 * comissao de cada doacao realizada aos Tutores, o percentual referente a essa comissao varia
+	 * conforme o quao bem avaliado esta o Tutor a receber a doacao. Caso haja o lancamento de al-
+	 * guma excecao nesse processo, ela sera tratada e relancada.
 	 * 
-	 * @param matriculaTutor A matricula do Tutor
-	 * @param totalCentavos A quantia a ser doada
+	 * @param matriculaTutor A matricula do Tutor que recebera a doacao.
+	 * @param totalCentavos A quantia (em centavos) a ser doada.
 	 * 
 	 * @returns null.
 	 */
 	public void doar(String matriculaTutor, int totalCentavos) {
 		try {
 			this.controladorTutor.adicionarDoacao(matriculaTutor, totalCentavos);
-			this.caixa += this.controladorTutor.calcularComissao(matriculaTutor, totalCentavos);
+			this.setCaixa(this.totalDinheiroSistema() + this.controladorTutor.calcularComissao(matriculaTutor,
+																				   totalCentavos));
 		}
 
 		catch (IllegalArgumentException e) {
@@ -461,12 +526,15 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Resgata e retorna, a partir do email do tutor, a quantidade total de dinheiro que ja foi doado
-	 * ao tutor.
+	 * Retorna o total de dinheiro (em centavos) recebido por um Tutor cadastrado no TutorController.
+	 * O Tutor a ter sua quantia ganha recuperada sera aquele cujo e-mail for informado como parame-
+	 * tro do metodo. Caso haja o lancamento de alguma excecao nesse processo, ela sera tratada e re-
+	 * lancada.
 	 * 
-	 * @param emailTutor O email do Tutor
+	 * @param email O e-mail do Tutor a ser acessado.
 	 * 
-	 * @returns A quantidade total que ja foi doada a um tutor do sistema
+	 * @returns A quantia ja recebida pelo Tutor de interesse.
+	 * 
 	 */
 	public int totalDinheiroTutor(String emailTutor) {
 		try {
@@ -480,41 +548,59 @@ public class Sistema implements Serializable {
 		}
 	}
 	
+	/**
+	 * Retorna o total de dinheiro (em centavos) recebido pelo QuemMeAjuda ate o presente momento, re-
+	 * ferente as comissoes retiradas de cada doacao realizada a um dos Tutores cadastrados no Tutor-
+	 * Controller.
+	 * 
+	 * @returns A quantia ja recebida pelo QuemMeAjuda.
+	 * 
+	 */
 	public int totalDinheiroSistema() {
-		return this.caixa;
+		return this.getCaixa();
 	}
 	
+	/**
+	 * Modifica a ordenacao utilizada em listarAlunos() e listarTutores().
+	 * 
+	 * @param atributo O nome do atributo a ser utilizado para a ordenacao.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void configurarOrdem(String atributo) {
 		this.controladorAluno.configurarOrdem(atributo);
 		this.controladorTutor.configurarOrdem(atributo);
 	}
 	
-	/**
-	 * Registra em um arquivo txt o caixa do Sistema.
-	 * 
-	 * @returns null.
-	 * 
-	 */
+    /**
+   	 * Armazena o atual valor (em centavos) registrado no Caixa do Sistema.
+   	 *  
+   	 * @returns null.
+   	 * 
+   	 */
 	private void salvarCaixaSistema() {
 		try{
-			FileOutputStream fos = new FileOutputStream("database/CaixaSistema.txt");		
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			BufferedWriter bw = new BufferedWriter(osw);
-			bw.write(String.valueOf(this.caixa));
-			bw.newLine();
+			File file = new File("database//CaixaSistema.dat");
+			FileOutputStream fos = new FileOutputStream(file);		
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+		
+			oos.writeObject(this.caixa);
+			oos.close();
+			fos.close();
 			
-			bw.close();
-			
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * Registra em arquivos txt's os Tutores, Alunos, Ajudas e detalhes do sistema registrados no Sistema ate o momento.
-	 * 
-	 * @returns null.
-	 * 
+    /**
+   	 * Armazena todos os dados dos Tutores, Alunos e Ajudas registrados atualmente no Sistema. Alem
+   	 * disso, o valor atual no caixa do Sistema tambem sera armazenado. O armazenamento dos dados
+   	 * sera feito em arquivos .dat.
+   	 * 
+   	 * @returns null.
+   	 * 
 	 */
 	public void salvar() {
 		this.salvarCaixaSistema();
@@ -524,48 +610,53 @@ public class Sistema implements Serializable {
     }
 	
 	/**
-	 * Carrega Caixa do Sistema registrado em um arquivo txt e retorna para o Sistema.
-	 * 
-	 * @returns null.
-	 * 
-	 */
-	private void carregarCaixaSistema() throws IOException {
-		FileInputStream fis = new FileInputStream("CaixaSistema.txt");
-		InputStreamReader isr = new InputStreamReader(fis);
-		BufferedReader br = new BufferedReader(isr);
-		
-		this.caixa = Integer.parseInt(br.readLine());
-		
-		fis.close();
-	}
-	
-	/**
-	 * Carrega a partir dos arquivos txt's registrados as informa��es de Tutores, Alunos, Ajudas e detalhes do sistema.
-	 * 
-	 * @returns null.
-	 * 
-	 */
-    public void carregar() {
-    	this.controladorAluno.carregar();
-    	this.controladorTutor.carregar();
-    	this.controladorAjuda.carregar();
-    }
-    
-    /**
-	 * Limpa os arquivos txt onde estao armazenados os dados do Sistema.
+	 * Limpa todos os dados armazenados previamente pelo Quem Me Ajuda.
 	 * 
 	 * @returns null.
 	 * 
 	 */
     public void limpar()  {
-    	try {
-	    	this.controladorAluno.limpar();
-	    	this.controladorAjuda.limpar();
-	    	this.controladorTutor.limpar();
-	    	
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
+    	this.setCaixa(0);
+	    this.controladorAluno.limpar();
+	    this.controladorAjuda.limpar();
+	    this.controladorTutor.limpar();
+    }
+	
+	/**
+   	 * Carrega a quantia (em centavos) armazenada no caixa do Sistema no momento do ultimo armazena-
+   	 * mento de dados.
+   	 * 
+   	 * @returns null.
+   	 * 
+	 */
+	private void carregarCaixaSistema() {
+		try {
+			File file = new File("database//CaixaSistema.dat");
+			FileInputStream fis = new FileInputStream(file);		
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			   
+			this.setCaixa(((int) ois.readObject())); 
+			
+			ois.close();
+			fis.close();
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+   	 * Carrega todos os dados dos Tutores, Alunos e Ajudas (armazenados previamente) no Sistema. O
+   	 * caixa do Sistema tambem voltara ao valor que contava no momento do armazenamento dos dados.
+   	 * 
+   	 * @returns null.
+   	 * 
+	 */
+    public void carregar() {
+    	this.controladorAluno.carregar();
+    	this.controladorTutor.carregar();
+    	this.controladorAjuda.carregar();
     }
 
 }
