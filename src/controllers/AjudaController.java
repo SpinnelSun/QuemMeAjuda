@@ -1,11 +1,15 @@
 package controllers;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import models.Ajuda;
 import models.AjudaOnline;
 import models.AjudaPresencial;
+import models.Aluno;
+import models.Tutor;
 import utility.Validador;
 
 /**
@@ -137,6 +141,23 @@ public class AjudaController {
 	public void registrarAvaliacao(int idAjuda) {
 		this.impedirAjudaNaoCadastrada(idAjuda, "id nao encontrado ");
 		this.ajudas.get(idAjuda).registrarAvaliacao();
+	}
+	
+	public void salvar() {
+		try{
+			FileOutputStream arquivoGrav = new FileOutputStream("Ajudas.txt");		
+			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			
+			for(Ajuda ajuda: this.ajudas.values()) {
+				objGravar.writeObject(ajuda);	
+			}
+			
+			objGravar.close();
+			arquivoGrav.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

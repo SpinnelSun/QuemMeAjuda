@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.List;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -179,6 +181,23 @@ public class AlunoController {
 	 */
 	public void configurarOrdem(String atributo) {
 		this.ordenadorAlunos = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
+	}
+	
+	public void salvar() {
+		try{
+			FileOutputStream arquivoGrav = new FileOutputStream("Alunos.txt");		
+			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			
+			for(Aluno aluno: this.alunos.values()) {
+				objGravar.writeObject(aluno);	
+			}
+			
+			objGravar.close();
+			arquivoGrav.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

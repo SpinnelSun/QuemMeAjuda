@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.List;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import models.Academico;
+import models.Aluno;
 import models.Candidato;
 import models.Ordenacao;
 import models.Tutor;
@@ -488,6 +491,23 @@ public class TutorController {
 	 */
 	public void configurarOrdem(String atributo) {
 		this.ordenadorTutores = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
+	}
+	
+	public void salvar() {
+		try{
+			FileOutputStream arquivoGrav = new FileOutputStream("Tutores.txt");		
+			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			
+			for(Tutor tutor: this.tutores.values()) {
+				objGravar.writeObject(tutor);	
+			}
+			
+			objGravar.close();
+			arquivoGrav.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
