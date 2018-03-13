@@ -349,12 +349,13 @@ public class Facade {
     public void salvar() {
     	Facade.sistema.salvar();
     }
+    
     public void carregar() {
-    	
+    	Facade.sistema.carregar();
     }
     
     public void limpar() {
-    	
+    	Facade.sistema.limpar();
     }
     
 }
