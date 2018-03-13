@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import controllers.Sistema;
+import general.*;
 
 public class SistemaTest {
 	
@@ -22,63 +23,63 @@ public class SistemaTest {
 		this.sistema.cadastrarLocalDeAtendimento("adress2@email.com", "CAA - 104");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoNomeVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo nome seja uma String vazia.";
 		
 		this.sistema.cadastrarAluno("", "1", 1, "00000-0000", "adress@email.com");
 	} 
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoNomeNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo nome seja um null.";
 		
 		this.sistema.cadastrarAluno(null, "1", 1, "00000-0000", "adress@email.com");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoMatriculaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cuja matricula seja uma String vazia.";
 		
 		this.sistema.cadastrarAluno("Nome", "   ", 1, "00000-0000", "adress@email.com");
 	} 
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoMatriculaNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cuja matricula seja um null.";
 		
 		this.sistema.cadastrarAluno("Nome", null, 1, "00000-0000", "adress@email.com");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoCodigoCursoZero() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo codigoCurso seja zero.";
 		
 		this.sistema.cadastrarAluno("Nome", "1", 0, "00000-0000", "adress@email.com");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoCodigoCursoNegativo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo codigoCurso seja negativo.";
 		
 		this.sistema.cadastrarAluno("Nome", "1", -1, "00000-0000", "adress@email.com");
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoTelefoneNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo telefone seja um null.";
 		
 		this.sistema.cadastrarAluno("Nome", "1", 1, null, "adress@email.com");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoEmailVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo email seja uma String vazia.";
 		
 		this.sistema.cadastrarAluno("Nome", "1", 1, "00000-0000", "");
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=AlunoException.class)
 	public void testCadastrarAlunoEmailNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um aluno cujo email seja um null.";
 		
@@ -104,7 +105,7 @@ public class SistemaTest {
 		
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testGetInfoAlunoAtributoInvalido() {
 		String msg = "Avaliacao da excecao lancada ao tentar obter um atributo inexistente.";
 		
@@ -118,21 +119,21 @@ public class SistemaTest {
 		this.sistema.recuperaAluno("1");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testRecuperarAlunoMatriculaInvalida() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um aluno nao cadastrado.";
 		
 		this.sistema.recuperaAluno("5");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testRecuperarAlunoMatriculaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um aluno a partir de uma String vazia.";
 		
 		this.sistema.recuperaAluno("  ");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=AlunoException.class)
 	public void testRecuperarAlunoMatriculaNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um aluno a partir de uma null.";
 		
@@ -146,28 +147,28 @@ public class SistemaTest {
 		assertEquals(msg, this.sistema.listarAlunos(), "1 - Nome 1 - 1 - 00000-0000 - adress@email.com, 2 - Nome 2 - 2 - adress2@email.com");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testTornarTutorMatriculaInvalida() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma matricula nao cadastrada.";
 		
 		this.sistema.tornarTutor("5", "Vetorial", 1);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testTornarTutorMatriculaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma String vazia.";
 		
 		this.sistema.tornarTutor("   ", "Vetorial", 1);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testTornarTutorMatriculaNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de um null.";
 		
 		this.sistema.tornarTutor(null, "Vetorial", 1);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testTornarTutorProeficienciaNegativa() {
 		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com proficiencia negativa.";
 		
@@ -181,21 +182,21 @@ public class SistemaTest {
 		assertEquals(this.sistema.recuperaTutor("2"), "2 - Nome 2 - 2 - adress2@email.com");
 	} 
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testRecuperarTutorMatriculaInvalida() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um tutor nao cadastrado.";
 		
 		this.sistema.recuperaTutor("5");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testRecuperarTutorMatriculaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um tutor a partir de uma String vazia.";
 		
 		this.sistema.recuperaTutor("   ");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testRecuperarTutorMatriculaNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar um tutor a partir de um null.";
 		
@@ -209,70 +210,70 @@ public class SistemaTest {
 		assertEquals(this.sistema.listarTutores(), "2 - Nome 2 - 2 - adress2@email.com");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioEmailVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cujo email seja uma String vazia.";
 		
 		this.sistema.cadastrarHorario("", "15:30", "Seg");		
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioHorarioVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cuja hora seja uma String vazia.";
 		
 		this.sistema.cadastrarHorario("adress2@email.com", "  ", "Seg");		
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioDiaVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cujo dia seja uma String vazia.";
 		
 		this.sistema.cadastrarHorario("adress2@email.com", "15:30", "");		
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioEmailNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cujo email seja um null.";
 		
 		this.sistema.cadastrarHorario(null, "15:30", "Seg");		
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioHorarioNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cuja hora seja um null.";
 		
 		this.sistema.cadastrarHorario("adress2@email.com", null, "Seg");		
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarHorarioDiaNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario no tutor cujo dia seja um null.";
 		
 		this.sistema.cadastrarHorario("adress2@email.com", "15:30", null);		
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarLocalDeAtendimentoEmailVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local no tutor cujo email seja uma String vazia.";
 		
 		this.sistema.cadastrarLocalDeAtendimento("", "CAA - 104");		
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarLocalDeAtendimentoLocalVazio() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local no tutor cujo nome do local seja uma String vazia.";
 		
 		this.sistema.cadastrarLocalDeAtendimento("adress2@email.com", "");		
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarLocalDeAtendimentoEmailNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local no tutor cujo email seja um null.";
 		
 		this.sistema.cadastrarLocalDeAtendimento(null, "CAA - 104");		
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=TutorException.class)
 	public void testCadastrarLocalDeAtendimentoLocalNulo() {
 		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local no tutor cujo nome do local seja um null.";
 		
