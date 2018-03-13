@@ -11,7 +11,7 @@ public class AjudaOnlineTest {
 	
 	@Before
 	public void criaAjudaOnline() {
-		this.ajuda = new AjudaOnline("111111111", "Calculo 1", "999999999");
+		this.ajuda = new AjudaOnline("111111111", "Programacao 2", "999999999");
 	}
 	
 	@Test
@@ -19,8 +19,8 @@ public class AjudaOnlineTest {
 		String msg = "Avaliacao do armazenamento adequado da matricula do Aluno em uma AjudaOnline.";
 		assertEquals(msg, "111111111", this.ajuda.getMatriculaAluno());
 		
-		String msg2 = "Avaliacao do armazenamento adequado da disciplina de uma ajuda em uma AjudaOnline.";
-		assertEquals(msg2, "Calculo 1", this.ajuda.getDisciplina());
+		String msg2 = "Avaliacao do armazenamento adequado da disciplina em uma AjudaOnline.";
+		assertEquals(msg2, "Programacao 2", this.ajuda.getDisciplina());
 		
 		String msg3 = "Avaliacao do armazenamento adequado da matricula do Tutor em uma AjudaOnline.";
 		assertEquals(msg3, "999999999", this.ajuda.getMatriculaTutor());	
@@ -31,79 +31,72 @@ public class AjudaOnlineTest {
 	
 	@Test
 	public void testRegistrarAvaliacao() {
-		String msg = "Avaliacao do estado adequado que define uma ajuda como avaliada ou nao.";
+		String msg = "Avaliacao do estado adequado de uma AjudaOnline ainda nao avaliada.";
+		assertFalse(msg, this.ajuda.getAvaliacaoConcluida());
 		
 		this.ajuda.registrarAvaliacao();
-		assertTrue(msg, this.ajuda.getAvaliacaoConcluida());
+		String msg2 = "Avaliacao do estado adequado de uma AjudaOnline ja avaliada.";
+		assertTrue(msg2, this.ajuda.getAvaliacaoConcluida());
 	}
 	
 	@Test
 	public void testGetInfo() {
-		String msg = "Avaliacao da obtenção do atributo matriculaAluno a partir da String passada como parametro.";
+		String msg = "Avaliacao da obtenção do atributo matriculaAluno a partir do getInfo().";
 		assertEquals(msg, "111111111", this.ajuda.getInfo("aluno"));
 		
-		String msg2 = "Avaliacao da obtenção do atributo disciplina a partir da String passada como parametro.";
-		assertEquals(msg2, "Calculo 1", this.ajuda.getInfo("disciplina"));
+		String msg2 = "Avaliacao da obtenção do atributo disciplina a partir do getInfo().";
+		assertEquals(msg2, "Programacao 2", this.ajuda.getInfo("disciplina"));
 		
-		String msg3 = "Avaliacao da obtenção do atributo matriculaTutor a partir da String passada como parametro.";
+		String msg3 = "Avaliacao da obtenção do atributo matriculaTutor a partir do getInfo().";
 		assertEquals(msg3, "999999999", this.ajuda.getInfo("tutor"));
 	}
 	
+	@Test
+	public void testToString() {
+		String msg = "Avaliacao da representacao textual adequada de uma AjudaOnline.";
+		assertEquals(msg, "Tutor - 999999999, disciplina - Programacao 2", this.ajuda.toString());	
+	} 
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetInfoAtributoVazio() {
-		String msg = "Avaliacao da excecao lancada ao tentar obter um atributo de uma AjudaOnline a partir de uma String vazia.";
-		
-		this.ajuda.getInfo("   ");
+		String msg = "Avaliacao da excecao lancada ao utilizar uma String vazia para obter um atributo de uma AjudaOnline.";
+		this.ajuda.getInfo("");
 	}
 
 	@Test(expected=NullPointerException.class)
 	public void testGetInfoAtributoNulo() {
-		String msg = "Avaliacao da excecao lancada ao tentar obter um atributo de uma AjudaOnline a partir de um null.";
-		
+		String msg = "Avaliacao da excecao lancada ao utilizar um null para obter um atributo de uma AjudaOnline.";
 		this.ajuda.getInfo(null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAjudaOnlineMatriculaAlunoVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja matricula do Aluno seja uma String vazia.";
-		
-		AjudaOnline ajudaInvalida = new AjudaOnline("   ", "P2", "1");
+		AjudaOnline ajudaInvalida = new AjudaOnline("   ", "Programacao 2", "1");
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testAjudaOnlineMatriculaAlunoNula() {
-		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja matricula do Aluno seja um null.";
-		
-		AjudaOnline ajudaInvalida = new AjudaOnline(null, "P2", "1");
+		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja matricula do Aluno seja um null.";		
+		AjudaOnline ajudaInvalida = new AjudaOnline(null, "Programacao 2", "1");
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAjudaOnlineDisciplinaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja disciplina seja uma String vazia.";
-		
 		AjudaOnline ajudaInvalida = new AjudaOnline("1", "", "2");
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testAjudaOnlineDisciplinaNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja disciplina seja um null.";
-		
 		AjudaOnline ajudaInvalida = new AjudaOnline("1", null, "2");
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testAjudaOnlineMatriculaTutorNula() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar uma AjudaOnline cuja matricula do Tutor seja um null.";
-		
-		AjudaOnline ajudaInvalida = new AjudaOnline("1", "P2", null);
+		AjudaOnline ajudaInvalida = new AjudaOnline("1", "Programacao 2", null);
 	}
 	
-	@Test
-	public void testToString() {
-		String msg = "Avaliacao da representacao textual adequada de uma AjudaOnline.";
-		
-		assertEquals(msg, "Tutor - 999999999, disciplina - Calculo 1", this.ajuda.toString());	
-	} 
-	
-
 }

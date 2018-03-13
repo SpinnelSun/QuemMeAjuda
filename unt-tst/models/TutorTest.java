@@ -53,42 +53,36 @@ public class TutorTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testAdicionarTutoriaRepetida() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria ja cadastrada.";
-		
 		this.tutor.adicionarHabilidade("Programacao 2", 3);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAdicionarTutoriaDisciplinaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria com Disciplina vazia.";
-		
 		this.tutor.adicionarHabilidade("", 3);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testAdicionarTutoriaDisciplinaNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria com Disciplina null.";
-		
 		this.tutor.adicionarHabilidade(null, 3);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAdicionarTutoriaProficienciaZero() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria com Proficiencia zero.";
-		
 		this.tutor.adicionarHabilidade("Programacao 2", 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAdicionarTutoriaProficienciaNegativa() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria com Proficiencia negativa.";
-		
 		this.tutor.adicionarHabilidade("Programacao 2", -1);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testAdicionarTutoriaProficienciaMaior() {
 		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma Tutoria com Proficiencia maior que 5.";
-		
 		this.tutor.adicionarHabilidade("Programacao 2", 6);
 	}
 	

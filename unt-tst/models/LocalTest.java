@@ -50,14 +50,12 @@ public class LocalTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCriarLocalNomeVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Local cujo nome seja uma String vazia.";
-		
 		Local local = new Local("");
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCriarLocalNomeNull() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Local cujo nome seja um null.";
-		
 		Local local = new Local(null);
 	}
 
