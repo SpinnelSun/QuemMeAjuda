@@ -12,49 +12,50 @@ public class AlunoControllerTest {
 	
 	@Before
 	public void criaAlunoController() {
-		alunoController = new AlunoController();
-		alunoController.cadastrarAluno("Nome 1", "1", 2, "00000-0000", "adress@email.com");
+		this.alunoController = new AlunoController();
+		this.alunoController.cadastrarAluno("Nome 1", "1", 2, "00000-0000", "adress@email.com");
 	}
 	
 	@Test
 	public void criarAlunoTest() {
+		this.alunoController.cadastrarAluno("Nome 2", "2", 2, "00000-0000", "adress2@email.com");
+		
 		String msg = "Avaliacao da criaco e armazenamento de aluno.";
-		alunoController.cadastrarAluno("Nome 2", "2", 2, "00000-0000", "adress2@email.com");
-		assertTrue(msg, alunoController.getTotalAlunos() == 2);
+		assertTrue(msg, this.alunoController.getTotalAlunos() == 2);
 	}
 	
 	@Test
 	public void recuperaAlunoTest() {
 		String msg = "Avaliacao da representaco textual de um Aluno.";
-		assertEquals(msg ,"1 - Nome 1 - 2 - 00000-0000 - adress@email.com", alunoController.recuperaAluno("1"));
+		assertEquals(msg ,"1 - Nome 1 - 2 - 00000-0000 - adress@email.com", this.alunoController.recuperaAluno("1"));
 	}
 	
 	@Test
 	public void listarAlunosTest() {
 		String msg = "Avaliacao da lista de representacoes textuais dos alunos cadastrados.";
-		assertEquals(msg,"1 - Nome 1 - 2 - 00000-0000 - adress@email.com", alunoController.listarAlunos());
+		assertEquals(msg,"1 - Nome 1 - 2 - 00000-0000 - adress@email.com", this.alunoController.listarAlunos());
 	}
 	
 	@Test
 	public void getInfoAlunoTest() {
 		String msg = "Avaliacao da obtenção do nome do Aluno a partir da String passada como parametro.";
-		assertEquals(msg, "Nome 1", alunoController.getInfoAluno("1", "nome"));
+		assertEquals(msg, "Nome 1", this.alunoController.getInfoAluno("1", "nome"));
 		
 		String msg2 = "Avaliacao da obtenção da matricula do Aluno a partir da String passada como parametro.";
-		assertEquals(msg2, "1", alunoController.getInfoAluno("1", "matricula"));
+		assertEquals(msg2, "1", this.alunoController.getInfoAluno("1", "matricula"));
 		
 		String msg3 = "Avaliacao da obtenção do telefone do Aluno a partir da String passada como parametro.";
-		assertEquals(msg3, "00000-0000", alunoController.getInfoAluno("1", "telefone"));
+		assertEquals(msg3, "00000-0000", this.alunoController.getInfoAluno("1", "telefone"));
 		
 		String msg4 = "Avaliacao da obtenção do email do Aluno a partir da String passada como parametro.";
-		assertEquals(msg4, "adress@email.com", alunoController.getInfoAluno("1", "email"));
+		assertEquals(msg4, "adress@email.com", this.alunoController.getInfoAluno("1", "email"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void criarAlunoMatriculaExistenteTest() {
 		String msg = "Avaliacao da excecao lancada ao cadastrar um aluno ja cadastrado.";
 		
-		alunoController.cadastrarAluno("Nome 1", "1", 2, "00000-0000", "adress@email.com");
+		this.alunoController.cadastrarAluno("Nome 1", "1", 2, "00000-0000", "adress@email.com");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -95,6 +96,7 @@ public class AlunoControllerTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void getInfoAlunoAtributoVazioTest() {
 		String msg = "Avaliacao da excecao lancada ao tentar recuperar algo com campo vazio";
+		
 		this.alunoController.getInfoAluno("1", "");
 	}
 	

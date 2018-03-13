@@ -8,209 +8,240 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TutorControllerTest {
-	TutorController tutorController;
+	
+	private TutorController tutorController;
 	
 	@Before
-	public void inicializar() {
-		tutorController = new TutorController();
-		tutorController.criarNovoTutor("111111111", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
-		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", "Seg");
-		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", "CAA");
+	public void criaTutorController() {
+		this.tutorController = new TutorController();
+		this.tutorController.criarNovoTutor("1", "Nome 1", "1", "00000-0000", "adress@email.com");
+		this.tutorController.cadastrarHorario("adress@email.com", "15:30", "Seg");
+		this.tutorController.cadastrarLocalDeAtendimento("adress@email.com", "CAA");
 	}
 	
 	@Test
-	public void quantTutorTest() {
+	public void testQuantTutor() {
 		String msg = "Avaliacao da quantidade de tutores registrados.";
-		assertTrue(1 == tutorController.getTotalTutores());
+		assertTrue(msg, 1 == tutorController.getTotalTutores());
 	}
 	
 	@Test
-	public void criarNovoTutorTest() {
+	public void testCriarNovoTutor() {
 		String msg = "Avaliacao do armazenamento adequado de Tutor.";
-		tutorController.criarNovoTutor("000000000", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
-		tutorController.criarNovoTutor("000000001", "Otavio Rocha Alvez", "2", "", "otavio@gmail.com");
-		assertTrue(3 == tutorController.getTotalTutores());
+		
+		this.tutorController.criarNovoTutor("2", "Nome 2", "2", "00000-0000", "adress@email.com");
+		this.tutorController.criarNovoTutor("3", "Nome 3", "3", "", "adress3@email.com");
+		
+		assertTrue(msg, 3 == tutorController.getTotalTutores());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void criarNovoTutorSemMatriculaTest() {
+	@Test(expected=IllegalArgumentException.class)
+	public void testCriarNovoTutorMatriculaVazia() {
 		String msg = "Avaliacao da excecao lancada ao tentar criar um Tutor cuja matricula seja uma String vazia.";
-		tutorController.criarNovoTutor("", "Otavio Rocha Alvez", "2", "(00) 00000-0000", "otavio@gmail.com");
-		assertTrue(1 == tutorController.getTotalTutores());
+		
+		this.tutorController.criarNovoTutor("", "Nome 1", "1", "00000-0000", "adress@email.com");
 	}	
 	
-	@Test
-	public void tornarTutorTest() {
-		String msg = "Avaliacao do funcionamento de tornar um Aluno Tutor.";
-		tutorController.tornarTutor("111111111", "ATAl", 4);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorMatriculaInvalida() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma matricula nao cadastrada.";
+		
+		this.tutorController.tornarTutor("5", "ATAl", 4);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void tornarTutorMatriculaInvalidaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula no esteja cadastrada.";
-		tutorController.tornarTutor("000000000", "ATAl", 4);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma String vazia.";
+		
+		this.tutorController.tornarTutor("  ", "ATAl", 4);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void tornarTutorMatriculaVaziaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com matricula seja vazia.";
-		tutorController.tornarTutor("", "ATAl", 4);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma matricula nula.";
+		
+		this.tutorController.tornarTutor(null, "ATAl", 4);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void tornarTutorProficienciaNegativaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com proficiencia seja negativa.";
-		tutorController.tornarTutor("111111111", "ATAl", -4);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorProficienciaNegativa() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma proficiencia negativa.";
+		
+		this.tutorController.tornarTutor("1", "ATAl", -4);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void tornarTutorProficienciaZeroTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com proficiencia seja zero.";
-		tutorController.tornarTutor("111111111", "ATAl", 0);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorProficienciaZero() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma proficiencia nula.";
+		
+		this.tutorController.tornarTutor("1", "ATAl", 0);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void tornarTutorDisciplinaVaziaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com disciplina seja vazia.";
-		tutorController.tornarTutor("111111111", "", 4);
+	@Test(expected=IllegalArgumentException.class)
+	public void testTornarTutorDisciplinaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma disciplina vazia.";
+		
+		this.tutorController.tornarTutor("1", "", 4);
 	}
 	
-	@Test(expected = NullPointerException.class)
-	public void tornarTutorDisciplinaNulaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor com disciplina nula.";
-		tutorController.tornarTutor("111111111", null, 4);
+	@Test(expected=NullPointerException.class)
+	public void testTornarTutorDisciplinaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar tornar um aluno tutor a partir de uma disciplina nula.";
+		
+		this.tutorController.tornarTutor("1", null, 4);
 	}
 	
 	@Test
 	public void recuperaTutorTest() {
 		String msg = "Avaliacao da representaco textual de um tutor.";
-		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("111111111"));
+		assertEquals(msg ,"1 - Nome 1 - 1 - 00000-0000 - adress@email.com", this.tutorController.recuperaTutor("1"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void recuperaTutorMatriculaInvalidaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar recupear um tutor com matricula no esteja cadastrada.";
-		assertEquals(msg ,"111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.recuperaTutor("110111111"));
+	@Test(expected=IllegalArgumentException.class)
+	public void testRecuperaTutorMatriculaInvalida() {
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um tutor a partir de uma matricula nao cadastrada.";
+		
+		this.tutorController.recuperaTutor("5");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testRecuperaTutorMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um tutor a partir de uma matricula vazia.";
+		
+		this.tutorController.recuperaTutor("   ");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testRecuperaTutorMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar recupear um tutor a partir de uma matricula nula.";
+		
+		this.tutorController.recuperaTutor(null);
 	}
 	
 	@Test
-	public void listarTutoresTest() {
+	public void testListarTutores() {
 		String msg = "Avaliacao da lista de representacoes textuais dos tutores cadastrados.";
-		assertEquals("111111111 - Otavio Rocha Alvez - 2 - (00) 00000-0000 - otavio@gmail.com",tutorController.listarTutores());
+		
+		assertEquals("1 - Nome 1 - 1 - 00000-0000 - adress@email.com", this.tutorController.listarTutores());
 	}
 	
-	@Test
-	public void cadastrarHorarioTest() {
-		String msg = "Avaliacao do funcionamento do cadastro de horario do Tutor.";
-		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", "Seg");
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarHorarioEmailInvalido() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor a partir de um email nao cadastrado.";
+		
+		this.tutorController.cadastrarHorario("adress5@email.com", "15:30", "Seg");
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarHorarioEmailInvalidoTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com email no cadastrado.";
-		tutorController.cadastrarHorario("oavio@gmail.com", "15:30", "Seg");
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarHorarioEmailVazio() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor a partir de um email vazio.";
+		
+		this.tutorController.cadastrarHorario("  ", "15:30", "Seg");
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarHorarioEmailVazioTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com email vazio.";
-		tutorController.cadastrarHorario("", "15:30", "Seg");
-	}
-	
-	@Test(expected = NullPointerException.class)
-	public void cadastrarHorarioEmailNuloTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario cujo email seja um null.";
-		tutorController.cadastrarHorario(null, "15:30", "Seg");
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarHorarioEmailNulo() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario de um tutor a partir de um email nulo.";
+		
+		this.tutorController.cadastrarHorario(null, "15:30", "Seg");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarHorarioHoraVaziaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com a hora vazia.";
-		tutorController.cadastrarHorario("otavio@gmail.com", "", "Seg");
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarHorarioHoraVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor cuja hora seja uma String vazia.";
+		
+		this.tutorController.cadastrarHorario("adress@email.com", "  ", "Seg");
 	}
 	
-	@Test(expected = NullPointerException.class)
-	public void cadastrarHorarioHoraNulaTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario cuja hora seja um null.";
-		tutorController.cadastrarHorario("otavio@gmail.com", null, "Seg");
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarHorarioHoraNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario de um tutor cuja hora seja um null.";
+		
+		this.tutorController.cadastrarHorario("adress@email.com", null, "Seg");
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarHorarioDiaVazioTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor com dia vazio.";
-		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", "");
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarHorarioDiaVazio() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar horario de um tutor cujo dia seja uma String vazia.";
+		
+		this.tutorController.cadastrarHorario("adress@email.com", "15:30", "");
 	}
 	
-	@Test(expected = NullPointerException.class)
-	public void cadastrarHorarioDianuloTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um Horario cujo dia seja um null.";
-		tutorController.cadastrarHorario("otavio@gmail.com", "15:30", null);
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarHorarioDiaNulo() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um horario de um tutor cujo dia seja um null.";
+		
+		this.tutorController.cadastrarHorario("adress@email.com", "15:30", null);
 	}
-
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarLocalDeAtendimentoEmailInvalido() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor a partir de um email nao cadastrado.";
+		
+		this.tutorController.cadastrarLocalDeAtendimento("adress5@email.com", "CAA");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarLocalDeAtendimentoEmailVazio() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor a partir de um email vazio.";
+		
+		this.tutorController.cadastrarLocalDeAtendimento(" ", "CAA");
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarLocalDeAtendimentoEmailNulo() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor a partir de um email nulo.";
+		
+		this.tutorController.cadastrarLocalDeAtendimento(null, "CAA");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCadastrarLocalDeAtendimentoLocalVazio() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor cujo nome seja uma String vazia.";
+		
+		this.tutorController.cadastrarLocalDeAtendimento("adress@email.com", "");
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testCadastrarLocalDeAtendimentoLocalNulo() {
+		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local de atendimento de um tutor cujo nome seja um null.";
+		
+		this.tutorController.cadastrarLocalDeAtendimento("adress@email.com", null);
+	}
+	
 	@Test
-	public void cadastrarLocalDeAtendimentoTest() {
-		String msg = "Avaliacao do funcionamento do cadastro de local de atendimento do Tutor.";
-		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", "CAA");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarLocalDeAtendimentoEmailInvalidoTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email no cadastrado.";
-		tutorController.cadastrarLocalDeAtendimento("oavio@gmail.com", "CAA");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarLocalDeAtendimentoEmailVazioTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email vazio.";
-		tutorController.cadastrarLocalDeAtendimento("", "CAA");
-	}
-	
-	@Test(expected = NullPointerException.class)
-	public void cadastrarLocalDeAtendimentoEmailNuloTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor com email nulo.";
-		tutorController.cadastrarLocalDeAtendimento(null, "CAA");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void cadastrarLocalDeAtendimentoLocalVazioTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar local de atendimento de um tutor local vazio.";
-		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", "");
-	}
-	
-	@Test(expected = NullPointerException.class)
-	public void cadastrarLocalDeAtendimentoLocalNuloTest() {
-		String msg = "Avaliacao da excecao lancada ao tentar cadastrar um local de atendimento cujo local seja um null.";
-		tutorController.cadastrarLocalDeAtendimento("otavio@gmail.com", null);
-	}
-	
-	@Test
-	public void consultaHorarioTest() {
+	public void testConsultaHorario() {
 		String msg = "Avaliacao da consulta do horario.";
-		assertTrue(msg,tutorController.consultaHorario("otavio@gmail.com", "15:30", "Seg") == true);
+		
+		assertTrue(msg, this.tutorController.consultaHorario("adress@email.com", "15:30", "Seg"));
 	}
 	
 	@Test
-	public void consultaHorarioNaoDisponivelTest() {
+	public void testConsultaHorarioNaoDisponivel() {
 		String msg = "Avaliacao da consulta do horario com hora nao disponivel.";
-		assertFalse(msg, tutorController.consultaHorario("otavio@gmail.com", "15:31", "Seg") == true);
+		
+		assertFalse(msg, this.tutorController.consultaHorario("adress@email.com", "15:31", "Seg"));
 	}
 	
 	@Test
-	public void consultaHorarioDiaNaoDisponivelTest() {
+	public void testConsultaHorarioDiaNaoDisponivel() {
 		String msg = "Avaliacao da consulta do horario com dia no disponivel.";
-		assertFalse(msg, tutorController.consultaHorario("otavio@gmail.com", "15:30", "Qua") == true);
+		
+		assertFalse(msg, this.tutorController.consultaHorario("adress@email.com", "15:30", "Qua"));
 	}
 	
 	@Test
-	public void consultaLocalTest() {
+	public void testConsultaLocal() {
 		String msg = "Avaliacao da consulta do local de atendimento.";
-		assertTrue(msg, tutorController.consultaLocal("otavio@gmail.com", "CAA") == true);
+		
+		assertTrue(msg, this.tutorController.consultaLocal("adress@email.com", "CAA"));
 	}
 	
 	@Test
-	public void consultaLocalErradoTest() {
+	public void testConsultaLocalErrado() {
 		String msg = "Avaliacao da consulta do local de atendimento com local no disponivel.";
-		assertFalse(msg, tutorController.consultaLocal("otavio@gmail.com", "CA") == true);
+		
+		assertFalse(msg, this.tutorController.consultaLocal("adress@email.com", "CA"));
 	}
 	
 }
