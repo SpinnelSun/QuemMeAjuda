@@ -1,7 +1,12 @@
 package controllers;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -143,9 +148,15 @@ public class AjudaController {
 		this.ajudas.get(idAjuda).registrarAvaliacao();
 	}
 	
+	/**
+	 * Registra em um arquivo txt as Ajudas registradas no Sistema ate o momento.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("Ajudas.txt");		
+			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Ajudas.txt");		
 			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
 			
 			for(Ajuda ajuda: this.ajudas.values()) {
@@ -158,6 +169,39 @@ public class AjudaController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Limpa o arquivo txt que as Ajudas estavam registradas.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void limpar() throws IOException {
+		Writer out = new FileWriter("Ajudas.txt");
+        out.write("");
+        out.flush();
+    }
+	
+	/**
+	 * Carrega Ajudas registradas de um arquivo txt e retorna para o Sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void carregar() throws IOException {
+		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Ajudas.txt");
+		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
+		   
+		while(true){
+			try{
+				Ajuda ajuda = (Ajuda)objLeitura.readObject();
+		    	//ajudas.put(ajuda.getId, ajuda);
+		    }catch(Exception e){ break; }
+		}
+		
+		objLeitura.close();
+		arquivoLeitura.close();
 	}
 
 }

@@ -1,8 +1,14 @@
 package controllers;
 
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -149,7 +155,8 @@ public class AlunoController {
 			listagemAlunos += ordenarAlunos().get(i).toString() + ", ";
 		}
 		
-		listagemAlunos += ordenarAlunos().get(ordenarAlunos().size() - 1).toString();
+		if(this.alunos.size() > 0)
+			listagemAlunos += ordenarAlunos().get(ordenarAlunos().size() - 1).toString();
 		return listagemAlunos;
 	}
 	
@@ -183,13 +190,20 @@ public class AlunoController {
 		this.ordenadorAlunos = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
 	}
 	
+	/**
+	 * Registra em um arquivo txt os Alunos registrados no Sistema ate o momento.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("Alunos.txt");		
+			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Alunos.txt");		
 			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
-			
+		
 			for(Aluno aluno: this.alunos.values()) {
-				objGravar.writeObject(aluno);	
+				objGravar.writeObject(aluno);
+				objGravar.flush();
 			}
 			
 			objGravar.close();
@@ -199,5 +213,42 @@ public class AlunoController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Limpa o arquivo txt que os Alunos estavam registrados.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void limpar() throws IOException {
+		Writer out = new FileWriter("Alunos.txt");
+        out.write("");
+        out.flush();
+    }
+	
+	/**
+	 * Carrega Alunos registrados de um arquivo txt e retorna para o Sistema.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void carregar() throws IOException {
+		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Alunos.txt");
+		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
+		   
+		while(true){
+			try{
+				Aluno aluno = (Aluno)objLeitura.readObject();
+		    	alunos.put(aluno.getMatricula(), aluno);
+		    }catch(Exception e){ break; }
+		}
+		
+		objLeitura.close();
+		arquivoLeitura.close();
+	}
+		 
+		    
+    	
 }
+
+

@@ -1,8 +1,14 @@
 package controllers;
 
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -493,9 +499,15 @@ public class TutorController {
 		this.ordenadorTutores = Ordenacao.valueOf(atributo.toUpperCase()).definirOrdenacao();
 	}
 	
+	/**
+	 * Registra em um arquivo txt os Tutores registrados no Sistema ate o momento.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void salvar() {
 		try{
-			FileOutputStream arquivoGrav = new FileOutputStream("Tutores.txt");		
+			FileOutputStream arquivoGrav = new FileOutputStream("arquivos-persistencia/Tutores.txt");		
 			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
 			
 			for(Tutor tutor: this.tutores.values()) {
@@ -508,6 +520,39 @@ public class TutorController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Limpa o arquivo txt que os Tutores estavam registrados.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void limpar() throws IOException {
+		Writer out = new FileWriter("Tutores.txt");
+        out.write("");
+        out.flush();
+    }
+	
+	/**
+	 * Carrega Tutores registrados de um arquivo txt e retorna para o Sistema. 
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void carregar() throws IOException {
+		FileInputStream arquivoLeitura = new FileInputStream("arquivos-persistencia/Tutores.txt");
+		ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
+		   
+		while(true){
+			try{
+				Tutor tutor = (Tutor)objLeitura.readObject();
+		    	tutores.put(tutor.getMatricula(), tutor);
+		    }catch(Exception e){ break; }
+		}
+		
+		objLeitura.close();
+		arquivoLeitura.close();
 	}
 	
 }
