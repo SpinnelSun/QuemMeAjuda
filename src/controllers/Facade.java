@@ -346,4 +346,15 @@ public class Facade {
     	return Facade.sistema.totalDinheiroSistema();
     }
     
+    public void salvar() {
+    	Facade.sistema.salvar();
+    }
+    public void carregar() {
+    	
+    }
+    
+    public void limpar() {
+    	
+    }
+    
 }
