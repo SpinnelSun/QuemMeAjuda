@@ -14,6 +14,11 @@ package general;
 @SuppressWarnings("serial")
 public class AjudaException extends RuntimeException {
 	
+	/**
+	 * Associa uma mensagem especifica a excecao lancada.
+	 * 
+	 * @param msg Mensagem que sera associada
+	 */
 	public AjudaException(String msg){
 		super(msg);
 	}

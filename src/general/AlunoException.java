@@ -14,6 +14,11 @@ package general;
 @SuppressWarnings("serial")
 public class AlunoException extends RuntimeException {
 	
+	/**
+	 * Associa uma mensagem especifica a excecao lancada.
+	 * 
+	 * @param msg Mensagem que sera associada
+	 */
 	public AlunoException(String msg){
 		super(msg);
 	}

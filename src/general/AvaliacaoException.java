@@ -14,6 +14,11 @@ package general;
 @SuppressWarnings("serial")
 public class AvaliacaoException extends RuntimeException {
 	
+	/**
+	 * Associa uma mensagem especifica a excecao lancada.
+	 * 
+	 * @param msg Mensagem que sera associada
+	 */
 	public AvaliacaoException(String msg){
 		super(msg);
 	}

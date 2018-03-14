@@ -14,6 +14,11 @@ package general;
 @SuppressWarnings("serial")
 public class TutorException extends RuntimeException {
 	
+	/**
+	 * Associa uma mensagem especifica a excecao lancada.
+	 * 
+	 * @param msg Mensagem que sera associada
+	 */
 	public TutorException(String msg) {
 		super(msg);
 	}
