@@ -15,6 +15,7 @@ public class TutorControllerTest {
 	public void criaTutorController() {
 		this.tutorController = new TutorController();
 		this.tutorController.criarNovoTutor("1", "Nome 1", "1", "00000-0000", "adress@email.com");
+		this.tutorController.tornarTutor("1", "Calculo", 4);
 		this.tutorController.cadastrarHorario("adress@email.com", "15:30", "Seg");
 		this.tutorController.cadastrarLocalDeAtendimento("adress@email.com", "CAA");
 	}
@@ -242,6 +243,146 @@ public class TutorControllerTest {
 		String msg = "Avaliacao da consulta do local de atendimento com local no disponivel.";
 		
 		assertFalse(msg, this.tutorController.consultaLocal("adress@email.com", "CA"));
+	}
+	
+	@Test
+	public void testSelecionarCandidato() {
+		String msg = "Avaliacao da selecao de candidato mais qualificado para ser tutor de determinada ajuda.";
+		
+		assertEquals("1",this.tutorController.selecionarCandidato("Calculo"));		
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSelecionarCandidatoMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar selecionar cantidato a tutor a partir de uma matricula vazia.";
+		
+		this.tutorController.selecionarCandidato("   ");
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testSelecionarCandidatoMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar selecionar cantidato a tutor a partir de uma matricula nula.";
+		
+		this.tutorController.selecionarCandidato(null);
+	}
+	
+	@Test
+	public void selecionarCandidato2() {
+		String msg = "Avaliacao da selecao de candidato mais qualificado para ser tutor de determinada ajuda.";
+		
+		assertEquals("",this.tutorController.selecionarCandidato("Algebra", "15:30", "Seg", "CAA"));
+		assertEquals("1",this.tutorController.selecionarCandidato("Calculo", "15:30", "Seg", "CAA"));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSelecionarCandidato2DisciplinaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar selecionar cantidato a tutor a partir de uma disciplina vazia.";
+		
+		this.tutorController.selecionarCandidato("", "15:30", "Seg", "CAA");
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testSelecionarCandidato2DisciplinaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar selecionar cantidato a tutor a partir de uma disciplina nula.";
+		
+		this.tutorController.selecionarCandidato(null, "15:30", "Seg", "CAA");
+	}
+	
+	@Test
+	public void testPegarNota() {
+		String msg = "Verificao do retorno da nota de um Tutor a partir da matricula.";
+		
+		assertEquals("4,00",this.tutorController.pegarNota("1"));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testPegarNotaMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar pegar a nota de um Tutor a partir da matricula vazia.";
+		
+		assertEquals("4,00",this.tutorController.pegarNota(""));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testPegarNotaMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar pegar a nota de um Tutor a partir da matricula nula.";
+		
+		assertEquals("4,00",this.tutorController.pegarNota(null));
+	}
+	
+	@Test
+	public void testPegarNivel() {
+		String msg = "Verificao do retorno do nivel de um Tutor a partir da matricula.";
+		
+		assertEquals("Tutor",this.tutorController.pegarNivel("1"));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testPegarNivelMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar pegar o nivel de um Tutor a partir da matricula vazia.";
+		
+		assertEquals("Tutor",this.tutorController.pegarNivel(""));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testPegarNivelMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar pegar a nota de um Tutor a partir da matricula nula.";
+		
+		assertEquals("Tutor",this.tutorController.pegarNivel(null));
+	}
+	
+	@Test
+	public void testAdicionarAvaliacao() {
+		String msg = "Testa a adicao de uma avaliacao a um Tutor a partir da matricula.";
+		
+		this.tutorController.adicionarAvaliacao("1", 5);
+		assertEquals("4,17", this.tutorController.pegarNota("1"));
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testAdicionarAvaliacaoMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar adicinar uma avalizacao a um Tutor a partir da matricula vazia.";
+		
+		this.tutorController.adicionarAvaliacao("", 5);
+		assertEquals("4,17", this.tutorController.pegarNota("1"));	
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testAdicionarAvaliacaoMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar adicinar uma avalizacao a um Tutor a partir da matricula nula.";
+		
+		this.tutorController.adicionarAvaliacao(null, 5);
+		assertEquals("4,17", this.tutorController.pegarNota("1"));	
+	}
+	
+	@Test
+	public void testCalcularComissao() {
+		String msg = "Verifica o valor que sera respassado ao sistema pela doacao.";
+
+		assertEquals(20,this.tutorController.calcularComissao("1", 100));
+	}
+	
+	@Test
+	public void testAdicionarDoacao() {
+		String msg = "Verifica o sistema de doacao, verificando a porcentagem do tutor.";
+
+		this.tutorController.adicionarDoacao("1", 100);
+		assertEquals(80,this.tutorController.getTotalDinheiroTutor("adress@email.com"));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAdicionarDoacaoMatriculaVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma doacao com matricula de Tutor vazia.";
+
+		this.tutorController.adicionarDoacao("", 100);
+		assertEquals(80,this.tutorController.getTotalDinheiroTutor("adress@email.com"));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAdicionarDoacaoMatriculaNula() {
+		String msg = "Avaliacao da excecao lancada ao tentar adicionar uma doacao com matricula de Tutor nula.";
+
+		this.tutorController.adicionarDoacao(null, 100);
+		assertEquals(80,this.tutorController.getTotalDinheiroTutor("adress@email.com"));
 	}
 	
 }
